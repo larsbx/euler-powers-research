@@ -1,0 +1,16 @@
+name: Verify research baseline
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  exact-arithmetic:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Check identities, gcd, and elementary residue sets
+        run: python3 tests/verify_known_solutions.py
