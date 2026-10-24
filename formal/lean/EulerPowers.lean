@@ -6,7 +6,7 @@ import Lean
 All arithmetic statements below are Lean 4 theorems over exact naturals.
 The check function is a reflection of its *specified* predicate, not
 proof that the externally implemented Mojo enumerator visits every case.
--/-
+-/
 
 namespace EulerPowers
 
@@ -34,11 +34,12 @@ def check (t : Quintuple) : Bool := decide (Valid t)
 
 /-- Exact certificate acceptance is sound for the Lean predicate. -/
 theorem check_sound (t : Quintuple) (h : check t = true) : Valid t := by
-  exact of_decide_true h
+  simp only [check, decide_eq_true_eq] at h
+  exact h
 
 /-- The checker accepts every tuple satisfying the Lean specification. -/
 theorem check_complete (t : Quintuple) (h : Valid t) : check t = true := by
-  simp [check, h]
+  simpa only [check, decide_eq_true_eq] using h
 
 /-- Subtracting two fifth powers is safe only after proving nonnegativity. -/
 theorem pair_complement_iff (a b c d e : Nat) :
