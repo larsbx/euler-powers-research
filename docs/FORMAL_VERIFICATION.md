@@ -176,3 +176,15 @@ preservation and 6,971 compiled Mojo regression queries, these close
 the mathematical branch-pruning obligations but do **not** prove
 bounds arithmetic, termination, or compiler-level refinement of the
 concrete binary-search implementation.
+
+## Lower-bound interval invariant
+
+`LowerBoundInvariant.lean` establishes the mathematical loop invariant:
+all entries before `lo` are strictly below the search target, and all
+entries at/after `hi` are greater than or equal to it. The initial
+window satisfies it, and both branches preserve it, with a strictly
+smaller finite search interval. At a completed window (`lo = hi`) the
+pivot equality check is equivalent to membership in the original list.
+The proofs apply to all sorted natural-number lists, including duplicates.
+They do not establish compiler-level refinement of the actual Mojo while
+loop or prove arbitrary machine arithmetic cannot overflow.
