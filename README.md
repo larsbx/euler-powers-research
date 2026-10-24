@@ -29,7 +29,8 @@ Four primitive integer solutions are currently reported when **negative summands
 - [Open questions and conjecture hierarchy](docs/CONJECTURES.md)
 - [Proof obligations and research stages](docs/RESEARCH_PLAN.md)
 - [Exact known-solution data](data/known_solutions.csv)
-- [Mojo-native BigZ verifier and pinned toolchain](docs/MOJO.md)\n- [Independent Python reference](tests/verify_known_solutions.py)
+- [Mojo-native BigZ verifier and pinned toolchain](docs/MOJO.md)
+- [Finite-ring and bounded census implementation](docs/BOUNDED_SEARCH.md)\n- [Independent Python reference](tests/verify_known_solutions.py)
 
 Run the exact arithmetic checks with:
 
