@@ -32,12 +32,12 @@ cmp certificates/census_e144.txt "$tmp"
 # Recovery model: bounded worker crashes, monotonic submission tickets,
 # rejection of stale callbacks, and publication only after independent checks.
 (cd formal/quint && npx --no-install quint typecheck recovery.qnt)
-(cd formal/quint && npx --no-install quint test recovery.qnt \\
+(cd formal/quint && npx --no-install quint test recovery.qnt \
   --backend "$(pin quint backend)" --seed "$(pin quint seed)")
-(cd formal/quint && npx --no-install quint run recovery.qnt \\
-  --backend "$(pin quint backend)" --seed "$(pin quint seed)" \\
+(cd formal/quint && npx --no-install quint run recovery.qnt \
+  --backend "$(pin quint backend)" --seed "$(pin quint seed)" \
   --invariant=safety --max-samples=300 --max-steps=8 --verbosity=1)
-(cd formal/quint && npx --no-install quint verify recovery.qnt \\
-  --invariant=safety --apalache-version "$(pin apalache version)" \\
+(cd formal/quint && npx --no-install quint verify recovery.qnt \
+  --invariant=safety --apalache-version "$(pin apalache version)" \
   --max-steps=8 --verbosity=1)
 echo "Lean and Quint formal gate passed."
