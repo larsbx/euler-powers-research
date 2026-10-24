@@ -96,3 +96,12 @@ apply to any finite natural height range partitioned at `split+1`.
    initial two-shard instance.
 4. Extend the Quint admission model to signed certificates and
    crash/retry/reconciliation without weakening its safety boundary.
+
+## Modular theorem development
+
+`Modular.lean` formalizes finite fifth-power residue sets for 11 and 25,
+and derives exact zero-count restrictions from the five-term equation.
+The formal proof uses small finite-ring checks within Lean, not an imported
+search output. The gcd/primitivity exclusion of the all-divisible case
+is a separate proof obligation before claiming a definitive one-or-three
+count for primitive tuples.
