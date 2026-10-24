@@ -70,6 +70,22 @@ bash tools/verify-formal.sh
 GitHub Actions runs these same scripts on pushes and pull requests.
 Changes to toolchain pins require explicit SHA-256 and lockfile review.
 
+## E5v1 replay and trust boundary
+
+`formal/lean/Replay.lean` is a compiled Lean executable that consumes
+actual Mojo stdout in strict `CERT E5v1 ... / CENSUS B N` format.
+It refuses noncanonical integers, false identities, out-of-range targets,
+nonpositive bases, nonprimitive scaling, duplicate certificates, malformed
+line boundaries, and incorrect footer record counts.
+
+Lean replay checks soundness of each reported witness, NOT completeness.
+An intentionally omitted-witness `CENSUS 144 0` report still passes replay.
+The independent exact Mojo/Python census and bounded algorithm coverage
+are separately required to support a complete-search claim.
+
+Generic Lean `partition_cover` and `partition_disjoint` theorems
+apply to any finite natural height range partitioned at `split+1`.
+
 ### Next proof obligations
 
 1. Prove fifth-power residue restrictions modulo 11 and 25 within Lean,
