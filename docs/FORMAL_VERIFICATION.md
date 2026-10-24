@@ -200,3 +200,17 @@ resulting mathematical `StagedCandidate` predicate is equivalent to
 pair sums do not erase other representations: the reconstruction list
 retains all qualifying pairs. The actual Mojo nested loops and its
 compiler execution remain tested and require a separate refinement proof.
+
+## Total verified Lean lower-bound loop
+
+`CertifiedLowerBound.lean` implements an executable recursive lower-bound
+search over a sorted natural-number list. Each recursive call has a
+proof-carrying window invariant, and the interval width `hi-lo`
+strictly decreases. Lean checks termination; the final result retains
+the invariant, and `certifiedLowerBound_correct` proves that its final
+index matches the target if and only if the target occurs anywhere in
+the sorted list. This is valid for all finite lists and duplicate entries.
+It provides a complete **Lean mathematical algorithm proof** corresponding
+to the branch and midpoint rules in the Mojo implementation. Native Mojo
+still requires independent compiler-level refinement to promote that
+algorithm theorem into a whole-program guarantee.
