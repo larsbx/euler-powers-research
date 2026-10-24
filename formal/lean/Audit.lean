@@ -1,5 +1,6 @@
 import Lean
 import EulerPowers
+import Modular
 
 /-! Audit all EulerPowers theorems for additional axioms and opaque holes. -/
 open Lean Elab Command in
