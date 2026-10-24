@@ -107,7 +107,7 @@ def main() raises:
     var header_checked = False
     for raw in contents.split("\n"):
         var line = String(raw)
-        if len(line) == 0:
+        if line == "":
             continue
         if not header_checked:
             if line != "a,b,c,d,e,all_positive,source_year,source":
