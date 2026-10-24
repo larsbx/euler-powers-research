@@ -29,7 +29,9 @@ theorem fifth_residue_11 (x : Nat) :
       (r.val ^ 5 % 11 = 0 ∨ r.val ^ 5 % 11 = 1 ∨
        r.val ^ 5 % 11 = 10) := by decide
   have hr := h ⟨x % 11, Nat.mod_lt _ (by decide)⟩
-  simpa only [Nat.pow_mod] using hr
+  have hpow : x ^ 5 % 11 = (x % 11) ^ 5 % 11 := Nat.pow_mod x 5 11
+  rw [hpow]
+  exact hr
 
 theorem fifth_residue_25 (x : Nat) :
     x ^ 5 % 25 = 0 ∨ x ^ 5 % 25 = 1 ∨
@@ -40,7 +42,9 @@ theorem fifth_residue_25 (x : Nat) :
        r.val ^ 5 % 25 = 7 ∨ r.val ^ 5 % 25 = 18 ∨
        r.val ^ 5 % 25 = 24) := by decide
   have hr := h ⟨x % 25, Nat.mod_lt _ (by decide)⟩
-  simpa only [Nat.pow_mod] using hr
+  have hpow : x ^ 5 % 25 = (x % 25) ^ 5 % 25 := Nat.pow_mod x 5 25
+  rw [hpow]
+  exact hr
 
 theorem fifth_zero_11 (x : Nat) :
     (x ^ 5 % 11 = 0) ↔ (x % 11 = 0) := by
@@ -55,7 +59,10 @@ theorem fifth_zero_25 (x : Nat) :
       ((r.val ^ 5 % 25 = 0) ↔ (r.val % 5 = 0)) := by decide
   have hr := h ⟨x % 25, Nat.mod_lt _ (by decide)⟩
   have hm : (x % 25) % 5 = x % 5 := by omega
-  simpa only [Nat.pow_mod, hm] using hr
+  have hpow : x ^ 5 % 25 = (x % 25) ^ 5 % 25 := Nat.pow_mod x 5 25
+  rw [hpow]
+  rw [hm] at hr
+  exact hr
 
 private theorem residues11_parity (a b c d e : Nat)
     (ha : a = 0 ∨ a = 1 ∨ a = 10)
@@ -68,7 +75,7 @@ private theorem residues11_parity (a b c d e : Nat)
     zeroResidues a b c d e = 3 ∨
     zeroResidues a b c d e = 5 := by
   unfold zeroResidues
-  omega
+  split_ifs <;> omega
 
 private theorem residues25_parity (a b c d e : Nat)
     (ha : a = 0 ∨ a = 1 ∨ a = 7 ∨ a = 18 ∨ a = 24)
@@ -81,7 +88,7 @@ private theorem residues25_parity (a b c d e : Nat)
     zeroResidues a b c d e = 3 ∨
     zeroResidues a b c d e = 5 := by
   unfold zeroResidues
-  omega
+  split_ifs <;> omega
 
 private theorem sum_fifth_mod (a b c d e m : Nat)
     (h : a ^ 5 + b ^ 5 + c ^ 5 + d ^ 5 = e ^ 5) :
