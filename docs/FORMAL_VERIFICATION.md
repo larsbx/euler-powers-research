@@ -129,3 +129,15 @@ retries, more than two partitions, and network failures outside this
 model. This is bounded safety verification, not proof of liveness or
 end-to-end operational fault tolerance. Per-shard expected counts are
 assumptions sourced from the independent arithmetic checker.
+
+## Abstract pair-index completeness
+
+`formal/lean/PairIndex.lean` defines the finite mathematical list of every
+ordered pair `1 ≤ a ≤ b < e`, with its exact fifth-power sum. Its Lean
+proofs establish that every such pair is present and every valid primitive
+positive E5 solution has the complementary pair sum in the list. This
+strengthens the earlier arithmetic complement identity and eliminates
+an abstract omission risk. The **implementation refinement** from Mojo's
+sorted integer array and binary search to the formal list is still an
+open proof obligation. Likewise, the theoretical index carries no
+claims about the asymptotic distribution of solutions.
