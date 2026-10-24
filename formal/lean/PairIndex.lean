@@ -33,7 +33,7 @@ theorem rawPairs_complete {a b e : Nat} (ha : a < e) (hb : b < e) :
 theorem orderedPairs_complete {a b e : Nat}
     (ha : 0 < a) (hab : a ≤ b) (hb : b < e) :
     (a, b) ∈ orderedPairs e := by
-  have hae : a < e := lt_of_le_of_lt hab hb
+  have hae : a < e := by omega
   unfold orderedPairs
   apply List.mem_filter.mpr
   constructor
@@ -52,7 +52,7 @@ complement in the exhaustive mathematical pair-sum list. -/
 theorem valid_pair_hit (t : Quintuple) (h : Valid t) :
     t.e ^ 5 - (t.c ^ 5 + t.d ^ 5) ∈ pairSums t.e := by
   obtain ⟨ha, hab, hbc, hcd, hde⟩ := h.2.1
-  have hb : t.b < t.e := lt_of_le_of_lt (le_trans hbc hcd) hde
+  have hb : t.b < t.e := by omega
   have hcomplement :=
     ((pair_complement_iff t.a t.b t.c t.d t.e).mp h.1).2
   rw [← hcomplement]
