@@ -77,7 +77,10 @@ private theorem residues11_parity (a b c d e : Nat)
     zeroResidues a b c d e = 3 ∨
     zeroResidues a b c d e = 5 := by
   unfold zeroResidues
-  split_ifs <;> omega
+  repeat
+    first
+    | split
+    | omega
 
 private theorem residues25_parity (a b c d e : Nat)
     (ha : a = 0 ∨ a = 1 ∨ a = 7 ∨ a = 18 ∨ a = 24)
@@ -90,7 +93,10 @@ private theorem residues25_parity (a b c d e : Nat)
     zeroResidues a b c d e = 3 ∨
     zeroResidues a b c d e = 5 := by
   unfold zeroResidues
-  split_ifs <;> omega
+  repeat
+    first
+    | split
+    | omega
 
 private theorem sum_fifth_mod (a b c d e m : Nat)
     (h : a ^ 5 + b ^ 5 + c ^ 5 + d ^ 5 = e ^ 5) :
