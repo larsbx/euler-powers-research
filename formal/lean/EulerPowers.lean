@@ -52,6 +52,17 @@ theorem pair_complement_iff (a b c d e : Nat) :
       a ^ 5 + b ^ 5 = e ^ 5 - (c ^ 5 + d ^ 5) := by
   omega
 
+/-- Every finite height interval splits at a successor boundary. -/
+theorem partition_cover {lo split hi e : Nat}
+    (hlo : lo ≤ e) (hhi : e ≤ hi) (hs : lo ≤ split) (ht : split < hi) :
+    (lo ≤ e ∧ e ≤ split) ∨ (split + 1 ≤ e ∧ e ≤ hi) := by
+  omega
+
+/-- Adjacent closed height intervals have no shared target height. -/
+theorem partition_disjoint {lo split hi e : Nat} :
+    ¬ ((lo ≤ e ∧ e ≤ split) ∧ (split + 1 ≤ e ∧ e ≤ hi)) := by
+  omega
+
 /-- Every height in [2,144] belongs to a prescribed shard. -/
 theorem shards_cover {e : Nat} (hl : 2 ≤ e) (hh : e ≤ 144) :
     (2 ≤ e ∧ e ≤ 72) ∨ (73 ≤ e ∧ e ≤ 144) := by

@@ -70,3 +70,6 @@ bash tools/verify-formal.sh
 
 CI requires the Lean/Quint gate alongside Mojo and its independent Python
 oracle. See [the proof boundary](docs/FORMAL_VERIFICATION.md).
+
+The Lean certificate replay executable checks live Mojo output and refuses
+invalid reported solutions. This is not a proof of census completeness.

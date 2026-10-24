@@ -30,6 +30,7 @@ jobs:
             ~/.cache/euler-formal
             ~/.quint
           key: euler-formal-${{ hashFiles('formal/toolchain.toml', 'formal/quint/package-lock.json') }}
+      - uses: prefix-dev/setup-pixi@d3f436a425481402e6a95a1d1fc10331c708cd9e
       - name: Install SHA-256-pinned Lean, Quint and Apalache
         run: bash tools/formal-setup.sh
       - name: Kernel proofs, axiom audit, Quint tests, simulation and bounded verification

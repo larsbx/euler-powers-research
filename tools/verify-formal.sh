@@ -11,6 +11,15 @@ export PATH="${EULER_FORMAL_CACHE:-$HOME/.cache/euler-formal}/$(pin lean dir)/bi
 lean --version | grep -q "version $(pin lean version),"
 (cd formal/lean && lake build)
 (cd formal/lean && lake env lean Audit.lean)
+(cd formal/lean && lake build replay)
+python3 tests/test_lean_replay.py
+
+# Replay the actual Mojo stdout, never a Python-reconstructed replacement.
+tmp="$(mktemp)"
+trap 'rm -f "$tmp"' EXIT
+pixi run --locked census-144 > "$tmp"
+cmp certificates/census_e144.txt "$tmp"
+(cd formal/lean && lake exe replay "$tmp" 144)
 (cd formal/quint && npx --no-install quint typecheck census.qnt)
 (cd formal/quint && npx --no-install quint test census.qnt --backend "$(pin quint backend)" --seed "$(pin quint seed)")
 (cd formal/quint && npx --no-install quint run census.qnt \
