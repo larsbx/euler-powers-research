@@ -1,0 +1,13 @@
+{
+  "name": "euler-powers-quint",
+  "private": true,
+  "description": "Bounded Euler fifth-power census admission state machine",
+  "scripts": {
+    "typecheck": "quint typecheck census.qnt",
+    "test": "quint test census.qnt",
+    "verify": "quint verify census.qnt --invariant=safety --max-steps=6"
+  },
+  "devDependencies": {
+    "@informalsystems/quint": "0.33.0"
+  }
+}
