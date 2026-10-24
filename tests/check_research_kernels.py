@@ -6,6 +6,7 @@ definition through different data structures. All arithmetic is exact.
 from __future__ import annotations
 
 from collections import defaultdict
+from concurrent.futures import ThreadPoolExecutor
 from hashlib import sha256
 from math import gcd
 from pathlib import Path
@@ -57,10 +58,10 @@ def check_ring() -> None:
     print("Exact Mojo finite-ring DP agrees with independent Python oracle.")
 
 
-def python_census(max_e: int) -> list[tuple[int, int, int, int, int]]:
+def python_census(max_e: int, start_e: int = 2) -> list[tuple[int, int, int, int, int]]:
     powers = [x**5 for x in range(max_e + 1)]
     found: list[tuple[int, int, int, int, int]] = []
-    for e in range(2, max_e + 1):
+    for e in range(start_e, max_e + 1):
         # Hash-indexed pairing is algorithmically distinct from the Mojo
         # sorted-array / binary-search construction.
         pairs: dict[int, list[tuple[int, int]]] = defaultdict(list)
@@ -75,11 +76,15 @@ def python_census(max_e: int) -> list[tuple[int, int, int, int, int]]:
     return found
 
 
-def parse_census(lines: list[str], max_e: int) -> list[tuple[int, int, int, int, int]]:
+def parse_census(lines: list[str], max_e: int, start_e: int | None = None) -> list[tuple[int, int, int, int, int]]:
     assert lines, "Mojo did not print census"
     last = lines[-1].split()
-    assert last[:1] == ["CENSUS"] and len(last) == 3, lines
-    assert last[1] == str(max_e) and last[2].isascii() and last[2].isdecimal()
+    assert last[:1] == ["CENSUS"], lines
+    if start_e is None:
+        assert len(last) == 3 and last[1] == str(max_e), lines
+    else:
+        assert len(last) == 4 and last[1:3] == [str(start_e), str(max_e)], lines
+    assert last[-1].isascii() and last[-1].isdecimal()
     found: list[tuple[int, int, int, int, int]] = []
     for line in lines[:-1]:
         parts = line.split(" ")
@@ -87,10 +92,12 @@ def parse_census(lines: list[str], max_e: int) -> list[tuple[int, int, int, int,
         assert all(p.isascii() and p.isdecimal() and str(int(p)) == p for p in parts[2:])
         a, b, c, d, e = map(int, parts[2:])
         assert 0 < a <= b <= c <= d < e <= max_e
+        if start_e is not None:
+            assert e >= start_e
         assert a**5 + b**5 + c**5 + d**5 == e**5
         assert gcd(a, b, c, d, e) == 1
         found.append((a, b, c, d, e))
-    assert len(found) == int(last[2]) and len(set(found)) == len(found)
+    assert len(found) == int(last[-1]) and len(set(found)) == len(found)
     return found
 
 
@@ -119,6 +126,30 @@ def check_census(max_e: int) -> None:
     )
 
 
+def check_shards() -> None:
+    # Two workers execute independent Mojo processes, each owning an exact,
+    # nonoverlapping closed height interval. The merge checks the full corpus.
+    ranges = ((2, 72), (73, 144))
+    assert ranges[0][0] == 2 and ranges[-1][1] == 144
+    assert all(a < b for (_, a), (b, _) in zip(ranges, ranges[1:]))
+    assert ranges[0][1] + 1 == ranges[1][0]
+    with ThreadPoolExecutor(max_workers=2) as pool:
+        futures = [
+            pool.submit(run_mojo, "kernel/positive_census.mojo", str(lo), str(hi))
+            for lo, hi in ranges
+        ]
+        results = [future.result() for future in futures]
+    combined: list[tuple[int, int, int, int, int]] = []
+    for (lo, hi), lines in zip(ranges, results):
+        got = parse_census(lines, hi, start_e=lo)
+        assert sorted(got) == sorted(python_census(hi, start_e=lo))
+        combined.extend(got)
+    full = python_census(144)
+    assert len(combined) == len(set(combined))
+    assert sorted(combined) == sorted(full)
+    print("Two disjoint Mojo shards cover e<=144 with no gaps or duplicate certificates.")
+
+
 def check_negative_cases() -> None:
     for bad in (
         [],
@@ -140,6 +171,7 @@ def main() -> None:
     check_negative_cases()
     check_census(16)
     check_census(144)
+    check_shards()
 
 
 if __name__ == "__main__":
