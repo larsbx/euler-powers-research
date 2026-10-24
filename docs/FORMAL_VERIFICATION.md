@@ -105,3 +105,27 @@ Consequently, `primitive_11_count` and `primitive_5_count` establish
 the **one-or-three divisibility law** for every primitive positive solution,
 without a finite search bound. This is proof about the equation, not a
 proof of E5-1 through E5-5.
+
+## Quint crash/retry refinement (bounded)
+
+`formal/quint/recovery.qnt` is an additional finite-state process model
+for the two-shard certification controller. It tracks per-shard submission
+tickets and imposes a maximum of two attempts. A worker crash returns a
+submitted shard to pending without changing the ticket. Resubmission
+increments the ticket; inspection requires the current ticket, so a late
+callback from an old attempt cannot certify the new one. Once checked,
+a shard becomes verified or rejected and cannot revert to pending.
+
+Safety properties require valid partition endpoints, bounded tickets,
+correctly validated per-shard claims and publication only after every
+shard is verified. Executable Quint tests cover successful recovery,
+stale-ticket rejection, false results, attempt exhaustion and attempted
+crashes of finalized shards. Apalache checks this finite model through
+8 state transitions, enough to include a crash/retry and successful
+publication witness.
+
+**Limitations:** the real deployment may have an unbounded number of
+retries, more than two partitions, and network failures outside this
+model. This is bounded safety verification, not proof of liveness or
+end-to-end operational fault tolerance. Per-shard expected counts are
+assumptions sourced from the independent arithmetic checker.
