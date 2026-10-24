@@ -137,4 +137,73 @@ theorem fifth_5_zero_count (a b c d e : Nat)
   simp only [fifth_zero_25] at hr
   exact hr
 
+
+private theorem zeroCount_five_all (a b c d e p : Nat)
+    (hfive : zeroCount a b c d e p = 5) :
+    a % p = 0 ∧ b % p = 0 ∧ c % p = 0 ∧
+    d % p = 0 ∧ e % p = 0 := by
+  have bounded (x : Nat) :
+      (if x % p = 0 then (1 : Nat) else 0) ≤ 1 := by
+    split <;> omega
+  have ba := bounded a
+  have bb := bounded b
+  have bc := bounded c
+  have bd := bounded d
+  have be := bounded e
+  unfold zeroCount at hfive
+  refine ⟨?_, ?_, ?_, ?_, ?_⟩
+  · by_contra ha
+    have h : (if a % p = 0 then (1 : Nat) else 0) = 0 := if_neg ha
+    omega
+  · by_contra hb
+    have h : (if b % p = 0 then (1 : Nat) else 0) = 0 := if_neg hb
+    omega
+  · by_contra hc
+    have h : (if c % p = 0 then (1 : Nat) else 0) = 0 := if_neg hc
+    omega
+  · by_contra hd
+    have h : (if d % p = 0 then (1 : Nat) else 0) = 0 := if_neg hd
+    omega
+  · by_contra he
+    have h : (if e % p = 0 then (1 : Nat) else 0) = 0 := if_neg he
+    omega
+
+theorem primitive_excludes_five (p : Nat) (hp : 1 < p)
+    (t : Quintuple) (hprim : Primitive t) :
+    zeroCount t.a t.b t.c t.d t.e p ≠ 5 := by
+  intro hfive
+  obtain ⟨ha, hb, hc, hd, he⟩ :=
+    zeroCount_five_all t.a t.b t.c t.d t.e p hfive
+  have hdiv : p ∣
+      Nat.gcd t.a (Nat.gcd t.b (Nat.gcd t.c (Nat.gcd t.d t.e))) :=
+    Nat.dvd_gcd (Nat.dvd_of_mod_eq_zero ha)
+      (Nat.dvd_gcd (Nat.dvd_of_mod_eq_zero hb)
+        (Nat.dvd_gcd (Nat.dvd_of_mod_eq_zero hc)
+          (Nat.dvd_gcd (Nat.dvd_of_mod_eq_zero hd)
+            (Nat.dvd_of_mod_eq_zero he))))
+  unfold Primitive at hprim
+  rw [hprim] at hdiv
+  have hle := Nat.le_of_dvd (by decide : 0 < 1) hdiv
+  omega
+
+/-- Every primitive positive fifth-power identity has one or three
+bases divisible by 11. This is universal, not search-bound dependent. -/
+theorem primitive_11_count (t : Quintuple) (h : Valid t) :
+    zeroCount t.a t.b t.c t.d t.e 11 = 1 ∨
+    zeroCount t.a t.b t.c t.d t.e 11 = 3 := by
+  rcases fifth_11_zero_count t.a t.b t.c t.d t.e h.1 with h1 | h3 | h5
+  · exact Or.inl h1
+  · exact Or.inr h3
+  · exact False.elim ((primitive_excludes_five 11 (by decide) t h.2.2) h5)
+
+/-- Every primitive positive fifth-power identity has one or three
+bases divisible by 5, by exact reduction modulo 25. -/
+theorem primitive_5_count (t : Quintuple) (h : Valid t) :
+    zeroCount t.a t.b t.c t.d t.e 5 = 1 ∨
+    zeroCount t.a t.b t.c t.d t.e 5 = 3 := by
+  rcases fifth_5_zero_count t.a t.b t.c t.d t.e h.1 with h1 | h3 | h5
+  · exact Or.inl h1
+  · exact Or.inr (Or.resolve_left h3 (by omega))
+  · exact False.elim ((primitive_excludes_five 5 (by decide) t h.2.2) h5)
+
 end EulerPowers
