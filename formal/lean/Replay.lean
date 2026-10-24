@@ -16,6 +16,11 @@ def canonicalNat (token : String) : Option Nat := do
   let n ← token.toNat?
   if toString n == token then some n else none
 
+def requireSome {α : Type} (value : Option α) (reason : String) : Except String α :=
+  match value with
+  | some v => .ok v
+  | none => .error reason
+
 def parseTuple (line : String) : Option Quintuple := do
   match line.splitOn " " with
   | ["CERT", "E5v1", a, b, c, d, e] =>
@@ -37,11 +42,11 @@ def replay (content : String) (expectedBound : Nat) : Except String Nat := do
     | "" :: footer :: revRows => .ok (footer, revRows.reverse)
     | _ => .error "missing final newline or census footer"
   let (bound, claimed) ←
-    (parseFooter footer).toExcept "invalid canonical CENSUS footer"
+    requireSome (parseFooter footer) "invalid canonical CENSUS footer"
   if bound != expectedBound then
     throw "footer bound does not match requested bound"
   let tuples ← rows.mapM fun row =>
-    (parseTuple row).toExcept s!"malformed CERT E5v1 record: {row}"
+    requireSome (parseTuple row) s!"malformed CERT E5v1 record: {row}"
   if tuples.length != claimed then
     throw "footer count does not match records"
   if !(decide tuples.Nodup) then
