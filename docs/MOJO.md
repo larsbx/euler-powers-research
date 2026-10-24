@@ -47,3 +47,12 @@ The repo currently has a pinned top-level Mojo dependency manifest, but no
 checked-in transitive Pixi lock. Treat environment resolution as not fully
 reproducible until a platform lock is generated and committed. This limitation
 is not hidden by CI.
+
+## Exact bounded research kernels
+
+See [the computational completeness contract](BOUNDED_SEARCH.md).
+The pinned environment also provides `pixi run verify-research`,
+which compares exact Mojo finite-ring DP and the full positive search
+through height 144 against separate Python reference implementations.
+Both are required by native CI. The original `verify` lane retains
+unbounded `BigZ` checks for the published identities.

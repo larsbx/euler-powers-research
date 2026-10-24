@@ -14,3 +14,6 @@ python = ">=3.11,<3.14"
 verify-mojo = "bash scripts/verify_mojo.sh"
 verify-reference = "python tests/verify_known_solutions.py"
 verify = { depends-on = ["verify-mojo", "verify-reference"] }
+residue-sieve = "bash scripts/run_mojo.sh kernel/residue_sieve.mojo"
+census-144 = "bash scripts/run_mojo.sh kernel/positive_census.mojo 144"
+verify-research = "python tests/check_research_kernels.py"
