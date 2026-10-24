@@ -37,14 +37,14 @@ def primitive(a: Int, b: Int, c: Int, d: Int, e: Int) raises -> Bool:
     return g == 1
 
 
-def census(bound: Int) raises:
-    if bound < 2 or bound > 1000:
+def census(start_e: Int, bound: Int, sharded: Bool = False) raises:
+    if start_e < 2 or start_e > bound or bound > 1000:
         raise Error("bound must lie between 2 and 1000")
     var powers = List[Int64]()
     for i in range(bound + 1):
         powers.append(fifth_int(i))
     var matches = 0
-    for e in range(2, bound + 1):
+    for e in range(start_e, bound + 1):
         var pair_sums = List[Int64]()
         for a in range(1, e):
             for b in range(a, e):
@@ -65,16 +65,25 @@ def census(bound: Int) raises:
                         ):
                             print("CERT E5v1", a, b, c, d, e)
                             matches += 1
-    print("CENSUS", bound, matches)
+    if sharded:
+        print("CENSUS", start_e, bound, matches)
+    else:
+        print("CENSUS", bound, matches)
 
 
 def main() raises:
     var args = List[String]()
     for arg in argv():
         args.append(String(arg))
-    if len(args) != 2:
-        raise Error("usage: positive_census <max_e:2..1000>")
-    var requested = parse_canonical(args[1], 32)
+    if len(args) != 2 and len(args) != 3:
+        raise Error("usage: positive_census <max_e> OR <start_e> <max_e>")
+    var requested = parse_canonical(args[len(args) - 1], 32)
     if not requested:
         raise Error("invalid canonical maximum height")
-    census(Int(requested.value()))
+    if len(args) == 3:
+        var start = parse_canonical(args[1], 32)
+        if not start:
+            raise Error("invalid canonical starting height")
+        census(Int(start.value()), Int(requested.value()), True)
+    else:
+        census(2, Int(requested.value()))
