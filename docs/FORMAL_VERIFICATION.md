@@ -163,3 +163,16 @@ rather than relying on a single recovered pair.
 **Assurance:** sorted mathematical membership is proved for all heights;
 the Mojo implementation is regression-tested only on a bounded input domain.
 A universal cross-language compiler-level refinement proof is still open.
+
+## Universal sorted-index pruning lemmas
+
+`formal/lean/BinarySearch.lean` establishes, for every sorted list and
+arbitrary pivot and target, that when the pivot is below the target no
+entry at or before the pivot can match. When the pivot is above the
+target, no entry at or after the pivot can match. Equality at the pivot
+provides a sound membership witness. These are checked by Lean without
+any finite search-height restriction. Together with sorted membership
+preservation and 6,971 compiled Mojo regression queries, these close
+the mathematical branch-pruning obligations but do **not** prove
+bounds arithmetic, termination, or compiler-level refinement of the
+concrete binary-search implementation.
