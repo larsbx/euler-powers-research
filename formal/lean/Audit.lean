@@ -3,6 +3,7 @@ import EulerPowers
 import Modular
 import PairIndex
 import SortedIndex
+import BinarySearch
 
 /-! Audit all EulerPowers theorems for additional axioms and opaque holes. -/
 open Lean Elab Command in
