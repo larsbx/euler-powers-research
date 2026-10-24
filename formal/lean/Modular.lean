@@ -51,7 +51,9 @@ theorem fifth_zero_11 (x : Nat) :
   have h : ∀ r : Fin 11,
       ((r.val ^ 5 % 11 = 0) ↔ (r.val = 0)) := by decide
   have hr := h ⟨x % 11, Nat.mod_lt _ (by decide)⟩
-  simpa only [Nat.pow_mod] using hr
+  have hpow : x ^ 5 % 11 = (x % 11) ^ 5 % 11 := Nat.pow_mod x 5 11
+  rw [hpow]
+  exact hr
 
 theorem fifth_zero_25 (x : Nat) :
     (x ^ 5 % 25 = 0) ↔ (x % 5 = 0) := by
