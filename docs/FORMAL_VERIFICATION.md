@@ -214,3 +214,14 @@ It provides a complete **Lean mathematical algorithm proof** corresponding
 to the branch and midpoint rules in the Mojo implementation. Native Mojo
 still requires independent compiler-level refinement to promote that
 algorithm theorem into a whole-program guarantee.
+
+## Signed-data compiled conformance expansion
+
+The native lower-bound prefilter now also runs deterministic signed-list
+test vectors independently of the Diophantine pair-sum corpus. A separate
+Python set oracle checks arbitrary sorted inputs with duplicate runs,
+negative values, the empty array and signed Int64 boundary values.
+The *production* `contains_sorted` function is imported by the same Mojo
+test driver, so the tests do not accidentally validate a different
+implementation. This strengthens empirical compiler-level confidence;
+a passing bounded test is not a universal refinement theorem.
