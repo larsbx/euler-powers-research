@@ -33,9 +33,9 @@ Four primitive integer solutions are currently reported when **negative summands
 
 Run the exact arithmetic checks with:
 
-\`\`\`sh
+~~~sh
 python3 tests/verify_known_solutions.py
-\`\`\`
+~~~
 
 ## Research discipline
 
