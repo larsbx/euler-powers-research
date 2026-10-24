@@ -11,7 +11,7 @@ No fork of the shared exact-arithmetic kernel is maintained here.
 On Linux x86-64 with Git, run:
 
 ```sh
-pixi run verify
+pixi run --locked verify
 ```
 
 The command fetches the pinned dependency into ignored `.deps/` (once), checks
@@ -43,10 +43,12 @@ state its height bound, positive/signed domain, toolchain and dependency SHA,
 output digest, and completeness argument. Numerical speedups require matched
 hardware and validation before they are claimed.
 
-The repo currently has a pinned top-level Mojo dependency manifest, but no
-checked-in transitive Pixi lock. Treat environment resolution as not fully
-reproducible until a platform lock is generated and committed. This limitation
-is not hidden by CI.
+The repo has a committed transitive `pixi.lock` for `linux-64`,
+generated on GitHub Actions using the pinned `pixi.toml` manifest.
+CI uses `pixi run --locked` to reject lockfile drift. The shared
+`finite-math-kernels` repository is separately pinned by full Git SHA.
+Reproducibility is scoped to this platform and these pinned inputs;
+it does not imply cross-platform bitwise equality.
 
 ## Exact bounded research kernels
 
