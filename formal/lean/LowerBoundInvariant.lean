@@ -104,9 +104,11 @@ theorem lowerBound_ge_progress (lo hi mid : Nat)
     (hlo : lo ≤ mid) (hhi : mid < hi) :
     mid - lo < hi - lo := by omega
 
-/-- With lo=hi, checking that location (if it exists) is equivalent to
-searching the whole original list. No earlier or later match remains. -/
+/-- At termination, the *first* candidate is correct for any sorted
+list, including duplicates: values beyond the lower bound may equal
+the target, but sortedness forces the lower-bound value to equal it too. -/
 theorem lowerBound_done (xs : List Nat) (target pos : Nat)
+    (hSort : xs.Pairwise (· ≤ ·))
     (h : LowerBoundInv xs target pos pos) :
     (∃ hi : pos < xs.length, xs[pos] = target) ↔ target ∈ xs := by
   constructor
@@ -119,12 +121,13 @@ theorem lowerBound_done (xs : List Nat) (target pos : Nat)
       intro hlt
       have hstrict := h.2.2.1 i hi hlt
       omega
-    have hnohi : ¬ pos < i := by
-      intro hlt
-      have hlarge := h.2.2.2 i hi (by omega)
-      omega
-    have heqi : i = pos := by omega
-    subst i
-    exact ⟨hi, heq⟩
+    have hpos : pos < xs.length := by omega
+    have horder : xs[pos] ≤ xs[i] := by
+      rcases Nat.lt_or_eq_of_le (show pos ≤ i by omega) with hlt | heqi
+      · exact hSort.rel_getElem_of_lt hpos hi hlt
+      · subst i
+        exact Nat.le_refl _
+    have hlarge : target ≤ xs[pos] := h.2.2.2 pos hpos (by omega)
+    exact ⟨hpos, by omega⟩
 
 end EulerPowers
