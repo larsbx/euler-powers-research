@@ -188,3 +188,15 @@ pivot equality check is equivalent to membership in the original list.
 The proofs apply to all sorted natural-number lists, including duplicates.
 They do not establish compiler-level refinement of the actual Mojo while
 loop or prove arbitrary machine arithmetic cannot overflow.
+
+## Candidate reconstruction completeness
+
+`Reconstruction.lean` models the finite `c≤d<e` and `a≤b≤c` loops
+with exact pair-list predicates, applies the sorted pair-sum prefilter,
+requires nonnegative fifth-power complement, and checks the **particular**
+reconstructed pair's exact equality and primitivity. Lean proves the
+resulting mathematical `StagedCandidate` predicate is equivalent to
+`Valid` for every natural quintuple and every target height. Repeated
+pair sums do not erase other representations: the reconstruction list
+retains all qualifying pairs. The actual Mojo nested loops and its
+compiler execution remain tested and require a separate refinement proof.
