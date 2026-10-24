@@ -21,4 +21,4 @@ if [[ "$ACTUAL" != "$PIN" ]]; then
   echo "Dependency drift: expected $PIN; got $ACTUAL" >&2
   exit 1
 fi
-mojo run -I "$TARGET/kernel" "$@"
+mojo run -I kernel -I "$TARGET/kernel" "$@"
