@@ -141,3 +141,25 @@ an abstract omission risk. The **implementation refinement** from Mojo's
 sorted integer array and binary search to the formal list is still an
 open proof obligation. Likewise, the theoretical index carries no
 claims about the asymptotic distribution of solutions.
+
+## Sorted index membership refinement and runtime conformance
+
+`formal/lean/SortedIndex.lean` proves sorting the complete mathematical
+fifth-power pair-sum list is membership-preserving, and proves a decidable
+sorted-list membership test accepts every complement of a valid solution.
+This is a kernel-checked sorting **specification** theorem, not a proof of
+Mojo's particular memory layout, `sort` implementation, or binary-search
+loop.
+
+The exact `contains_sorted` production routine has been isolated into
+`kernel/pair_index.mojo` and is imported by the census as well as the
+conformance executable. CI checks its actual compiled behavior for every
+pair sum through height 24 (including duplicates), adjacent misses,
+negative targets and the empty-list case, against an independent Python set.
+The binary search is used only as a necessary membership prefilter; the
+positive E5 census reconstructs **all** `a ≤ b ≤ c` representations
+rather than relying on a single recovered pair.
+
+**Assurance:** sorted mathematical membership is proved for all heights;
+the Mojo implementation is regression-tested only on a bounded input domain.
+A universal cross-language compiler-level refinement proof is still open.
