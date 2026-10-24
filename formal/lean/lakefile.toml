@@ -1,6 +1,6 @@
 name = "euler_powers_formal"
 version = "0.1.0"
-defaultTargets = ["EulerPowers", "Modular", "PairIndex", "SortedIndex", "BinarySearch", "replay"]
+defaultTargets = ["EulerPowers", "Modular", "PairIndex", "SortedIndex", "BinarySearch", "LowerBoundInvariant", "replay"]
 
 [[lean_lib]]
 name = "EulerPowers"
@@ -20,3 +20,6 @@ name = "SortedIndex"
 
 [[lean_lib]]
 name = "BinarySearch"
+
+[[lean_lib]]
+name = "LowerBoundInvariant"
