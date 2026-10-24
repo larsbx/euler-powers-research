@@ -152,21 +152,26 @@ private theorem zeroCount_five_all (a b c d e p : Nat)
   have be := bounded e
   unfold zeroCount at hfive
   refine ⟨?_, ?_, ?_, ?_, ?_⟩
-  · by_contra ha
-    have h : (if a % p = 0 then (1 : Nat) else 0) = 0 := if_neg ha
-    omega
-  · by_contra hb
-    have h : (if b % p = 0 then (1 : Nat) else 0) = 0 := if_neg hb
-    omega
-  · by_contra hc
-    have h : (if c % p = 0 then (1 : Nat) else 0) = 0 := if_neg hc
-    omega
-  · by_contra hd
-    have h : (if d % p = 0 then (1 : Nat) else 0) = 0 := if_neg hd
-    omega
-  · by_contra he
-    have h : (if e % p = 0 then (1 : Nat) else 0) = 0 := if_neg he
-    omega
+  · by_cases ha : a % p = 0
+    · exact ha
+    · have h : (if a % p = 0 then (1 : Nat) else 0) = 0 := if_neg ha
+      omega
+  · by_cases hb : b % p = 0
+    · exact hb
+    · have h : (if b % p = 0 then (1 : Nat) else 0) = 0 := if_neg hb
+      omega
+  · by_cases hc : c % p = 0
+    · exact hc
+    · have h : (if c % p = 0 then (1 : Nat) else 0) = 0 := if_neg hc
+      omega
+  · by_cases hd : d % p = 0
+    · exact hd
+    · have h : (if d % p = 0 then (1 : Nat) else 0) = 0 := if_neg hd
+      omega
+  · by_cases he : e % p = 0
+    · exact he
+    · have h : (if e % p = 0 then (1 : Nat) else 0) = 0 := if_neg he
+      omega
 
 theorem primitive_excludes_five (p : Nat) (hp : 1 < p)
     (t : Quintuple) (hprim : Primitive t) :
@@ -203,7 +208,7 @@ theorem primitive_5_count (t : Quintuple) (h : Valid t) :
     zeroCount t.a t.b t.c t.d t.e 5 = 3 := by
   rcases fifth_5_zero_count t.a t.b t.c t.d t.e h.1 with h1 | h3 | h5
   · exact Or.inl h1
-  · exact Or.inr (Or.resolve_left h3 (by omega))
+  · exact Or.inr h3
   · exact False.elim ((primitive_excludes_five 5 (by decide) t h.2.2) h5)
 
 end EulerPowers
