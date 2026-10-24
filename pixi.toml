@@ -1,0 +1,16 @@
+# Match the pinned Mojo/MAX build used by larsbx/finite-math-kernels.
+[workspace]
+name = "euler-powers-research"
+channels = ["https://conda.modular.com/max-nightly/", "conda-forge"]
+platforms = ["linux-64"]
+
+[dependencies]
+modular = "==26.6.0.dev2026090805"
+mojo = "==1.1.0.dev2026090805"
+mojo-compiler = "==1.1.0.dev2026090805"
+python = ">=3.11,<3.14"
+
+[tasks]
+verify-mojo = "bash scripts/verify_mojo.sh"
+verify-reference = "python tests/verify_known_solutions.py"
+verify = { depends-on = ["verify-mojo", "verify-reference"] }
