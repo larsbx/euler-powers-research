@@ -88,11 +88,20 @@ apply to any finite natural height range partitioned at `split+1`.
 
 ### Next proof obligations
 
-1. Prove fifth-power residue restrictions modulo 11 and 25 within Lean,
-   not merely by executing the finite-ring Mojo/Python agreement test.
-2. Bridge canonical E5v1 certificate parsing and identity acceptance to
-   Lean-certified replay of actual Mojo output.
-3. Specify arbitrary complete height partitions instead of only the
-   initial two-shard instance.
-4. Extend the Quint admission model to signed certificates and
-   crash/retry/reconciliation without weakening its safety boundary.
+1. Extend the congruence-sieve proof catalogue beyond moduli 11 and 25.
+2. Establish a formally checked completeness bridge for the actual pair-index
+   construction, rather than only the abstract complement identity.
+3. Connect generic height-partition theorems to runtime-generated shard plans.
+4. Extend Quint to cover crashes, retries, and deterministic reconciliation.
+
+## Modular theorem development
+
+`Modular.lean` formalizes finite fifth-power residue sets for 11 and 25,
+and derives exact zero-count restrictions from the five-term equation.
+The formal proof uses small finite-ring checks within Lean, not an imported
+search output. `primitive_excludes_five` formally proves that if all five bases are
+divisible by a prime-sized integer p > 1, the gcd cannot be 1.
+Consequently, `primitive_11_count` and `primitive_5_count` establish
+the **one-or-three divisibility law** for every primitive positive solution,
+without a finite search bound. This is proof about the equation, not a
+proof of E5-1 through E5-5.
