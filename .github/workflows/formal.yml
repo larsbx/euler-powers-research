@@ -1,0 +1,36 @@
+name: Lean and Quint formal verification
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  proof-and-model:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "21"
+      - uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cache/euler-formal
+            ~/.quint
+          key: euler-formal-${{ hashFiles('formal/toolchain.toml', 'formal/quint/package-lock.json') }}
+      - name: Install SHA-256-pinned Lean, Quint and Apalache
+        run: bash tools/formal-setup.sh
+      - name: Kernel proofs, axiom audit, Quint tests, simulation and bounded verification
+        run: bash tools/verify-formal.sh

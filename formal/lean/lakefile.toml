@@ -1,0 +1,6 @@
+name = "euler_powers_formal"
+version = "0.1.0"
+defaultTargets = ["EulerPowers"]
+
+[[lean_lib]]
+name = "EulerPowers"

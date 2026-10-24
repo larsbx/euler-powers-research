@@ -30,7 +30,8 @@ Four primitive integer solutions are currently reported when **negative summands
 - [Proof obligations and research stages](docs/RESEARCH_PLAN.md)
 - [Exact known-solution data](data/known_solutions.csv)
 - [Mojo-native BigZ verifier and pinned toolchain](docs/MOJO.md)
-- [Finite-ring and bounded census implementation](docs/BOUNDED_SEARCH.md)\n- [Independent Python reference](tests/verify_known_solutions.py)
+- [Finite-ring and bounded census implementation](docs/BOUNDED_SEARCH.md)
+- [Lean and Quint formal verification contract](docs/FORMAL_VERIFICATION.md)\n- [Independent Python reference](tests/verify_known_solutions.py)
 
 Run the exact arithmetic checks with:
 
@@ -52,3 +53,20 @@ python3 tests/verify_known_solutions.py
 - Lander & Parkin, *Counterexample to Euler's conjecture on sums of like powers*, Bull. AMS 72 (1966), 1079.
 - Jeffrey M. Braun, *The fourth known primitive solution to* \(a^5+b^5+c^5+d^5=e^5\), arXiv:2603.05549 (2026): https://arxiv.org/abs/2603.05549
 - MathWorld, *Euler's Sum of Powers Conjecture*: https://mathworld.wolfram.com/EulersSumofPowersConjecture.html
+
+## Formal verification
+
+Lean 4 kernel-checks the arithmetic certificate predicate, the exact
+complement identity underlying meet-in-the-middle enumeration, the shard
+coverage and disjointness theorems, and canonical examples. Quint models
+the shard submission, rejection and publication workflow with bounded
+Apalache safety checks. These layers are not a proof of the conjectures
+or a complete formal verification of the Mojo implementation.
+
+```sh
+bash tools/formal-setup.sh
+bash tools/verify-formal.sh
+```
+
+CI requires the Lean/Quint gate alongside Mojo and its independent Python
+oracle. See [the proof boundary](docs/FORMAL_VERIFICATION.md).
