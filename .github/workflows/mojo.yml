@@ -1,0 +1,20 @@
+name: Verify Mojo exact arithmetic
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  mojo:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: prefix-dev/setup-pixi@d3f436a425481402e6a95a1d1fc10331c708cd9e
+        with:
+          cache: true
+      - name: Exact-arithmetic verification (Mojo + Python reference)
+        run: pixi run verify
