@@ -30,6 +30,10 @@ def Primitive (t : Quintuple) : Prop :=
 def Valid (t : Quintuple) : Prop :=
   Identity t ∧ OrderedPositive t ∧ Primitive t
 
+instance (t : Quintuple) : Decidable (Valid t) := by
+  unfold Valid Identity OrderedPositive Primitive
+  infer_instance
+
 def check (t : Quintuple) : Bool := decide (Valid t)
 
 /-- Exact certificate acceptance is sound for the Lean predicate. -/
