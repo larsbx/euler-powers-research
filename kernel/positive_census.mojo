@@ -10,23 +10,12 @@ fit Int64: 2*1000^5 = 2*10^15 < 2^63.
 from std.sys import argv
 from certified_records.codec import parse_canonical
 from finite_exact.integer_gcd import gcd_i64
+from pair_index import contains_sorted
 
 
 def fifth_int(x: Int) -> Int64:
     var base = Int64(x)
     return base * base * base * base * base
-
-
-def contains_sorted(values: List[Int64], target: Int64) -> Bool:
-    var lo = 0
-    var hi = len(values)
-    while lo < hi:
-        var mid = lo + (hi - lo) // 2
-        if values[mid] < target:
-            lo = mid + 1
-        else:
-            hi = mid
-    return lo < len(values) and values[lo] == target
 
 
 def primitive(a: Int, b: Int, c: Int, d: Int, e: Int) raises -> Bool:

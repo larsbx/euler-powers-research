@@ -13,6 +13,7 @@ lean --version | grep -q "version $(pin lean version),"
 (cd formal/lean && lake env lean Audit.lean)
 (cd formal/lean && lake build replay)
 python3 tests/test_lean_replay.py
+pixi run --locked pair-index-conformance
 
 # Replay the actual Mojo stdout, never a Python-reconstructed replacement.
 tmp="$(mktemp)"
