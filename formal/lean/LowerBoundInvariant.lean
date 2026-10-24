@@ -106,24 +106,24 @@ theorem lowerBound_ge_progress (lo hi mid : Nat)
 
 /-- With lo=hi, checking that location (if it exists) is equivalent to
 searching the whole original list. No earlier or later match remains. -/
-theorem lowerBound_done (xs : List Nat) (target at : Nat)
-    (h : LowerBoundInv xs target at at) :
-    (∃ hi : at < xs.length, xs[at] = target) ↔ target ∈ xs := by
+theorem lowerBound_done (xs : List Nat) (target pos : Nat)
+    (h : LowerBoundInv xs target pos pos) :
+    (∃ hi : pos < xs.length, xs[pos] = target) ↔ target ∈ xs := by
   constructor
   · rintro ⟨hat, heq⟩
     rw [← heq]
     exact List.getElem_mem hat
   · intro hmem
     obtain ⟨i, hi, heq⟩ := List.mem_iff_getElem.mp hmem
-    have hnolo : ¬ i < at := by
+    have hnolo : ¬ i < pos := by
       intro hlt
       have hstrict := h.2.2.1 i hi hlt
       omega
-    have hnohi : ¬ at < i := by
+    have hnohi : ¬ pos < i := by
       intro hlt
       have hlarge := h.2.2.2 i hi (by omega)
       omega
-    have heqi : i = at := by omega
+    have heqi : i = pos := by omega
     subst i
     exact ⟨hi, heq⟩
 
