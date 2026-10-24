@@ -46,7 +46,7 @@ The safety property enforces sound verification and the absence of
 premature publication. Concrete tests establish non-vacuous
 successful publication and refusal of invalid/unverified reports.
 
-The reported `Apalache --max-steps=4` result is **bounded model
+The reported `Apalache --max-steps=6` result is **bounded model
 checking**. It is not a theorem about all arbitrarily long traces.
 The finite model has two shard IDs and deliberately small count values;
 it does not model the arithmetic search itself.
