@@ -120,9 +120,9 @@ Safety properties require valid partition endpoints, bounded tickets,
 correctly validated per-shard claims and publication only after every
 shard is verified. Executable Quint tests cover successful recovery,
 stale-ticket rejection, false results, attempt exhaustion and attempted
-crashes of finalized shards. Apalache checks this finite model through
-8 state transitions, enough to include a crash/retry and successful
-publication witness.
+crashes of finalized shards. Apalache checks this finite model through six transitions;
+the separate Quint executable test exercises a longer successful
+crash/retry-and-publication trace for non-vacuity.
 
 **Limitations:** the real deployment may have an unbounded number of
 retries, more than two partitions, and network failures outside this
