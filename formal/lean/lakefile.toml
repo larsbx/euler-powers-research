@@ -1,6 +1,6 @@
 name = "euler_powers_formal"
 version = "0.1.0"
-defaultTargets = ["EulerPowers", "Modular", "replay"]
+defaultTargets = ["EulerPowers", "Modular", "PairIndex", "replay"]
 
 [[lean_lib]]
 name = "EulerPowers"
@@ -11,3 +11,6 @@ root = "Replay"
 
 [[lean_lib]]
 name = "Modular"
+
+[[lean_lib]]
+name = "PairIndex"
