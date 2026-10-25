@@ -21,6 +21,15 @@ jobs:
         run: pixi run --locked verify && pixi run --locked verify-research
       - name: Same-run pinned Mojo comparison (archived P2 vs packed P3)
         run: pixi run --locked python tests/benchmark_pair_index.py --output benchmarks/results/native-comparison.json
+      - name: Native same-run digit/CRT filter comparison
+        run: pixi run --locked python tests/benchmark_digit_filter.py --output benchmarks/results/digit-filter-comparison.json
+      - name: Preserve digit/CRT benchmark measurements
+        uses: actions/upload-artifact@v4
+        with:
+          name: native-digit-filter-benchmark
+          path: benchmarks/results/digit-filter-comparison.json
+          if-no-files-found: error
+          retention-days: 30
       - name: Preserve raw benchmark measurements
         uses: actions/upload-artifact@v4
         with:
