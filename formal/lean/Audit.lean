@@ -11,6 +11,7 @@ import ShardPlan
 import Int64Bounds
 import SignedLowerBound
 import PairPartition
+import PairTraversal
 
 /-! Audit all EulerPowers theorems for additional axioms and opaque holes. -/
 open Lean Elab Command in
