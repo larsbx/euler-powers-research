@@ -141,7 +141,7 @@ def main():
                                 expected.append(
                                     f'INDEX {case} {m} {c} {target} {a} {b}'
                                 )
-    max_packed = ((2 * 144**5) * 144 + 143) * 144 + 143
+    max_packed = ((2 * 144**5) * 145 + 143) * 145 + 143
     assert max_packed < 2**63
     expected.append(f'PACK {max_packed}')
     assert Counter(probe) == Counter(expected)
