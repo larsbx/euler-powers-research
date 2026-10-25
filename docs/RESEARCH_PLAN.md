@@ -95,6 +95,17 @@ and shares BigZ and gcd with the signed known-solution verifier. This
 is a prerequisite for evaluating larger bounds, not permission to widen
 those bounds or to promote finite computation into a theorem.
 
+## P4 decimal digit sums and CRT prefix filtering
+
+The [exact digit/CRT pruning contract](DIGIT_SUM_PRUNING.md) promotes
+generic decimal folds and a complete pair-power residue prefix to the
+pinned `finite-math-kernels` library. Euler search uses modulus 2475
+as a sound prefilter before exact index lookup, keeping partition
+counts and certificates unchanged. The independently verified B144
+counts reject 356,770 of 475,063 positive-complement right pairs;
+native same-host timing is tracked separately and does not follow
+from a rejection percentage alone.
+
 ## P3 packed representation index
 
 The [indexed representation-search contract](PACKED_PAIR_INDEX.md) stores
