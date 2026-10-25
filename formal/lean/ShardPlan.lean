@@ -41,7 +41,7 @@ theorem contiguousPlan_covers (cursor bound : Nat)
       by_cases hthis : e ≤ hi
       · exact ⟨lo, hi, by simp, by omega, hthis⟩
       · obtain ⟨nextLo, nextHi, hmem, hnextLo, hnextHi⟩ :=
-          ih (hi + 1) hrest e (by omega) hend
+          ih (hi + 1) hrest (by omega) hend
         exact ⟨nextLo, nextHi, by simp [hmem], hnextLo, hnextHi⟩
 
 /-- An accepted plan covers every requested height. Its definition also
