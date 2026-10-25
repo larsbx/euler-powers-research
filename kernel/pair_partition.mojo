@@ -8,7 +8,7 @@ Each right pair is visited once per height, NOT once per compatible key.
 from std.sys import argv
 from certified_records.codec import parse_canonical
 from pair_index import lower_bound
-from positive_census import fifth_int, primitive
+from euler_exact import fifth_int, pair_sum, complement, checked_pack_pair, primitive5
 
 
 def key(s: Int64, t: Int64, modulus: Int) -> Tuple[Int, Int]:
@@ -17,24 +17,24 @@ def key(s: Int64, t: Int64, modulus: Int) -> Tuple[Int, Int]:
     return (min(r, q), max(r, q))
 
 
-def build_buckets(powers: List[Int64], e: Int, modulus: Int) -> List[List[Int64]]:
+def build_buckets(powers: List[Int64], e: Int, modulus: Int) raises -> List[List[Int64]]:
     var buckets = List[List[Int64]]()
     for _ in range(modulus):
         buckets.append(List[Int64]())
     for a in range(1, e):
         for b in range(a, e):
-            var s = powers[a] + powers[b]
+            var s = pair_sum(powers[a], powers[b])
             buckets[Int(s % Int64(modulus))].append(s)
     for r in range(modulus):
         sort(buckets[r])
     return buckets^
 
 
-def matching_pairs(powers: List[Int64], target: Int64, c: Int) -> List[Tuple[Int, Int]]:
+def matching_pairs(powers: List[Int64], target: Int64, c: Int) raises -> List[Tuple[Int, Int]]:
     var pairs = List[Tuple[Int, Int]]()
     for a in range(1, c + 1):
         for b in range(a, c + 1):
-            if powers[a] + powers[b] == target:
+            if pair_sum(powers[a], powers[b]) == target:
                 pairs.append((a, b))
     return pairs^
 
@@ -42,20 +42,19 @@ def matching_pairs(powers: List[Int64], target: Int64, c: Int) -> List[Tuple[Int
 # Base-stride encoding sorts records first by exact sum, then by (a,b).
 # Here stride=145, 1<=a<=b<e<=144: no carries; all keys fit Int64
 # for the executable's conservative e<=144 envelope.
-def pack_pair(value: Int64, a: Int, b: Int, stride: Int) -> Int64:
-    var base = Int64(stride)
-    return (value * base + Int64(a)) * base + Int64(b)
+def pack_pair(value: Int64, a: Int, b: Int, stride: Int) raises -> Int64:
+    return checked_pack_pair(value, a, b, stride)
 
 
 def build_indexed_buckets(
     powers: List[Int64], e: Int, modulus: Int
-) -> List[List[Int64]]:
+) raises -> List[List[Int64]]:
     var buckets = List[List[Int64]]()
     for _ in range(modulus):
         buckets.append(List[Int64]())
     for a in range(1, e):
         for b in range(a, e):
-            var value = powers[a] + powers[b]
+            var value = pair_sum(powers[a], powers[b])
             buckets[Int(value % Int64(modulus))].append(
                 pack_pair(value, a, b, 145)
             )
@@ -66,11 +65,11 @@ def build_indexed_buckets(
 
 def matching_indexed_pairs(
     packed_bucket: List[Int64], target: Int64, c: Int, stride: Int
-) -> List[Tuple[Int, Int]]:
+) raises -> List[Tuple[Int, Int]]:
     var out = List[Tuple[Int, Int]]()
     var base = Int64(stride)
     var width = base * base
-    var pos = lower_bound(packed_bucket, target * width, False)
+    var pos = lower_bound(packed_bucket, checked_pack_pair(target, 0, 0, stride), False)
     while pos < len(packed_bucket):
         var packed = packed_bucket[pos]
         if packed // width != target:
@@ -108,8 +107,8 @@ def partition(bound: Int, modulus: Int) raises:
         # No rescanning of right pairs for every compatible key.
         for c in range(1, e):
             for d in range(c, e):
-                var right = powers[c] + powers[d]
-                var target = powers[e] - right
+                var right = pair_sum(powers[c], powers[d])
+                var target = complement(powers[e], powers[c], powers[d])
                 if target <= 0:
                     continue
                 var owner = key(target, right, modulus)
@@ -122,7 +121,7 @@ def partition(bound: Int, modulus: Int) raises:
                     buckets[Int(target % Int64(modulus))], target, c, 145
                 )
                 for p in pairs:
-                    if primitive(p[0], p[1], c, d, e):
+                    if primitive5(Int64(p[0]), Int64(p[1]), Int64(c), Int64(d), Int64(e)):
                         print("CERT E5v1", p[0], p[1], c, d, e)
                         hits[offset] += 1
                         total += 1
