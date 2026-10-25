@@ -35,7 +35,7 @@ def main() -> None:
         cwd=ROOT, capture_output=True, text=True, check=True,
     ).stdout
     assert source.count("\nCASE ") == 20 and source.startswith("CASE 0 ")
-    assert source.count("\nEND\n") == 20 and source.endswith("END\n")
+    assert source.count("\nEND\n") == 21 and source.endswith("END\n")
     checked = check_lean(source)
     assert checked.returncode == 0, checked.stdout + checked.stderr
     assert "replayed 21" in checked.stdout, checked.stdout
