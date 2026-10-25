@@ -18,7 +18,7 @@ def exactRecordLE (x y : Nat × Nat × Nat) : Bool :=
   else if y.1 < x.1 then false
   else if x.2.1 < y.2.1 then true
   else if y.2.1 < x.2.1 then false
-  else x.2.2 ≤ y.2.2
+  else decide (x.2.2 ≤ y.2.2)
 
 def exactSortedRecords (height : Nat) : List (Nat × Nat × Nat) :=
   (exactPairRecords height).mergeSort exactRecordLE
@@ -50,7 +50,6 @@ theorem exact_record_injective
     {s t a b c d : Nat}
     (h : (s, a, b) = (t, c, d)) :
     s = t ∧ a = c ∧ b = d := by
-  cases h
-  exact ⟨rfl, rfl, rfl⟩
+  simpa only [Prod.mk.injEq] using h
 
 end EulerPowers
