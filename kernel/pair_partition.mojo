@@ -39,7 +39,7 @@ def matching_pairs(powers: List[Int64], target: Int64, c: Int) -> List[Tuple[Int
 
 
 # Base-stride encoding sorts records first by exact sum, then by (a,b).
-# Here stride=e, 1<=a<=b<e: no carries, and all packed keys fit Int64
+# Here stride=145, 1<=a<=b<e<=144: no carries; all keys fit Int64
 # for the executable's conservative e<=144 envelope.
 def pack_pair(value: Int64, a: Int, b: Int, stride: Int) -> Int64:
     var base = Int64(stride)
@@ -56,7 +56,7 @@ def build_indexed_buckets(
         for b in range(a, e):
             var value = powers[a] + powers[b]
             buckets[Int(value % Int64(modulus))].append(
-                pack_pair(value, a, b, e)
+                pack_pair(value, a, b, 145)
             )
     for residue in range(modulus):
         sort(buckets[residue])
@@ -118,7 +118,7 @@ def partition(bound: Int, modulus: Int) raises:
                 # this exact sum; decode every representation until the sum
                 # changes. No O(c^2) reconstruction scan remains.
                 var pairs = matching_indexed_pairs(
-                    buckets[Int(target % Int64(modulus))], target, c, e
+                    buckets[Int(target % Int64(modulus))], target, c, 145
                 )
                 for p in pairs:
                     if primitive(p[0], p[1], c, d, e):
