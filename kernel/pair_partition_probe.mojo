@@ -40,7 +40,7 @@ def main():
                     print("INDEX", 0, m, c, target, p[0], p[1])
                 var second = matching_indexed_pairs(
                     index_b[Int(Int64(target) % Int64(m))],
-                    Int64(target), c, 5
+                    Int64(target), c, 145
                 )
                 for p in second:
                     print("INDEX", 1, m, c, target, p[0], p[1])
