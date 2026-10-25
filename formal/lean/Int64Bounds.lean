@@ -30,7 +30,7 @@ theorem pair_sum_bound (a b : Nat)
     a ^ 5 + b ^ 5 ≤ PairCap := by
   have h1 := fifth_bound a ha
   have h2 := fifth_bound b hb
-  unfold PairCap at *
+  unfold FifthCap PairCap at *
   omega
 
 /-- All individual cached fifth powers and pair sums fit signed Int64. -/
@@ -57,7 +57,17 @@ theorem signed_complement_bound (e c d : Nat)
   have e5 := fifth_bound e he
   have c5 := fifth_bound c hc
   have d5 := fifth_bound d hd
+  have hei : Int.ofNat (e ^ 5) ≤ (FifthCap : Int) :=
+    Int.ofNat_le.mpr e5
+  have hci : Int.ofNat (c ^ 5) ≤ (FifthCap : Int) :=
+    Int.ofNat_le.mpr c5
+  have hdi : Int.ofNat (d ^ 5) ≤ (FifthCap : Int) :=
+    Int.ofNat_le.mpr d5
+  have heNonneg : (0 : Int) ≤ Int.ofNat (e ^ 5) := by omega
+  have hcNonneg : (0 : Int) ≤ Int.ofNat (c ^ 5) := by omega
+  have hdNonneg : (0 : Int) ≤ Int.ofNat (d ^ 5) := by omega
   unfold signedComplement
+  unfold PairCap FifthCap at *
   constructor <;> omega
 
 /-- All signed complement values fit the Int64 range. -/
@@ -75,7 +85,7 @@ theorem complement_fits_int64 (e c d : Nat)
 Those exact natural operations agree with the fifth-power expression. -/
 theorem fifth_mul_expansion (x : Nat) :
     x * x * x * x * x = x ^ 5 := by
-  simp [pow_succ, Nat.mul_assoc]
+  simp [Nat.pow_succ, Nat.mul_assoc]
 
 /-- Bounds at all intermediate multiplications, including x=0. -/
 theorem intermediate_power_bound (x k : Nat) (hx : x ≤ MaxSearchHeight)
@@ -86,6 +96,6 @@ theorem intermediate_power_bound (x k : Nat) (hx : x ≤ MaxSearchHeight)
     | zero => decide
     | succ k => simp [FifthCap]
   · have hxpos : 0 < x := by omega
-    exact (Nat.pow_le_pow_right hxpos hk).trans (fifth_bound x hx)
+    exact Nat.le_trans (Nat.pow_le_pow_right hxpos hk) (fifth_bound x hx)
 
 end EulerPowers
