@@ -148,7 +148,12 @@ def main():
     max_packed = ((2 * 144**5) * 145 + 143) * 145 + 143
     assert max_packed < 2**63
     expected.append(f'PACK {max_packed}')
-    assert Counter(probe) == Counter(expected)
+    missing = Counter(expected) - Counter(probe)
+    unexpected = Counter(probe) - Counter(expected)
+    assert not missing and not unexpected, (
+        f"compiled packed probe mismatch: missing={missing.most_common(12)}, "
+        f"unexpected={unexpected.most_common(12)}"
+    )
     assert 'INDEX 0 1 4 5 1 4' in probe
     assert 'INDEX 0 1 4 5 2 3' in probe
     for a, b in ((1, 1), (1, 2), (2, 2)):
