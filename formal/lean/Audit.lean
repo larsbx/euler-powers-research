@@ -14,6 +14,7 @@ import PairPartition
 import PairTraversal
 import PackedPairIndex
 import PrimePowerSieve
+import DigitSumPruning
 
 /-! Audit all EulerPowers theorems for additional axioms and opaque holes. -/
 open Lean Elab Command in
