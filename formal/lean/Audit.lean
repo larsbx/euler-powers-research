@@ -7,6 +7,7 @@ import BinarySearch
 import LowerBoundInvariant
 import Reconstruction
 import CertifiedLowerBound
+import ShardPlan
 
 /-! Audit all EulerPowers theorems for additional axioms and opaque holes. -/
 open Lean Elab Command in
