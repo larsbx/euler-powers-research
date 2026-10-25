@@ -104,3 +104,9 @@ partition contract, and independently replayable per-partition evidence.
 Changing worker admission or publication semantics would then require a
 separate Quint extension. Current bounded agreement does not establish
 large-domain exhaustion, a new solution, or an asymptotic conjecture.
+
+## P2 one-pass traversal follow-up
+
+The subsequent [bucket traversal and digest replay](BUCKET_TRAVERSAL.md)
+removes the P1 repeated right-pair scan per compatible key while preserving
+this exact bounded output format and independently checked partition counts.

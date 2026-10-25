@@ -1,8 +1,8 @@
-"""Small positive pair-sum residue partition prototype; 2 <= B <= 144.
+"""Single-pass positive pair-sum residue traversal; 2 <= B <= 144.
 
 Buckets contain ALL pair sums, including repeats. Lookup is followed by
 exhaustive ordered reconstruction, never a single representative lookup.
-PART rows count right-pair visits and primitive certificates per owning key.
+PART rows count right-pair visits and primitive certificates per owning key.\nEach right pair is visited once per height, NOT once per compatible key.
 """
 from std.sys import argv
 from certified_records.codec import parse_canonical
@@ -47,29 +47,46 @@ def partition(bound: Int, modulus: Int) raises:
         powers.append(fifth_int(i))
     var total = 0
     for e in range(2, bound + 1):
+        # One indexed left-pair multiset per height. The same pair may share
+        # an exact sum with other representations; no sum is deduplicated.
         var buckets = build_buckets(powers, e, modulus)
+        # Flat arrays avoid allocating a sparse list per compatible key.
+        # Only 0 <= lo <= hi < modulus are ever incremented.
+        var visits = List[Int]()
+        var hits = List[Int]()
+        for _ in range(modulus * modulus):
+            visits.append(0)
+            hits.append(0)
+        # Crucial P2 change: visit each right pair ONCE, route it to its
+        # unique key, then query only the appropriate left residue bucket.
+        # No rescanning of right pairs for every compatible key.
+        for c in range(1, e):
+            for d in range(c, e):
+                var right = powers[c] + powers[d]
+                var target = powers[e] - right
+                if target <= 0:
+                    continue
+                var owner = key(target, right, modulus)
+                var offset = owner[0] * modulus + owner[1]
+                visits[offset] += 1
+                if not contains_sorted(buckets[Int(target % Int64(modulus))], target):
+                    continue
+                # Membership is only a prefilter: replay every a<=b<=c
+                # representation, including collisions, before gcd testing.
+                var pairs = matching_pairs(powers, target, c)
+                for p in pairs:
+                    if primitive(p[0], p[1], c, d, e):
+                        print("CERT E5v1", p[0], p[1], c, d, e)
+                        hits[offset] += 1
+                        total += 1
+        # Canonical row order, including zero rows, matches the P1 format.
+        # The row key is compatible by target+right=e^5 (mod modulus).
         for lo in range(modulus):
             for hi in range(lo, modulus):
                 if (lo + hi) % modulus != Int(powers[e] % Int64(modulus)):
                     continue
-                var visits = 0
-                var matches = 0
-                for c in range(1, e):
-                    for d in range(c, e):
-                        var right = powers[c] + powers[d]
-                        var target = powers[e] - right
-                        if target <= 0 or key(target, right, modulus) != (lo, hi):
-                            continue
-                        visits += 1
-                        if not contains_sorted(buckets[Int(target % Int64(modulus))], target):
-                            continue
-                        var pairs = matching_pairs(powers, target, c)
-                        for p in pairs:
-                            if primitive(p[0], p[1], c, d, e):
-                                print("CERT E5v1", p[0], p[1], c, d, e)
-                                matches += 1
-                total += matches
-                print("PART", e, lo, hi, visits, matches)
+                var offset = lo * modulus + hi
+                print("PART", e, lo, hi, visits[offset], hits[offset])
     print("TOTAL", total)
 
 

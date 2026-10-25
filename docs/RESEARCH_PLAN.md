@@ -70,3 +70,10 @@ explicitly bounded domains.
 The small positive-domain partition prototype, source-level Lean coverage and
 multiplicity proofs, independent Python conformance checks and deterministic
 manifest are described in [the partition contract](PAIR_PARTITION.md).
+
+## P2 bounded bucket traversal and independent replay
+
+The [one-pass traversal contract](BUCKET_TRAVERSAL.md) implements a
+representation-preserving residue lookup and domain-separated per-key replay
+for the same strictly positive B<=144 domain. It is finite execution evidence,
+not a large-range census, runtime speedup assertion, or a conjecture proof.

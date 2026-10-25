@@ -14,6 +14,7 @@ import tempfile
 import sys
 
 from check_research_kernels import certificate_digest, parse_census, python_census, run_mojo
+from replay_partition import replay, digest_lines
 
 ROOT = Path(__file__).resolve().parents[1]
 MANIFEST = ROOT / 'certificates/pair_partition_e144_m35.json'
@@ -65,6 +66,13 @@ def validate(lines, bound, modulus):
     assert lines[0] == f'DOMAIN E5PARTv1 {bound} {modulus}'
     assert lines[-1].startswith('TOTAL ')
     assert Counter(lines) == expected_stream(bound, modulus)
+    reference_parts, reference_certs = oracle(bound, modulus)
+    root = (
+        '5b8ed68d8512bb11bf4ac57e2f79657e65893427c157c0615b784d86671af482'
+        if (bound, modulus) == (144, 35) else None
+    )
+    report = replay(lines, bound, modulus, reference_parts, reference_certs, root)
+    assert len(digest_lines(report)) == len(reference_parts) + 1
     certs = [tuple(map(int, line.split()[2:])) for line in lines if line.startswith('CERT ')]
     assert len(certs) == len(set(certs))
     assert sorted(certs) == sorted(python_census(bound))
@@ -155,6 +163,32 @@ def main():
                 pass
             else:
                 raise AssertionError('corrupt stream accepted')
+        # P2 replay rejects stale/wrong-domain streams, duplicate/missing
+        # keys, invalid per-key counts, invalid hashes and noncanonical rows.
+        reference_parts, reference_certs = oracle(144, 35)
+        good = replay(full, 144, 35, reference_parts, reference_certs,
+                      '5b8ed68d8512bb11bf4ac57e2f79657e65893427c157c0615b784d86671af482')
+        assert good['partition_rows'] == 2574 and good['right_pair_visits'] == 475063
+        assert good['certificates'] == 1
+        bad_replays = [
+            (full, 143, 35, None),
+            (full, 144, 34, None),
+            (full, 144, 35, '0' * 64),
+            (full[:2] + [full[1]] + full[2:], 144, 35, None),
+            (full[:1] + full[2:], 144, 35, None),
+            ([s.replace('PART 2 0 32', 'PART 2 00 32') for s in full], 144, 35, None),
+            ([s.replace('PART 2 0 32 0 0', 'PART 2 0 32 1 0')
+              for s in full], 144, 35, None),
+            (full[:cert_index] + full[cert_index+1:], 144, 35, None),
+        ]
+        for stream, b, m, digest in bad_replays:
+            try:
+                replay(stream, b, m, oracle(b, m)[0], oracle(b, m)[1], digest)
+            except AssertionError:
+                pass
+            else:
+                raise AssertionError('stale or corrupted partition accepted by replay')
+        print('P2 replay: domain, keys, counts and digests verified; 8 corrupt streams rejected.')
         record = manifest(full)
         if '--write' in sys.argv:
             header = {k: v for k, v in record.items() if k != 'partitions'}

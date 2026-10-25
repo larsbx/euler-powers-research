@@ -314,3 +314,14 @@ conformance is not a verified compiler or machine-code refinement proof.
 The small positive-domain partition prototype, source-level Lean coverage and
 multiplicity proofs, independent Python conformance checks and deterministic
 manifest are described in [the partition contract](PAIR_PARTITION.md).
+
+## P2 one-pass residue-key traversal theorem
+
+`PairTraversal.lean` extends the partition specification to show that
+every valid positive primitive tuple has its right pair in the abstract
+ordered enumeration, its left pair in the selected residue bucket, and
+one unique unordered residue-key owner. The same-domain raw producer
+output is independently replayed in Python with canonical per-partition
+SHA-256 digests. Neither fact establishes compiler-level correctness,
+producer authenticity or proof of completeness for unbounded searches.
+See [the P2 contract](BUCKET_TRAVERSAL.md).
