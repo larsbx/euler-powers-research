@@ -166,8 +166,28 @@ def check_negative_cases() -> None:
             raise AssertionError(f"malformed or nonprimitive certificate accepted: {bad}")
 
 
+def check_input_guards() -> None:
+    # Every rejected case must fail explicitly at the Mojo entry point.
+    bad_args = [
+        ("0",), ("1",), ("1001",), ("-1",), ("02",),
+        ("2", "1001"), ("80", "79"), ("0", "20"),
+        ("-1", "20"), ("20", "00020"),
+    ]
+    for args in bad_args:
+        command = ["bash", "scripts/run_mojo.sh", "kernel/positive_census.mojo", *args]
+        result = subprocess.run(
+            command, cwd=ROOT, text=True, capture_output=True,
+            check=False, timeout=90,
+        )
+        assert result.returncode != 0, (args, result.stdout, result.stderr)
+    result = run_mojo("kernel/positive_census.mojo", "2")
+    assert result == ["CENSUS 2 0"], result
+    print("Mojo bounded Int64 intake: 10 invalid requests refused; height 2 accepted.")
+
+
 def main() -> None:
     check_ring()
+    check_input_guards()
     check_negative_cases()
     check_census(16)
     check_census(144)
