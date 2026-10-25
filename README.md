@@ -28,6 +28,7 @@ Four primitive integer solutions are currently reported when **negative summands
 - [Foundations and proved elementary lemmas](docs/FOUNDATIONS.md)
 - [Open questions and conjecture hierarchy](docs/CONJECTURES.md)
 - [Proof obligations and research stages](docs/RESEARCH_PLAN.md)
+- [Literature reviews and weekly review protocol](docs/literature/README.md)
 - [Exact known-solution data](data/known_solutions.csv)
 - [Mojo-native BigZ verifier and pinned toolchain](docs/MOJO.md)
 - [Finite-ring and bounded census implementation](docs/BOUNDED_SEARCH.md)
