@@ -115,7 +115,11 @@ def prerequisites():
 
 def main():
     prerequisites()
-    try:\n        probe = run_mojo('kernel/pair_partition_probe.mojo')\n    except subprocess.CalledProcessError as error:\n        print(error.stderr, file=sys.stderr)\n        raise
+    try:
+        probe = run_mojo('kernel/pair_partition_probe.mojo')
+    except subprocess.CalledProcessError as error:
+        print(error.stderr, file=sys.stderr)
+        raise
     expected = []
     for m in (1, 2, 7, 11, 35):
         for s in range(71):
