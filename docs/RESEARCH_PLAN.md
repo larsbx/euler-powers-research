@@ -77,3 +77,12 @@ The [one-pass traversal contract](BUCKET_TRAVERSAL.md) implements a
 representation-preserving residue lookup and domain-separated per-key replay
 for the same strictly positive B<=144 domain. It is finite execution evidence,
 not a large-range census, runtime speedup assertion, or a conjecture proof.
+
+## P3 packed representation index
+
+The [indexed representation-search contract](PACKED_PAIR_INDEX.md) stores
+all (sum,a,b) pair records in a bounded fixed-radix Int64 multiset,
+replaces per-hit quadratic reconstruction with exact-sum range lookup,
+and compares P2 vs P3 using the pinned native toolchain. It adds Lean
+encoding lemmas and independent synthetic collision checks. Keep runtime
+measurements and search-completeness claims separate from theorems.
