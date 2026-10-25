@@ -14,6 +14,8 @@ lean --version | grep -q "version $(pin lean version),"
 (cd formal/lean && lake build replay)
 python3 tests/test_lean_replay.py
 python3 tests/test_lean_shards.py
+(cd formal/lean && lake build trace-replay)
+pixi run --locked trace-conformance
 pixi run --locked pair-index-conformance
 
 # Replay the actual Mojo stdout, never a Python-reconstructed replacement.
