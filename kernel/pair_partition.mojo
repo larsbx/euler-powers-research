@@ -1,8 +1,9 @@
 """Single-pass positive pair-sum residue traversal; 2 <= B <= 144.
 
-Buckets contain ALL pair sums, including repeats. Lookup is followed by
-exhaustive ordered reconstruction, never a single representative lookup.
-PART rows count right-pair visits and primitive certificates per owning key.\nEach right pair is visited once per height, NOT once per compatible key.
+Buckets contain every packed (sum,a,b) representation; exact-sum
+range lookup returns all matching ordered representations.
+PART rows count right-pair visits and primitive certificates per owning key.
+Each right pair is visited once per height, NOT once per compatible key.
 """
 from std.sys import argv
 from certified_records.codec import parse_canonical
