@@ -28,8 +28,8 @@ def main() raises:
     # representations and all equal-valued synthetic-power combinations.
     var repeated: List[Int64] = [0, 2, 2, 5, 5]
     for m in moduli:
-        var index_a = build_indexed_buckets(powers, 5, m)
-        var index_b = build_indexed_buckets(repeated, 5, m)
+        var index_a = build_indexed_buckets(powers, 5, m, 145)
+        var index_b = build_indexed_buckets(repeated, 5, m, 145)
         for c in range(1, 5):
             for target in range(13):
                 var first = matching_indexed_pairs(
@@ -46,3 +46,16 @@ def main() raises:
                     print("INDEX", 1, m, c, target, p[0], p[1])
     # Large-bound safety witness tests near the edge of the packed range.
     print("PACK", pack_pair(Int64(2) * Int64(144) * Int64(144) * Int64(144) * Int64(144) * Int64(144), 143, 143, 145))
+
+    # New B256 encoding retains both synthetic colliding representations.
+    for m in moduli:
+        var wide = build_indexed_buckets(powers, 5, m, 257)
+        var pairs = matching_indexed_pairs(
+            wide[Int(Int64(5) % Int64(m))], Int64(5), 4, 257
+        )
+        for p in pairs:
+            print("WIDE", m, p[0], p[1])
+    print("WIDEPACK", pack_pair(
+        Int64(2) * Int64(256) * Int64(256) * Int64(256) * Int64(256) * Int64(256),
+        256, 256, 257
+    ))
