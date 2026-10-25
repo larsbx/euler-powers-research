@@ -308,3 +308,9 @@ with Mojo's `Int64` input domain, including negatives and extrema.
 
 The theorem is universal over mathematical Int; finite native trace
 conformance is not a verified compiler or machine-code refinement proof.
+
+## Pair-sum residue partition milestone
+
+The small positive-domain partition prototype, source-level Lean coverage and
+multiplicity proofs, independent Python conformance checks and deterministic
+manifest are described in [the partition contract](PAIR_PARTITION.md).

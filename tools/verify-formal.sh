@@ -17,6 +17,7 @@ python3 tests/test_lean_shards.py
 (cd formal/lean && lake build trace-replay)
 pixi run --locked trace-conformance
 pixi run --locked pair-index-conformance
+pixi run --locked python tests/test_pair_partition.py
 
 # Replay the actual Mojo stdout, never a Python-reconstructed replacement.
 tmp="$(mktemp)"

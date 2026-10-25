@@ -64,3 +64,9 @@ pairs, no overlap between partitions, and no confusion between the
 nonnegative and signed/zero-term regimes. Only then compare its measured
 performance against the existing sorted membership search on identical
 explicitly bounded domains.
+
+## Pair-sum residue partition milestone
+
+The small positive-domain partition prototype, source-level Lean coverage and
+multiplicity proofs, independent Python conformance checks and deterministic
+manifest are described in [the partition contract](PAIR_PARTITION.md).
