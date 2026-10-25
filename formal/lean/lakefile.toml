@@ -1,6 +1,6 @@
 name = "euler_powers_formal"
 version = "0.1.0"
-defaultTargets = ["EulerPowers", "Modular", "PairIndex", "SortedIndex", "BinarySearch", "LowerBoundInvariant", "Reconstruction", "CertifiedLowerBound", "ShardPlan", "replay"]
+defaultTargets = ["EulerPowers", "Modular", "PairIndex", "SortedIndex", "BinarySearch", "LowerBoundInvariant", "Reconstruction", "CertifiedLowerBound", "ShardPlan", "Int64Bounds", "replay"]
 
 [[lean_lib]]
 name = "EulerPowers"
@@ -32,3 +32,6 @@ name = "CertifiedLowerBound"
 
 [[lean_lib]]
 name = "ShardPlan"
+
+[[lean_lib]]
+name = "Int64Bounds"
