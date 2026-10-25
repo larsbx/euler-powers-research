@@ -30,6 +30,15 @@ jobs:
           path: benchmarks/results/digit-filter-comparison.json
           if-no-files-found: error
           retention-days: 30
+      - name: High-precision 2475 vs 99000 native comparison
+        run: pixi run --locked python tests/benchmark_modulus_selection.py --output benchmarks/results/modulus-selection.json
+      - name: Preserve modulus-selection benchmark
+        uses: actions/upload-artifact@v4
+        with:
+          name: native-modulus-selection
+          path: benchmarks/results/modulus-selection.json
+          if-no-files-found: error
+          retention-days: 30
       - name: Preserve raw benchmark measurements
         uses: actions/upload-artifact@v4
         with:

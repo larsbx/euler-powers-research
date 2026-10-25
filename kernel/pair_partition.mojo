@@ -96,7 +96,7 @@ def partition(bound: Int, modulus: Int) raises:
         # One indexed left-pair multiset per height. The same pair may share
         # an exact sum with other representations; no sum is deduplicated.
         var buckets = build_indexed_buckets(powers, e, modulus)
-        var digit_filter = PairPowerResiduePrefix(2475, 5)
+        var digit_filter = PairPowerResiduePrefix(99000, 5)
         # Flat arrays avoid allocating a sparse list per compatible key.
         # Only 0 <= lo <= hi < modulus are ever incremented.
         var visits = List[Int]()
@@ -118,7 +118,7 @@ def partition(bound: Int, modulus: Int) raises:
                 var owner = key(target, right, modulus)
                 var offset = owner[0] * modulus + owner[1]
                 visits[offset] += 1
-                # Exact composite CRT residue membership (9*11*25).
+                # Exact composite CRT residue membership (9*11*1000).
                 # No valid a<=b<=c complement is ever rejected.
                 # Keep ownership/visit counters BEFORE the prefilter:
                 # legacy E5PARTv1 manifests remain byte-for-byte stable.

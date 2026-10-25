@@ -31,12 +31,12 @@ def scan(bound: Int, modulus: Int) raises:
 
 def main() raises:
     for bound in [8, 48, 144]:
-        for modulus in [9, 11, 25, 99, 2475]:
+        for modulus in [9, 11, 25, 99, 2475, 99000]:
             scan(bound, modulus)
-    var witness = PairPowerResiduePrefix(2475, 5)
+    var witness = PairPowerResiduePrefix(99000, 5)
     for _ in range(110):
         _ = witness.advance()
     var t = checked_fifth_int(144) - checked_fifth_int(110) - checked_fifth_int(133)
     if not witness.contains(Int(t)):
         raise Error("legitimate primitive witness filtered")
-    print("WITNESS", Int(t % 2475))
+    print("WITNESS", Int(t % 99000))

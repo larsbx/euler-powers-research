@@ -103,6 +103,9 @@ manifest are described in [the partition contract](docs/PAIR_PARTITION.md). The
 extend this bounded positive census without changing its arithmetic scope. The
 [collision-preserving packed representation index](docs/PACKED_PAIR_INDEX.md)
 replaces per-hit exhaustive reconstruction and records controlled native benchmarks.
+The [99,000 CRT-modulus selection](docs/MODULUS_SELECTION.md) refines
+three-digit, alternating-digit and digit-sum obstructions with independent
+native timing and exact candidate retention tests.
 The [exact decimal-digit/CRT prefix sieve](docs/DIGIT_SUM_PRUNING.md) now
 uses a shared Mojo kernel to reject impossible complements before indexed
 lookup, without changing canonical search records.
