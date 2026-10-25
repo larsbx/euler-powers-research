@@ -129,9 +129,28 @@ def main():
         for a in range(1, c+1):
             for b in range(a, c+1):
                 expected.append(f'PAIR {c} {a+b} {a} {b}')
+    # Independently enumerate every signed-free synthetic representation;
+    # the compiled packed-index implementation is exercised on each case.
+    for m in (1, 2, 7, 11, 35):
+        for case, values in enumerate(((0, 1, 2, 3, 4), (0, 2, 2, 5, 5))):
+            for c in range(1, 5):
+                for target in range(13):
+                    for a in range(1, 5):
+                        for b in range(a, 5):
+                            if b <= c and values[a] + values[b] == target:
+                                expected.append(
+                                    f'INDEX {case} {m} {c} {target} {a} {b}'
+                                )
+    max_packed = ((2 * 144**5) * 144 + 143) * 144 + 143
+    assert max_packed < 2**63
+    expected.append(f'PACK {max_packed}')
     assert Counter(probe) == Counter(expected)
+    assert 'INDEX 0 1 4 5 1 4' in probe
+    assert 'INDEX 0 1 4 5 2 3' in probe
+    for a, b in ((1, 1), (1, 2), (2, 2)):
+        assert f'INDEX 1 11 4 4 {a} {b}' in probe
     assert 'PAIR 4 5 1 4' in probe and 'PAIR 4 5 2 3' in probe
-    print('25,205 ownership probes and synthetic colliding bucket/reconstruction checks passed.')
+    print('25,205 ownership probes, packed index collisions and synthetic repeated-power reconstruction passed.')
     with tempfile.TemporaryDirectory() as tmp:
         binary = str(Path(tmp) / 'partition')
         subprocess.run(['mojo', 'build', '-I', 'kernel', '-I', '.deps/finite-math-kernels/kernel',
