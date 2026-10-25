@@ -264,3 +264,30 @@ nonnegative base and the Lean theorem proves intermediate powers remain
 bounded. CI also rejects malformed or out-of-range Mojo input.
 Compiler-level correspondence of the native `Int64` implementation
 remains an independent verification obligation.
+
+## Observational correspondence: native Mojo lower-bound traces
+
+`kernel/pair_index.mojo` now contains **one** lower-bound search body
+used by both production `contains_sorted` and its trace-enabled entry.
+The native `pair_index_trace_probe.mojo` emits a canonical transcript of
+21 deterministic sorted signed-list cases (including empty, duplicate,
+negative, fifth-power and 64-bit boundary inputs). Each CASE declares
+its complete input; every STEP records its pre-transition bounds,
+midpoint and pivot; STOP and RESULT record the termination state.
+
+`formal/lean/TraceReplay.lean` independently checks the exact
+signed-Int64 inputs, sortedness, initial state, every observed loop step,
+midpoint and pivot, transition choice, total number of steps, terminal
+partition invariant, first-match index, exact membership and output.
+It rejects omitted, extra, reordered, forged or malformed steps. The
+adversarial integration suite corrupts twelve transcript properties and
+requires Lean to refuse each one. On valid traces, the producer also
+checks that traced and production-untraced calls return the same answer.
+
+**Assurance boundary:** This is a machine-checkable *finite observational
+correspondence*, not a universal translation validation or compiler proof.
+Lean verifies the trace **as emitted by the executable**; it cannot
+establish that the executable did not conceal events, that a false input
+vector was not claimed, or that every possible machine state was covered.
+The next research step is stronger cross-language refinement / verified
+interpreter or proof-carrying lower-level execution evidence.

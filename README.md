@@ -78,3 +78,7 @@ A Lean-executable contiguous height-shard validator now checks each actual
 Mojo shard's reported witnesses and rejects gaps or overlaps in the declared
 coverage plan. This is distinct from proving that each worker found every
 solution. See [formal verification](docs/FORMAL_VERIFICATION.md).
+
+The Mojo lookup now emits optional deterministic loop traces that an
+independent Lean executable replays step-by-step in CI. This is finite
+execution correspondence evidence, not a compiler-level proof of all runs.
