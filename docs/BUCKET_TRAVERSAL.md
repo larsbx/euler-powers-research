@@ -1,6 +1,6 @@
 # P2: one-pass bounded pair-sum bucket traversal and independent replay
 
-**Status:** implemented and subject to the pinned hosted CI gates (PR against main).
+**Status:** merged in PR #28; proof and pinned CI gates passed.
 This is a *strictly positive*, primitive, ordered fifth-power **finite census**
 algorithm, not an exhaustive verification of any published million-height search.
 
