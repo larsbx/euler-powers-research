@@ -19,6 +19,7 @@ pixi run --locked trace-conformance
 pixi run --locked pair-index-conformance
 pixi run --locked python tests/test_pair_partition.py
 pixi run --locked python tests/test_euler_exact_bridge.py
+pixi run --locked python tests/test_prime_power_sieve.py
 
 # Replay the actual Mojo stdout, never a Python-reconstructed replacement.
 tmp="$(mktemp)"
