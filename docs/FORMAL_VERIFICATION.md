@@ -225,3 +225,30 @@ The *production* `contains_sorted` function is imported by the same Mojo
 test driver, so the tests do not accidentally validate a different
 implementation. This strengthens empirical compiler-level confidence;
 a passing bounded test is not a universal refinement theorem.
+
+## Generic contiguous-shard plan and Lean replay
+
+`ShardPlan.lean` checks a sequence of exact closed integer intervals,
+starting at height 2 and ending at the declared bound. The theorem
+`validPlan_covers` proves **every** height in [2, B] belongs to a
+declared interval whenever the executable plan checker accepts. Missing
+heights, overlapping boundaries, extra heights and malformed plan
+coordinates are rejected. The formal gate replays the actual Mojo
+`census-shard-a` and `census-shard-b` outputs in the extended Lean
+`replay shard` CLI and validates the concrete plan in `replay plan`.
+
+Each shard's canonical start/end fields, count, primitive positive
+identities and witness heights are checked independently. This closes
+the **metadata/declared-coverage** boundary but not the possibility of
+omitted arithmetic solutions within an individual shard; an empty but
+well-formed report for [73,144] is still accepted by witness replay.
+The separate, bounded independent Python census comparison and
+mathematical candidate coverage remain essential.
+
+Developer commands:
+```sh
+cd formal/lean
+lake exe replay plan 144 2 72 73 144
+lake exe replay shard /path/to/shard-a.txt 2 72
+lake exe replay shard /path/to/shard-b.txt 73 144
+```
