@@ -25,7 +25,7 @@ def complement(target: Int64, c: Int64, d: Int64) raises -> Int64:
     return Int64(checked_sub(checked_sub(Int(target), Int(c)), Int(d)))
 
 
-def pack_pair(value: Int64, a: Int, b: Int, stride: Int) raises -> Int64:
+def checked_pack_pair(value: Int64, a: Int, b: Int, stride: Int) raises -> Int64:
     """Lossless pair encoding for nonnegative values and 0<=digits<stride."""
     if value < 0 or stride < 2 or a < 0 or b < 0 or a >= stride or b >= stride:
         raise Error("packed pair outside canonical digit domain")
