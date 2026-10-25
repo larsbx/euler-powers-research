@@ -91,9 +91,9 @@ def readSteps (values : Array Int) (target : Int) (lo hi : Nat) :
           throw "RESULT does not match index and target"
         if ((resultBit == 1) != values.toList.contains target) then
           throw "lower-bound result is not exact list membership"
-        let prefix := values.toList.take lo
+        let leftPart := values.toList.take lo
         let suffix := values.toList.drop lo
-        if !(prefix.all (fun v => decide (v < target))) ||
+        if !(leftPart.all (fun v => decide (v < target))) ||
             !(suffix.all (fun v => decide (target ≤ v))) then
           throw "terminal index violates lower-bound partition invariant"
         return afterStop
