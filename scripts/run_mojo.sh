@@ -6,7 +6,7 @@ if [[ $# -lt 1 ]]; then
   echo "usage: run_mojo.sh <Mojo source> [args...]" >&2
   exit 2
 fi
-PIN="d4445ff59e7b5036081f56f066525ad7b60003fe"
+PIN="c5b2d3d7879bcf2354d4d9784bd20a6b3dc610fd"
 UPSTREAM="https://github.com/larsbx/finite-math-kernels.git"
 TARGET=".deps/finite-math-kernels"
 if [[ ! -d "$TARGET/.git" ]]; then

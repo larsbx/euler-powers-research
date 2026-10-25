@@ -9,6 +9,7 @@ from std.sys import argv
 from certified_records.codec import parse_canonical
 from pair_index import lower_bound
 from euler_exact import checked_fifth_int, pair_sum, complement, checked_pack_pair, primitive5
+from finite_polynomial.pair_power_residue import PairPowerResiduePrefix
 
 
 def key(s: Int64, t: Int64, modulus: Int) -> Tuple[Int, Int]:
@@ -95,6 +96,7 @@ def partition(bound: Int, modulus: Int) raises:
         # One indexed left-pair multiset per height. The same pair may share
         # an exact sum with other representations; no sum is deduplicated.
         var buckets = build_indexed_buckets(powers, e, modulus)
+        var digit_filter = PairPowerResiduePrefix(2475, 5)
         # Flat arrays avoid allocating a sparse list per compatible key.
         # Only 0 <= lo <= hi < modulus are ever incremented.
         var visits = List[Int]()
@@ -106,6 +108,8 @@ def partition(bound: Int, modulus: Int) raises:
         # unique key, then query only the appropriate left residue bucket.
         # No rescanning of right pairs for every compatible key.
         for c in range(1, e):
+            # Includes every 1 <= a <= b <= c; independent of partition M.
+            _ = digit_filter.advance()
             for d in range(c, e):
                 var right = pair_sum(powers[c], powers[d])
                 var target = complement(powers[e], powers[c], powers[d])
@@ -114,6 +118,12 @@ def partition(bound: Int, modulus: Int) raises:
                 var owner = key(target, right, modulus)
                 var offset = owner[0] * modulus + owner[1]
                 visits[offset] += 1
+                # Exact composite CRT residue membership (9*11*25).
+                # No valid a<=b<=c complement is ever rejected.
+                # Keep ownership/visit counters BEFORE the prefilter:
+                # legacy E5PARTv1 manifests remain byte-for-byte stable.
+                if not digit_filter.contains(Int(target)):
+                    continue
                 # The lower bound positions at the first packed pair with
                 # this exact sum; decode every representation until the sum
                 # changes. No O(c^2) reconstruction scan remains.

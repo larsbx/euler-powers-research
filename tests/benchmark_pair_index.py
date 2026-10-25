@@ -1,5 +1,6 @@
 """Same-run native Mojo benchmark against the pinned merged P2 implementation.
 
+Compares historical P2 against historical P3, even after new search stages.
 No performance threshold: heterogeneous CI hosts and warm-up effects can
 change timing. This script *executes* both binaries with the same toolchain,
 and validates every output against the independent exact Python oracle.
@@ -23,6 +24,7 @@ from test_pair_partition import oracle, expected_stream
 
 ROOT = Path(__file__).resolve().parents[1]
 BASELINE_SHA = "792e0e9ca70575c41202c81e47bd23a8dfc8d571"
+PACKED_P3_SHA = "d42cfa6a81a76dd8db973c92dc6efa5b6e518690"
 MODULUS = 35
 DOMAINS = (48, 144)
 TRIALS = 3
@@ -83,7 +85,8 @@ def main() -> None:
         "Historical P2 commit unavailable: checkout with fetch-depth: 0"
     )
     original_source = run("git", "show", f"{BASELINE_SHA}:kernel/pair_partition.mojo")
-    current_source = (ROOT / "kernel/pair_partition.mojo").read_bytes()
+    assert run("git", "cat-file", "-t", PACKED_P3_SHA).strip() == b"commit"
+    current_source = run("git", "show", f"{PACKED_P3_SHA}:kernel/pair_partition.mojo")
     with TemporaryDirectory() as tmp:
         scratch = Path(tmp)
         previous = scratch / "baseline.mojo"
@@ -91,7 +94,9 @@ def main() -> None:
         baseline_binary = scratch / "baseline"
         current_binary = scratch / "packed"
         compile_mojo(previous, baseline_binary)
-        compile_mojo(ROOT / "kernel/pair_partition.mojo", current_binary)
+        historical_p3 = scratch / "historical_p3.mojo"
+        historical_p3.write_bytes(current_source)
+        compile_mojo(historical_p3, current_binary)
         samples = []
         for bound in DOMAINS:
             for trial in range(TRIALS):
@@ -127,7 +132,7 @@ def main() -> None:
         "baseline_commit": BASELINE_SHA,
         "baseline_source_sha256": sha256(original_source).hexdigest(),
         "candidate_source_sha256": sha256(current_source).hexdigest(),
-        "candidate_commit": run("git", "rev-parse", "HEAD").decode().strip(),
+        "candidate_commit": PACKED_P3_SHA,
         "platform": platform.platform(),
         "mojo_version": run("mojo", "--version").decode(errors="replace").strip(),
         "measurement": "GNU /usr/bin/time wall-clock seconds, Linux max RSS KiB",

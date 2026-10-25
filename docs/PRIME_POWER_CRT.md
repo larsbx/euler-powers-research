@@ -86,6 +86,10 @@ every `m` (including prime powers). These are universal mathematical
 claims under Lean's definitions. The pinned native executable is
 cross-checked only on the finite suite, **not** compiler verified.
 
+The subsequent [digit-sum/CRT prefilter](DIGIT_SUM_PRUNING.md) **does**
+insert a proved sound bounded-prefix membership test into the production
+search. The statements below describe the historical P1 milestone.
+
 This PR **does not insert a new pruning rule into the production
 search**. A later PR can construct bounded-height precomputed
 left-pair residue sets, reject impossible candidates before the
