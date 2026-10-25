@@ -123,3 +123,23 @@ def digest_lines(report: dict) -> list[str]:
         f"PARTDIGEST {e} {lo} {hi} {digest}"
         for e, lo, hi, digest in report["leaves"]
     ] + [f"ROOTDIGEST {report['root_sha256']}"]
+
+
+if __name__ == "__main__":
+    import argparse
+    from pathlib import Path
+    from test_pair_partition import oracle
+
+    parser = argparse.ArgumentParser(description="Independent canonical PART replay")
+    parser.add_argument("stream", type=Path, help="Raw Mojo stdout, not regenerated records")
+    parser.add_argument("bound", type=int)
+    parser.add_argument("modulus", type=int)
+    parser.add_argument("--expected-root", help="Pinned domain-specific SHA-256 root")
+    args = parser.parse_args()
+    expected_parts, expected_certs = oracle(args.bound, args.modulus)
+    report = replay(
+        args.stream.read_text(encoding="ascii").splitlines(),
+        args.bound, args.modulus, expected_parts, expected_certs,
+        args.expected_root,
+    )
+    print("\n".join(digest_lines(report)))
