@@ -73,3 +73,8 @@ oracle. See [the proof boundary](docs/FORMAL_VERIFICATION.md).
 
 The Lean certificate replay executable checks live Mojo output and refuses
 invalid reported solutions. This is not a proof of census completeness.
+
+A Lean-executable contiguous height-shard validator now checks each actual
+Mojo shard's reported witnesses and rejects gaps or overlaps in the declared
+coverage plan. This is distinct from proving that each worker found every
+solution. See [formal verification](docs/FORMAL_VERIFICATION.md).
