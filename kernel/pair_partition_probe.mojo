@@ -3,7 +3,7 @@ from pair_partition import key, build_buckets, matching_pairs
 from pair_partition import build_indexed_buckets, matching_indexed_pairs, pack_pair
 
 
-def main():
+def main() raises:
     var moduli: List[Int] = [1, 2, 7, 11, 35]
     for m in moduli:
         for s in range(71):
