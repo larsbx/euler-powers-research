@@ -9,10 +9,19 @@ fit Int64: 2*1000^5 = 2*10^15 < 2^63.
 """
 from std.sys import argv
 from certified_records.codec import parse_canonical
-from euler_exact import fifth_int, pair_sum, complement, primitive5
+from euler_exact import checked_fifth_int, pair_sum, complement, primitive5
 from pair_index import contains_sorted
 
 
+
+# Compatibility facade retained for previously recorded P2 benchmark source.
+# Both wrappers delegate to the same checked shared-kernel adapter.
+def fifth_int(x: Int) raises -> Int64:
+    return checked_fifth_int(x)
+
+
+def primitive(a: Int, b: Int, c: Int, d: Int, e: Int) raises -> Bool:
+    return primitive5(Int64(a), Int64(b), Int64(c), Int64(d), Int64(e))
 
 def census(start_e: Int, bound: Int, sharded: Bool = False) raises:
     if start_e < 2 or start_e > bound or bound > 1000:
