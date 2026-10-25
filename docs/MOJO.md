@@ -50,6 +50,15 @@ CI uses `pixi run --locked` to reject lockfile drift. The shared
 Reproducibility is scoped to this platform and these pinned inputs;
 it does not imply cross-platform bitwise equality.
 
+## P0 reusable exact-arithmetic adapter
+
+See [the exact arithmetic bridge](EXACT_ARITHMETIC_BRIDGE.md). Native
+checked powers, sums, signed complements, radix packing and GCD now pass
+through one Euler adapter over the immutable upstream arithmetic kernels;
+BigZ handles known signed solution verification without machine narrowing.
+`verify_mojo.sh` calls `run_mojo.sh`, so both native commands use one
+authoritative dependency pin. No bound or result is automatically widened.
+
 ## Exact bounded research kernels
 
 See [the computational completeness contract](BOUNDED_SEARCH.md).
