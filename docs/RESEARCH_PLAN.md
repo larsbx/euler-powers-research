@@ -78,6 +78,14 @@ representation-preserving residue lookup and domain-separated per-key replay
 for the same strictly positive B<=144 domain. It is finite execution evidence,
 not a large-range census, runtime speedup assertion, or a conjecture proof.
 
+## P0 shared exact-arithmetic integration
+
+The [exact arithmetic bridge](EXACT_ARITHMETIC_BRIDGE.md) gives the
+bounded native census and packed-index search checked integer operations
+and shares BigZ and gcd with the signed known-solution verifier. This
+is a prerequisite for evaluating larger bounds, not permission to widen
+those bounds or to promote finite computation into a theorem.
+
 ## P3 packed representation index
 
 The [indexed representation-search contract](PACKED_PAIR_INDEX.md) stores
