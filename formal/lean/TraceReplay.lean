@@ -1,4 +1,4 @@
-import ShardPlan
+import SignedLowerBound
 
 /-!
 # Independently executable Lean replay of actual Mojo lower-bound traces
@@ -91,6 +91,13 @@ def readSteps (values : Array Int) (target : Int) (lo hi : Nat) :
           throw "RESULT does not match index and target"
         if ((resultBit == 1) != values.toList.contains target) then
           throw "lower-bound result is not exact list membership"
+        if hSorted : values.toList.Pairwise (· ≤ ·) then
+          let oracle := signedLowerBound values.toList target 0
+            values.size hSorted (signedInitial values.toList target)
+          if oracle.1 != lo then
+            throw "observed native terminal index differs from certified Lean signed lower bound"
+        else
+          throw "input lacks the signed sorted-list proof"
         let leftPart := values.toList.take lo
         let suffix := values.toList.drop lo
         if !(leftPart.all (fun v => decide (v < target))) ||
