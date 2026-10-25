@@ -9,7 +9,7 @@ from finite_exact.checked_int import checked_add, checked_sub, checked_mul
 from finite_exact.integer_gcd import gcd_i64
 
 
-def fifth_int(x: Int) raises -> Int64:
+def checked_fifth_int(x: Int) raises -> Int64:
     """Fifth power if representable in signed Int64; otherwise raise."""
     var result = x
     for _ in range(4):
