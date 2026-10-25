@@ -291,3 +291,20 @@ establish that the executable did not conceal events, that a false input
 vector was not claimed, or that every possible machine state was covered.
 The next research step is stronger cross-language refinement / verified
 interpreter or proof-carrying lower-level execution evidence.
+
+## Universal signed lower-bound theorem and native trace alignment
+
+`SignedLowerBound.lean` lifts the proof-carrying lower-bound search from
+natural-valued lists to arbitrary finite lists of mathematical signed
+integers. Its proof includes sortedness, the half-open window invariant,
+strictly shrinking recursion, termination, correct first-match index and
+full membership equivalence for duplicate values.
+
+For every *observed* native Mojo trace, `TraceReplay.lean` now computes
+this **certified Lean signed lower bound** independently and requires the
+recorded final index to agree, in addition to checking every signed
+STEP/pivot transition and output. This improves mathematical alignment
+with Mojo's `Int64` input domain, including negatives and extrema.
+
+The theorem is universal over mathematical Int; finite native trace
+conformance is not a verified compiler or machine-code refinement proof.
