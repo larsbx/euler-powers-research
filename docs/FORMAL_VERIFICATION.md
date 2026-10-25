@@ -252,3 +252,15 @@ lake exe replay plan 144 2 72 73 144
 lake exe replay shard /path/to/shard-a.txt 2 72
 lake exe replay shard /path/to/shard-b.txt 73 144
 ```
+
+## Bounded machine integer proof
+
+`Int64Bounds.lean` establishes the precise finite arithmetic envelope
+for the native search (`e≤1000`): all fifth powers, pair-sum entries,
+and signed two-term complements are inside Int64's legal range. Negative
+complements are explicitly modeled in `Int`, never saturated with
+natural-number subtraction. The source uses multiplication of a
+nonnegative base and the Lean theorem proves intermediate powers remain
+bounded. CI also rejects malformed or out-of-range Mojo input.
+Compiler-level correspondence of the native `Int64` implementation
+remains an independent verification obligation.
