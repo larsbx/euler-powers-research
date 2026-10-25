@@ -9,21 +9,9 @@ fit Int64: 2*1000^5 = 2*10^15 < 2^63.
 """
 from std.sys import argv
 from certified_records.codec import parse_canonical
-from finite_exact.integer_gcd import gcd_i64
+from euler_exact import fifth_int, pair_sum, complement, primitive5
 from pair_index import contains_sorted
 
-
-def fifth_int(x: Int) -> Int64:
-    var base = Int64(x)
-    return base * base * base * base * base
-
-
-def primitive(a: Int, b: Int, c: Int, d: Int, e: Int) raises -> Bool:
-    var g = gcd_i64(Int64(a), Int64(b))
-    g = gcd_i64(g, Int64(c))
-    g = gcd_i64(g, Int64(d))
-    g = gcd_i64(g, Int64(e))
-    return g == 1
 
 
 def census(start_e: Int, bound: Int, sharded: Bool = False) raises:
@@ -37,20 +25,20 @@ def census(start_e: Int, bound: Int, sharded: Bool = False) raises:
         var pair_sums = List[Int64]()
         for a in range(1, e):
             for b in range(a, e):
-                pair_sums.append(powers[a] + powers[b])
+                pair_sums.append(pair_sum(powers[a], powers[b]))
         sort(pair_sums)
         for c in range(1, e):
             for d in range(c, e):
                 # Since a,b are positive, only strictly positive target sums.
-                var target = powers[e] - powers[c] - powers[d]
+                var target = complement(powers[e], powers[c], powers[d])
                 if target <= 0 or not contains_sorted(pair_sums, target):
                     continue
                 # A pair sum might have multiple representations: enumerate
                 # all admissible pairs so no collision or ordering is lost.
                 for a in range(1, c + 1):
                     for b in range(a, c + 1):
-                        if powers[a] + powers[b] == target and primitive(
-                            a, b, c, d, e
+                        if pair_sum(powers[a], powers[b]) == target and primitive5(
+                            Int64(a), Int64(b), Int64(c), Int64(d), Int64(e)
                         ):
                             print("CERT E5v1", a, b, c, d, e)
                             matches += 1
