@@ -95,6 +95,16 @@ and shares BigZ and gcd with the signed known-solution verifier. This
 is a prerequisite for evaluating larger bounds, not permission to widen
 those bounds or to promote finite computation into a theorem.
 
+## P5 composite modulus selection and stronger three-digit CRT filters
+
+See [the 99000 modulus-selection contract](MODULUS_SELECTION.md). It
+combines mod 9 digit sums, mod 11 alternating sums, and last-three-digit
+mod 1000 information. Its independently verified B144 prefix
+eliminates 465,238 of 475,063 positive-complement right-pair visits
+while preserving canonical partition and witness records. Actual
+runtime is separately benchmarked against the P4 filter; the larger
+residue table consumes more memory and may not outperform it.
+
 ## P4 decimal digit sums and CRT prefix filtering
 
 The [exact digit/CRT pruning contract](DIGIT_SUM_PRUNING.md) promotes
