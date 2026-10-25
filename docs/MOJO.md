@@ -58,3 +58,9 @@ which compares exact Mojo finite-ring DP and the full positive search
 through height 144 against separate Python reference implementations.
 Both are required by native CI. The original `verify` lane retains
 unbounded `BigZ` checks for the published identities.
+
+## Pair-sum residue partition milestone
+
+The small positive-domain partition prototype, source-level Lean coverage and
+multiplicity proofs, independent Python conformance checks and deterministic
+manifest are described in [the partition contract](PAIR_PARTITION.md).

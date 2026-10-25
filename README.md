@@ -84,3 +84,9 @@ solution. See [formal verification](docs/FORMAL_VERIFICATION.md).
 The Mojo lookup now emits optional deterministic loop traces that an
 independent Lean executable replays step-by-step in CI. This is finite
 execution correspondence evidence, not a compiler-level proof of all runs.
+
+## Pair-sum residue partition milestone
+
+The small positive-domain partition prototype, source-level Lean coverage and
+multiplicity proofs, independent Python conformance checks and deterministic
+manifest are described in [the partition contract](docs/PAIR_PARTITION.md).
