@@ -8,7 +8,7 @@ Each right pair is visited once per height, NOT once per compatible key.
 from std.sys import argv
 from certified_records.codec import parse_canonical
 from pair_index import lower_bound
-from euler_exact import fifth_int, pair_sum, complement, checked_pack_pair, primitive5
+from euler_exact import checked_fifth_int, pair_sum, complement, checked_pack_pair, primitive5
 
 
 def key(s: Int64, t: Int64, modulus: Int) -> Tuple[Int, Int]:
@@ -89,7 +89,7 @@ def partition(bound: Int, modulus: Int) raises:
     print("DOMAIN E5PARTv1", bound, modulus)
     var powers = List[Int64]()
     for i in range(bound + 1):
-        powers.append(fifth_int(i))
+        powers.append(checked_fifth_int(i))
     var total = 0
     for e in range(2, bound + 1):
         # One indexed left-pair multiset per height. The same pair may share
