@@ -5,8 +5,8 @@ no floating point, overflow-prone x**5, or Python arithmetic participates in
 Mojo's acceptance decision. A Python reference separately checks the same CSV.
 This validates examples; it is not an exhaustive search or a theorem prover.
 """
-from finite_exact.bigint_z import BigZ, bigz_add, bigz_eq, bigz_from_i64, bigz_mul
-from finite_exact.integer_gcd import gcd_i64
+from finite_exact.bigint_z import bigz_add, bigz_eq, bigz_from_i64, bigz_mul
+from euler_exact import fifth_bigz, primitive5
 
 
 def decimal_base(token: String) raises -> Int64:
@@ -41,19 +41,12 @@ def decimal_base(token: String) raises -> Int64:
     return magnitude
 
 
-def fifth_power(x: Int64) -> BigZ:
-    var base = bigz_from_i64(x)
-    var result = bigz_from_i64(1)
-    for _ in range(5):
-        result = bigz_mul(result, base)
-    return result^
-
 
 def verify_identity(values: List[Int64]) -> Bool:
     var total = bigz_from_i64(0)
     for i in range(4):
-        total = bigz_add(total, fifth_power(values[i]))
-    return bigz_eq(total, fifth_power(values[4]))
+        total = bigz_add(total, fifth_bigz(values[i]))
+    return bigz_eq(total, fifth_bigz(values[4]))
 
 
 def verify_row(columns: List[String]) raises -> Bool:
@@ -76,10 +69,7 @@ def verify_row(columns: List[String]) raises -> Bool:
                 raise Error("positive summands not ordered")
         if values[3] >= values[4]:
             raise Error("largest summand must be below target")
-    var divisor = values[0]
-    for i in range(1, 5):
-        divisor = gcd_i64(divisor, values[i])
-    if divisor != 1:
+    if not primitive5(values[0], values[1], values[2], values[3], values[4]):
         raise Error("nonprimitive solution")
     if not verify_identity(values):
         raise Error("fifth-power identity failed")
@@ -95,10 +85,10 @@ def verify_row(columns: List[String]) raises -> Bool:
 
 def main() raises:
     # Exercise exact acceptance and rejection paths independently of the CSV.
-    if not bigz_eq(fifth_power(-2), bigz_from_i64(-32)):
+    if not bigz_eq(fifth_bigz(-2), bigz_from_i64(-32)):
         raise Error("negative fifth-power sign regression")
-    if not bigz_eq(fifth_power(1000000000), bigz_mul(
-        fifth_power(1000000000), bigz_from_i64(1)
+    if not bigz_eq(fifth_bigz(1000000000), bigz_mul(
+        fifth_bigz(1000000000), bigz_from_i64(1)
     )):
         raise Error("BigZ upper input limit regression")
     var contents = open("data/known_solutions.csv", "r").read()

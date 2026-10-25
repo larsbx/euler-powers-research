@@ -18,6 +18,7 @@ python3 tests/test_lean_shards.py
 pixi run --locked trace-conformance
 pixi run --locked pair-index-conformance
 pixi run --locked python tests/test_pair_partition.py
+pixi run --locked python tests/test_euler_exact_bridge.py
 
 # Replay the actual Mojo stdout, never a Python-reconstructed replacement.
 tmp="$(mktemp)"
