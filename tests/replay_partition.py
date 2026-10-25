@@ -45,7 +45,7 @@ def replay(
     not from the emitted Mojo report. Without them, the replay only validates
     internal consistency and mathematical soundness of supplied certificates.
     """
-    assert 2 <= bound <= 144 and 1 <= modulus <= 35
+    assert 2 <= bound <= 256 and 1 <= modulus <= 35
     assert lines and lines[0] == f"DOMAIN E5PARTv1 {bound} {modulus}"
     assert lines[-1].startswith("TOTAL ")
     parts = []
