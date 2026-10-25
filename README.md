@@ -33,6 +33,7 @@ Four primitive integer solutions are currently reported when **negative summands
 - [Exact known-solution data](data/known_solutions.csv)
 - [Mojo-native BigZ verifier and pinned toolchain](docs/MOJO.md)
 - [Finite-ring and bounded census implementation](docs/BOUNDED_SEARCH.md)
+- [Exact prime-power residue rings and CRT verification](docs/PRIME_POWER_CRT.md)
 - [Lean and Quint formal verification contract](docs/FORMAL_VERIFICATION.md)\n- [Independent Python reference](tests/verify_known_solutions.py)
 
 Run the exact arithmetic checks with:

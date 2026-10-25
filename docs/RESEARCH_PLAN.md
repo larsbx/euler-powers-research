@@ -16,6 +16,15 @@
 
 **Deliverable:** machine-reproducible residue tables plus human-readable certified lemmas.
 
+### P1 prime-power and CRT milestone
+
+The [prime-power ring and CRT suite](PRIME_POWER_CRT.md) now evaluates
+fifth powers over complete finite rings Z/p^kZ with the pinned shared
+`finite-math-kernels` arithmetic and an independent Python oracle.
+Lean proves modular left-pair prefilter soundness for all positive
+primitive solutions. Measured runtime pruning is deliberately deferred:
+no production census behavior or bounded certificate is changed.
+
 ## P2 — Geometric structure
 
 - Catalog known rational lines, curves, and higher-dimensional special loci of \(X_5\).

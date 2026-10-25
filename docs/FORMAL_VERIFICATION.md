@@ -94,6 +94,16 @@ apply to any finite natural height range partitioned at `split+1`.
 3. Connect generic height-partition theorems to runtime-generated shard plans.
 4. Extend Quint to cover crashes, retries, and deterministic reconciliation.
 
+## Prime-power residue filter soundness
+
+`PrimePowerSieve.lean` establishes universal finite fifth-power
+residue membership and a necessary ordered left-pair residue filter
+for positive primitive solutions over arbitrary moduli, including
+prime powers. This is a source-level mathematical theorem, not a
+universal compiled Mojo refinement. Executable Z/p^kZ enumeration and
+CRT image checks are independently tested on exact finite domains.
+See [the prime-power CRT contract](PRIME_POWER_CRT.md).
+
 ## Modular theorem development
 
 `Modular.lean` formalizes finite fifth-power residue sets for 11 and 25,
