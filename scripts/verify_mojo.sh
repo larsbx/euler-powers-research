@@ -19,4 +19,4 @@ if [[ "$ACTUAL" != "$PIN" ]]; then
   exit 1
 fi
 echo "finite-math-kernels @ $PIN"
-mojo run -I "$TARGET/kernel" kernel/verify_known.mojo
+mojo run -I kernel -I "$TARGET/kernel" kernel/verify_known.mojo
