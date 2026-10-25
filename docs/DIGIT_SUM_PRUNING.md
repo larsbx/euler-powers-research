@@ -78,6 +78,14 @@ GNU-time wall/RSS readings, and **requires identical exact stream,
 Python oracle and SHA root before recording numbers**. CI retains the
 raw JSON artifact `native-digit-filter-benchmark`.
 
+## P5 modulus refinement: full three-digit tail
+
+The successor [P5 modulus-selection research](MODULUS_SELECTION.md)
+compares historical m=2475 against the stronger m=99000, which is
+9 × 11 × 1000. This preserves the same exact filtered prefix and
+record/digest semantics, while adding information from the last three
+decimal digits. The earlier m=2475 B144 results below remain historical.
+
 ## Reproduce
 
 ```sh
