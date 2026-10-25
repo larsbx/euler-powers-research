@@ -33,6 +33,10 @@ def main() -> None:
     assert len(rows) == 4
     for row in rows:
         verify_row(row)
+    # Evidence provenance is checked independently of arithmetic and cannot
+    # silently upgrade a signed paper result into a positive search claim.
+    from verify_braun_primary_evidence import main as verify_braun_evidence
+    verify_braun_evidence()
     assert sum(row["all_positive"] == "true" for row in rows) == 2
     print(f"Verified {len(rows)} primitive identities; 2 have all positive summands.")
 
