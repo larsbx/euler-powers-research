@@ -2,13 +2,13 @@
 
 These test only arithmetic, never search completeness or theorem acceptance.
 """
-from euler_exact import fifth_int, pair_sum, complement, checked_pack_pair, primitive5, fifth_bigz
+from euler_exact import checked_fifth_int, pair_sum, complement, checked_pack_pair, primitive5, fifth_bigz
 from finite_exact.exact_decimal import bigz_decimal
 
 
 def main() raises:
     for x in [-6208, -1000, -144, -2, -1, 0, 1, 2, 144, 1000, 6208]:
-        print("FIFTH", x, fifth_int(x))
+        print("FIFTH", x, checked_fifth_int(x))
     for x in [-1000000000, -6209, 6209, 1000000000]:
         print("BIGZ", x, bigz_decimal(fifth_bigz(Int64(x))))
     print("SUM", pair_sum(Int64(123), Int64(456)))
@@ -24,7 +24,7 @@ def main() raises:
     for x in [-6209, 6209]:
         var refused = False
         try:
-            var result = fifth_int(x)
+            var result = checked_fifth_int(x)
         except:
             refused = True
         if not refused:
