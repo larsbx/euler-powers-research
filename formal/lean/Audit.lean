@@ -13,6 +13,7 @@ import SignedLowerBound
 import PairPartition
 import PairTraversal
 import PackedPairIndex
+import PrimePowerSieve
 
 /-! Audit all EulerPowers theorems for additional axioms and opaque holes. -/
 open Lean Elab Command in
