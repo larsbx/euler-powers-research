@@ -86,7 +86,7 @@ pixi run --locked python tests/benchmark_modulus_selection.py
 bash tools/verify-formal.sh
 ```
 
-The executable still accepts only `2<=B<=144`, `1<=M<=35` for
+At the original P5 milestone, the executable accepted only `2<=B<=144`, `1<=M<=35` for
 partitioning, regardless of the much larger *independent* CRT filter
 modulus. The historical output, checked Int64 packing radix 145,
 signed known-solution corpus, and formal obligations are unchanged.

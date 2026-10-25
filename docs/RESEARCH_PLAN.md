@@ -95,6 +95,14 @@ and shares BigZ and gcd with the signed known-solution verifier. This
 is a prerequisite for evaluating larger bounds, not permission to widen
 those bounds or to promote finite computation into a theorem.
 
+## P6 B256 exact checked indexing
+
+[The wide radix 257 proof and finite replay contract](B256_WIDE_INDEX.md)
+extends the positive packed-index bound from B144 to B256, retains
+historical B144 output, and independently checks all B256 canonical
+partition rows and certificates. Larger or arbitrary-precision
+searches still require a separately implemented typed pair index.
+
 ## P5 composite modulus selection and stronger three-digit CRT filters
 
 See [the 99000 modulus-selection contract](MODULUS_SELECTION.md). It

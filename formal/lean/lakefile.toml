@@ -1,6 +1,6 @@
 name = "euler_powers_formal"
 version = "0.1.0"
-defaultTargets = ["EulerPowers", "Modular", "PairIndex", "SortedIndex", "BinarySearch", "LowerBoundInvariant", "Reconstruction", "CertifiedLowerBound", "ShardPlan", "Int64Bounds", "SignedLowerBound", "PairPartition", "PairTraversal", "PackedPairIndex", "PrimePowerSieve", "DigitSumPruning", "replay", "trace-replay"]
+defaultTargets = ["EulerPowers", "Modular", "PairIndex", "SortedIndex", "BinarySearch", "LowerBoundInvariant", "Reconstruction", "CertifiedLowerBound", "ShardPlan", "Int64Bounds", "SignedLowerBound", "PairPartition", "PairTraversal", "PackedPairIndex", "PrimePowerSieve", "DigitSumPruning", "WidePackedIndex", "replay", "trace-replay"]
 
 [[lean_lib]]
 name = "EulerPowers"
@@ -57,3 +57,6 @@ name = "PrimePowerSieve"
 
 [[lean_lib]]
 name = "DigitSumPruning"
+
+[[lean_lib]]
+name = "WidePackedIndex"

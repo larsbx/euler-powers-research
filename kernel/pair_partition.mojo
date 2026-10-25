@@ -1,4 +1,4 @@
-"""Single-pass positive pair-sum residue traversal; 2 <= B <= 144.
+"""Single-pass positive pair-sum residue traversal; 2 <= B <= 256.
 
 Buckets contain every packed (sum,a,b) representation; exact-sum
 range lookup returns all matching ordered representations.
@@ -41,14 +41,14 @@ def matching_pairs(powers: List[Int64], target: Int64, c: Int) raises -> List[Tu
 
 
 # Base-stride encoding sorts records first by exact sum, then by (a,b).
-# Here stride=145, 1<=a<=b<e<=144: no carries; all keys fit Int64
-# for the executable's conservative e<=144 envelope.
+# The P1–P5 stride 145 remains canonical for B<=144. For 145<=B<=256,
+# stride 257 is larger than each digit and its checked Int64 encoding fits.
 def pack_pair(value: Int64, a: Int, b: Int, stride: Int) raises -> Int64:
     return checked_pack_pair(value, a, b, stride)
 
 
 def build_indexed_buckets(
-    powers: List[Int64], e: Int, modulus: Int
+    powers: List[Int64], e: Int, modulus: Int, stride: Int
 ) raises -> List[List[Int64]]:
     var buckets = List[List[Int64]]()
     for _ in range(modulus):
@@ -57,7 +57,7 @@ def build_indexed_buckets(
         for b in range(a, e):
             var value = pair_sum(powers[a], powers[b])
             buckets[Int(value % Int64(modulus))].append(
-                pack_pair(value, a, b, 145)
+                pack_pair(value, a, b, stride)
             )
     for residue in range(modulus):
         sort(buckets[residue])
@@ -85,17 +85,20 @@ def matching_indexed_pairs(
 
 
 def partition(bound: Int, modulus: Int) raises:
-    if bound < 2 or bound > 144 or modulus < 1 or modulus > 35:
-        raise Error("require 2 <= bound <= 144 and 1 <= modulus <= 35")
+    if bound < 2 or bound > 256 or modulus < 1 or modulus > 35:
+        raise Error("require 2 <= bound <= 256 and 1 <= modulus <= 35")
     print("DOMAIN E5PARTv1", bound, modulus)
     var powers = List[Int64]()
     for i in range(bound + 1):
         powers.append(checked_fifth_int(i))
+    # Keep the earlier verified packing byte-for-byte for B<=144.
+    # The wider radix is proved separately in WidePackedIndex.lean.
+    var stride = 145 if bound <= 144 else 257
     var total = 0
     for e in range(2, bound + 1):
         # One indexed left-pair multiset per height. The same pair may share
         # an exact sum with other representations; no sum is deduplicated.
-        var buckets = build_indexed_buckets(powers, e, modulus)
+        var buckets = build_indexed_buckets(powers, e, modulus, stride)
         var digit_filter = PairPowerResiduePrefix(99000, 5)
         # Flat arrays avoid allocating a sparse list per compatible key.
         # Only 0 <= lo <= hi < modulus are ever incremented.
@@ -128,7 +131,7 @@ def partition(bound: Int, modulus: Int) raises:
                 # this exact sum; decode every representation until the sum
                 # changes. No O(c^2) reconstruction scan remains.
                 var pairs = matching_indexed_pairs(
-                    buckets[Int(target % Int64(modulus))], target, c, 145
+                    buckets[Int(target % Int64(modulus))], target, c, stride
                 )
                 for p in pairs:
                     if primitive5(Int64(p[0]), Int64(p[1]), Int64(c), Int64(d), Int64(e)):

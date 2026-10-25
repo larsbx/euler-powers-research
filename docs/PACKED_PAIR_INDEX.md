@@ -1,5 +1,10 @@
 # P3: collision-preserving packed pair index and native benchmarks
 
+**Historical bounded P3 algorithm:** its fixed radix 145 and B144
+contracts are preserved. The [P6 B256 wide-index successor](B256_WIDE_INDEX.md)
+selects radix 257 for larger domains and supplies separate machine
+bounds, Lean proofs and independent native replay.
+
 **Domain:** strictly positive primitive fifth-power search, ordered
 `1 <= a <= b <= c <= d < e <= B`, with `2 <= B <= 144` and
 `1 <= M <= 35`. No signed or zero-term results are implied.

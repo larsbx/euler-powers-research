@@ -148,6 +148,12 @@ def main():
     max_packed = ((2 * 144**5) * 145 + 143) * 145 + 143
     assert max_packed < 2**63
     expected.append(f'PACK {max_packed}')
+    for m in (1, 2, 7, 11, 35):
+        expected.append(f'WIDE {m} 1 4')
+        expected.append(f'WIDE {m} 2 3')
+    wide_max = ((2 * 256**5) * 257 + 256) * 257 + 256
+    assert wide_max < 2**63
+    expected.append(f'WIDEPACK {wide_max}')
     missing = Counter(expected) - Counter(probe)
     unexpected = Counter(probe) - Counter(expected)
     assert not missing and not unexpected, (
@@ -172,7 +178,7 @@ def main():
             if bound == 144:
                 full = lines
             print(f'Partition union equals oracle and unpartitioned Mojo: B={bound}, M={modulus}')
-        for args in (('1', '7'), ('145', '7'), ('8', '0'), ('8', '36'), ('08', '7'),
+        for args in (('1', '7'), ('257', '7'), ('8', '0'), ('8', '36'), ('08', '7'),
                      ('-8', '7'), ('8', '07'), ('0', '0'), ('8',), ('8', '7', '1')):
             result = subprocess.run([binary, *args], capture_output=True, text=True)
             assert result.returncode != 0, args
