@@ -1,0 +1,65 @@
+{
+  "schema": "euler-power-primary-source-audit-v1",
+  "source": {
+    "id": "arxiv:2603.05549v4",
+    "title": "The fourth known primitive solution to a^5 + b^5 + c^5 + d^5 = e^5",
+    "author": "Jeffrey M. Braun",
+    "submitted": "2026-03-05",
+    "last_revised": "2026-08-21",
+    "primary_url": "https://arxiv.org/html/2603.05549v4",
+    "arxiv_record": "https://arxiv.org/abs/2603.05549",
+    "publication_status": "arxiv_preprint"
+  },
+  "exact_reported_identity": {
+    "a": 719115,
+    "b": 1331622,
+    "c": -1340632,
+    "d": 1956213,
+    "e": 1956878,
+    "positive_only": false,
+    "primitive": true,
+    "domain": "signed_integers",
+    "paper_section": "3"
+  },
+  "author_reported_search_coverage": [
+    {
+      "domain": "nonnegative_integers",
+      "exhaustive_e_le": 2760000,
+      "partial_e_gt": 2760000,
+      "partial_e_le": 4000000
+    },
+    {
+      "domain": "signed_integers",
+      "exhaustive_e_le": 1450000,
+      "partial_e_gt": 1450000,
+      "partial_e_le": 2000000
+    }
+  ],
+  "author_reported_resources": {
+    "iterations_approximately": "5.4e18",
+    "vcpu_hours_approximately": 10500000,
+    "execution_period": "approximately nine months",
+    "paper_section": "6"
+  },
+  "author_reported_implementation": {
+    "language": "C++",
+    "integer_arithmetic": "signed __int128",
+    "algorithm": "two-pointer search of fifth-power pair sums",
+    "partitioning": "unordered pair-sum residue classes modulo M",
+    "partition_modulus_condition": "gcd(5,p-1)=1 for distinct primes p dividing M",
+    "validation": "coverage counts and baseline regression comparison reported by the author, not independently reproduced by this repository"
+  },
+  "evidence": {
+    "identity_and_gcd": "independently_checked_by_repo_python_and_mojo",
+    "coverage_and_resource_claims": "author_report_only_not_independently_reproduced",
+    "positive_count_classification": "two_positive_of_four_reported_primitive_identities",
+    "not_a_proof_of": [
+      "E5-1",
+      "E5-2",
+      "E5-3",
+      "E5-4",
+      "E5-5"
+    ]
+  },
+  "audit_date": "2026-10-25"
+}

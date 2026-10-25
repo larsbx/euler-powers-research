@@ -47,3 +47,20 @@ a^5+b^5+c^5=(d+\delta)^5-d^5.
 ## Evidence labels
 
 Use **PROVED**, **COMPUTATIONALLY VERIFIED** (with bounded domain), **HEURISTIC**, **CONJECTURAL**, or **REFUTED**. A CI pass certifies software invariants, not open number-theoretic statements.
+
+## P0 — Braun 2026 source audit (2026-10-25)
+
+The repository now records Braun's exact signed primitive tuple with an
+independent integer/GCD/sign verification, and pins the author-reported
+nonnegative `e≤2,760,000` and signed `e≤1,450,000` exhaustive coverage
+limits separately from their **partial** larger ranges. These third-party
+coverage claims have **not** been reproduced here. See the
+[versioned primary-source audit](literature/2026-10-25-braun-v4-source-audit.md)
+and [machine-readable evidence ledger](../data/literature/braun_2603_05549_v4.json).
+
+**Next P1 gate:** implement a bounded unordered pair-sum residue partitioner
+(Mojo-first, Python independent oracle); prove preservation of all candidate
+pairs, no overlap between partitions, and no confusion between the
+nonnegative and signed/zero-term regimes. Only then compare its measured
+performance against the existing sorted membership search on identical
+explicitly bounded domains.
