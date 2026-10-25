@@ -1,5 +1,6 @@
 """Shared production helpers tested with synthetic collisions and equal residues."""
-from pair_partition import key, build_buckets, matching_pairs\nfrom pair_partition import build_indexed_buckets, matching_indexed_pairs, pack_pair
+from pair_partition import key, build_buckets, matching_pairs
+from pair_partition import build_indexed_buckets, matching_indexed_pairs, pack_pair
 
 
 def main():
