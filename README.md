@@ -103,6 +103,9 @@ manifest are described in [the partition contract](docs/PAIR_PARTITION.md). The
 extend this bounded positive census without changing its arithmetic scope. The
 [collision-preserving packed representation index](docs/PACKED_PAIR_INDEX.md)
 replaces per-hit exhaustive reconstruction and records controlled native benchmarks.
+The [B256 wide packed-index extension](docs/B256_WIDE_INDEX.md) now
+checks larger positive candidate domains with fixed radix 257,
+independent Python oracle replay and a new bounded SHA root.
 The [99,000 CRT-modulus selection](docs/MODULUS_SELECTION.md) refines
 three-digit, alternating-digit and digit-sum obstructions with independent
 native timing and exact candidate retention tests.
