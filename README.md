@@ -91,4 +91,6 @@ The small positive-domain partition prototype, source-level Lean coverage and
 multiplicity proofs, independent Python conformance checks and deterministic
 manifest are described in [the partition contract](docs/PAIR_PARTITION.md). The
 [one-pass bucket traversal and independent per-key replay](docs/BUCKET_TRAVERSAL.md)
-extend this bounded positive census without changing its arithmetic scope.
+extend this bounded positive census without changing its arithmetic scope. The
+[collision-preserving packed representation index](docs/PACKED_PAIR_INDEX.md)
+replaces per-hit exhaustive reconstruction and records controlled native benchmarks.
