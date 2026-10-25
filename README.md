@@ -41,6 +41,14 @@ Run the exact arithmetic checks with:
 python3 tests/verify_known_solutions.py
 ~~~
 
+### Shared exact-arithmetic bridge
+
+The [P0 exact-arithmetic integration](docs/EXACT_ARITHMETIC_BRIDGE.md)
+reuses pinned `finite-math-kernels` checked machine arithmetic, BigZ and
+GCD across the positive census, packed pair index and signed known-solution
+checker. Integer overflow raises rather than wrapping; no search bounds
+or theorem status are changed.
+
 ## Research discipline
 
 - Mark every claim as **PROVED**, **COMPUTATIONALLY VERIFIED** (with explicit range and code), **HEURISTIC**, or **OPEN**.
