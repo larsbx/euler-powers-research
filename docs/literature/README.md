@@ -6,6 +6,8 @@ This directory stores **dated, evidence-labeled literature reviews** relevant to
 
 - [2026-10-25 — Initial periodic literature review and monitoring protocol](2026-10-25-periodic-literature-review.md): edited repository version of the completed Deep Research document. Includes initial primary-source bibliography, solution/sign conventions, topic- and author-watchlists, search queries, a reproducible weekly review workflow, metrics, templates, research priorities and review caveats.
 
+- [2026-10-25 — Braun v4 primary-source audit](2026-10-25-braun-v4-source-audit.md): source-grounded sign/domain, exact integer verification, author-reported search coverage, implementation differences and follow-up proof obligations. See also the [machine-readable source ledger](../../data/literature/braun_2603_05549_v4.json).
+
 ## Review conventions
 
 - Every mathematical finding must identify its exact equation, sign domain and primitivity convention; distinguish the fourth reported **signed** primitive example from the two reported **positive** primitive examples.
