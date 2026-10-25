@@ -33,7 +33,7 @@ def main():
             for target in range(13):
                 var first = matching_indexed_pairs(
                     index_a[Int(Int64(target) % Int64(m))],
-                    Int64(target), c, 5
+                    Int64(target), c, 145
                 )
                 for p in first:
                     print("INDEX", 0, m, c, target, p[0], p[1])
@@ -44,4 +44,4 @@ def main():
                 for p in second:
                     print("INDEX", 1, m, c, target, p[0], p[1])
     # Large-bound safety witness tests near the edge of the packed range.
-    print("PACK", pack_pair(Int64(2) * Int64(144) * Int64(144) * Int64(144) * Int64(144) * Int64(144), 143, 143, 144))
+    print("PACK", pack_pair(Int64(2) * Int64(144) * Int64(144) * Int64(144) * Int64(144) * Int64(144), 143, 143, 145))
