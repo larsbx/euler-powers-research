@@ -63,9 +63,9 @@ theorem signed_complement_bound (e c d : Nat)
     Int.ofNat_le.mpr c5
   have hdi : Int.ofNat (d ^ 5) ≤ (FifthCap : Int) :=
     Int.ofNat_le.mpr d5
-  have heNonneg : (0 : Int) ≤ Int.ofNat (e ^ 5) := by omega
-  have hcNonneg : (0 : Int) ≤ Int.ofNat (c ^ 5) := by omega
-  have hdNonneg : (0 : Int) ≤ Int.ofNat (d ^ 5) := by omega
+  have heNonneg : (0 : Int) ≤ Int.ofNat (e ^ 5) := Int.natCast_nonneg _
+  have hcNonneg : (0 : Int) ≤ Int.ofNat (c ^ 5) := Int.natCast_nonneg _
+  have hdNonneg : (0 : Int) ≤ Int.ofNat (d ^ 5) := Int.natCast_nonneg _
   unfold signedComplement
   unfold PairCap FifthCap at *
   constructor <;> omega
