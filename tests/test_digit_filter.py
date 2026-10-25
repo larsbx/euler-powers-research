@@ -31,13 +31,13 @@ def main() -> None:
     native = run_mojo("kernel/digit_filter_probe.mojo")
     expected = []
     for bound in (8, 48, 144):
-        for modulus in (9, 11, 25, 99, 2475):
+        for modulus in (9, 11, 25, 99, 2475, 99000):
             visits, rejected = oracle(bound, modulus)
             expected.append(f"SIEVE {bound} {modulus} {visits} {rejected} {visits-rejected}")
-    expected.append("WITNESS 1881")
+    expected.append(f"WITNESS {(144**5 - 110**5 - 133**5) % 99000}")
     assert native == expected, (native, expected)
     reference = {
-        9: 21873, 11: 152879, 25: 133804, 99: 181825, 2475: 356770
+        9: 21873, 11: 152879, 25: 133804, 99: 181825, 2475: 356770, 99000: 465238
     }
     for modulus, rejected in reference.items():
         assert oracle(144, modulus) == (475063, rejected)
@@ -48,7 +48,8 @@ def main() -> None:
     assert a**5 + b**5 + c**5 + d**5 == e**5
     assert (a**5 + b**5) % 2475 == 1881
     assert (e**5 - c**5 - d**5) % 2475 == 1881
-    print("Native digit/CRT prefilter and 75.1% bounded rejection agree with Python.")
+    assert oracle(144, 99000)[1] > oracle(144, 2475)[1]
+    print("Native 99,000 digit/CRT filter and 97.9% bounded rejection agree with Python.")
 
 
 if __name__ == "__main__":
