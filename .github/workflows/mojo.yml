@@ -11,8 +11,20 @@ permissions:
 jobs:
   mojo:
     runs-on: ubuntu-latest
+    timeout-minutes: 30
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - uses: prefix-dev/setup-pixi@d3f436a425481402e6a95a1d1fc10331c708cd9e
       - name: Exact-arithmetic verification (Mojo + Python reference)
         run: pixi run --locked verify && pixi run --locked verify-research
+      - name: Same-run pinned Mojo comparison (archived P2 vs packed P3)
+        run: pixi run --locked python tests/benchmark_pair_index.py --output benchmarks/results/native-comparison.json
+      - name: Preserve raw benchmark measurements
+        uses: actions/upload-artifact@v4
+        with:
+          name: native-pair-index-benchmark
+          path: benchmarks/results/native-comparison.json
+          if-no-files-found: error
+          retention-days: 30

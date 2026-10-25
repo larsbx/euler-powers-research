@@ -325,3 +325,15 @@ output is independently replayed in Python with canonical per-partition
 SHA-256 digests. Neither fact establishes compiler-level correctness,
 producer authenticity or proof of completeness for unbounded searches.
 See [the P2 contract](BUCKET_TRAVERSAL.md).
+
+## P3 fixed-radix representation refinement
+
+`PackedPairIndex.lean` formalizes the exact base-145 packed
+(sum,a,b) representation for strictly positive bounded pairs, proves
+its digit decoding and injectivity, proves the complete exact-sum slice
+lies in a contiguous interval of encoded keys, and bounds the entire
+encoding below 2^63. The full numerical source still requires
+compiler-level Mojo refinement; finite conformance, Python oracle
+and source-level proofs are distinct evidence layers. Reproducible
+native P2/P3 comparisons and the machine domain are described in
+[the packed-index contract](PACKED_PAIR_INDEX.md).

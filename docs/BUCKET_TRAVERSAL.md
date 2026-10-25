@@ -1,10 +1,12 @@
-# P2: one-pass bounded pair-sum bucket traversal and independent replay
+# P2: one-pass bounded pair-sum bucket traversal and independent replay (historical algorithm)
 
-**Status:** implemented and subject to the pinned hosted CI gates (PR against main).
+**Status:** merged in PR #28; proof and pinned CI gates passed. The
+[successor P3 packed index](PACKED_PAIR_INDEX.md) replaces the exhaustive
+hit reconstruction described below while preserving this output format.
 This is a *strictly positive*, primitive, ordered fifth-power **finite census**
 algorithm, not an exhaustive verification of any published million-height search.
 
-## Executable traversal
+## P2 executable traversal (before the P3 packed-index successor)
 
 `kernel/pair_partition.mojo` retains the P1 `E5PARTv1` wire records but
 changes candidate processing: each height `e` constructs **all**
@@ -107,9 +109,11 @@ traversal and read-only evidence replay, not worker admission, retry,
 financial authority or publication transitions. Neither a new positive
 solution nor a resolution of E5-1 through E5-5 is claimed.
 
-## Further P2 obligations
+## P2 follow-up and subsequent P3
 
-Before expanding `B` or claiming production-scale acceleration:
+P3 now implements an indexed reconstruction path and controlled native
+benchmark, documented [here](PACKED_PAIR_INDEX.md). Before expanding
+`B` or claiming production-scale acceleration:
 provide measured pinned-toolchain elapsed time, peak RSS and iteration
 counts on **the same bounded domains**; replace repeated exhaustive
 `matching_pairs` reconstruction with a representation-preserving

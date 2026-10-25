@@ -1,11 +1,11 @@
-# Verified small-domain pair-sum residue partitions
+# Verified small-domain pair-sum residue partitions (P1 historical contract)
 
 Issue #25 implements the algorithmic contract motivated by Braun v4, §4.3
 and §4.5. It does not reproduce the author's large exhaustive searches.
 
 ## Domain and ownership
 
-The Mojo prototype accepts canonical decimal `2 <= B <= 144` and
+The P1 Mojo prototype (since replaced by the P2 and P3 traversals) accepts canonical decimal `2 <= B <= 144` and
 `1 <= M <= 35`. Its census is exactly the existing strictly positive,
 ordered primitive program:
 
@@ -27,15 +27,20 @@ is a default Lake target and is imported into the existing axiom audit.
 These are kernel-checked source-level theorems over natural numbers;
 compiler correctness and universal refinement of Mojo are not proved.
 
-## Executable construction and collision handling
+## P1 executable construction and collision handling (historical)
 
-`kernel/pair_partition.mojo` builds sorted residue buckets containing every
+`kernel/pair_partition.mojo` at P1 built sorted residue buckets containing every
 pair sum for `1 <= a <= b < e`, including repeats. Each compatible key
 visits right pairs `c<=d<e` whose positive complement belongs to that key.
 It binary-searches the complement's residue bucket, then reconstructs
 **all** pairs `a<=b<=c` matching the exact complement. Primitivity is
 checked only after reconstruction. A sorted multiset is never replaced
 by one representative per value or residue.
+
+
+The live P3 version instead indexes every encoded (sum,a,b) representation;
+see [the packed index contract](PACKED_PAIR_INDEX.md). The P1
+algorithm description is retained as historical design rationale.
 
 The bound gives powers at most `144^5`; even `2*144^5` is below `2^63`.
 Subtractions use signed Int64 and reject nonpositive complements.
