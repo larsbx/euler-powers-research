@@ -15,7 +15,7 @@ of shared arithmetic. Its public operations are:
 
 | Adapter | Authoritative implementation | Contract |
 | --- | --- | --- |
-| `fifth_int(x)` | `finite_exact.checked_int.checked_mul` | Exact signed fifth power or explicit overflow refusal. |
+| `checked_fifth_int(x)` | `finite_exact.checked_int.checked_mul` | Exact signed fifth power or explicit overflow refusal. |
 | `pair_sum(x,y)` | `checked_add` | Exact pair sum or explicit overflow refusal. |
 | `complement(e5,c5,d5)` | `checked_sub` | Exact signed complement, including negative results, or refusal. |
 | `checked_pack_pair(value,a,b,stride)` | `checked_mul` / `checked_add` | Reject negative value, invalid radix/digits and overflow. |
@@ -37,6 +37,11 @@ the existing 4 primitive known identities / 2 strictly positive.
 The bounded positive enumerator uses checked powers, pair sums,
 complements and five-base GCD. The packed residue index uses checked
 pair sums and canonical packed encoding/lookup.
+
+The `positive_census` module retains thin `fifth_int` and
+`primitive` compatibility wrappers for benchmark reproduction of
+archived P2 sources. They delegate into the same adapter and do not
+implement separate arithmetic.
 
 ## Executable conformance
 
