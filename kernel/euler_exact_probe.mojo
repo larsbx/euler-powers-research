@@ -15,8 +15,12 @@ def main() raises:
     print("COMPLEMENT", complement(Int64(100), Int64(20), Int64(30)))
     print("PACK", checked_pack_pair(Int64(5), 1, 4, 145))
     print("PACK", checked_pack_pair(Int64(5), 2, 3, 145))
-    print("PRIMITIVE", primitive5(27, 84, 110, 133, 144))
-    print("NONPRIMITIVE", primitive5(54, 168, 220, 266, 288))
+    if not primitive5(27, 84, 110, 133, 144):
+        raise Error("valid primitive witness rejected")
+    if primitive5(54, 168, 220, 266, 288):
+        raise Error("scaled tuple incorrectly primitive")
+    print("PRIMITIVE ACCEPT")
+    print("NONPRIMITIVE REJECT")
     for x in [-6209, 6209]:
         var refused = False
         try:
