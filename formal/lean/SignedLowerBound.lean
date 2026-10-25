@@ -57,7 +57,7 @@ theorem signedLessPreserves (xs : List Int) (target : Int) (lo hi mid : Nat)
       rcases Nat.lt_or_eq_of_le him with hlt | heq
       · exact hSort.rel_getElem_of_lt hibefore hmid hlt
       · subst i
-        exact le_refl _
+        exact Int.le_refl _
     omega
 
 /-- A pivot >= the target moves the upper bound left *without* advancing
@@ -80,7 +80,7 @@ theorem signedGePreserves (xs : List Int) (target : Int) (lo hi mid : Nat)
       rcases Nat.lt_or_eq_of_le hafter with hlt | heq
       · exact hSort.rel_getElem_of_lt hmid hibound hlt
       · subst i
-        exact le_refl _
+        exact Int.le_refl _
     omega
 
 /-- At termination, the *first* candidate is correct for any sorted
@@ -105,7 +105,7 @@ theorem signedDone (xs : List Int) (target : Int) (pos : Nat)
       rcases Nat.lt_or_eq_of_le (show pos ≤ i by omega) with hlt | heqi
       · exact hSort.rel_getElem_of_lt hpos hi hlt
       · subst i
-        exact le_refl _
+        exact Int.le_refl _
     have hlarge : target ≤ xs[pos] := h.2.2.2 pos hpos (by omega)
     exact ⟨hpos, by omega⟩
 
