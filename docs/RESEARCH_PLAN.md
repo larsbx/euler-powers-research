@@ -95,6 +95,15 @@ and shares BigZ and gcd with the signed known-solution verifier. This
 is a prerequisite for evaluating larger bounds, not permission to widen
 those bounds or to promote finite computation into a theorem.
 
+## P7 structured BigZ pair indexing and bounded E5 shards
+
+The [Mojo native BigZ shard contract](BIGZ_SHARDS.md) introduces a lossless
+ordered BigZ record `(sum,a,b)`, stable mergesort, binary lower-bound,
+exact positive fifth-power complements, and explicit short height ranges
+validated against an independent Python oracle. No new complete extended
+range or production-scale result is claimed; complete shard coverage and
+replay receipts are the next obligations.
+
 ## P6 B256 exact checked indexing
 
 [The wide radix 257 proof and finite replay contract](B256_WIDE_INDEX.md)
