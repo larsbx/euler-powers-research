@@ -1,5 +1,7 @@
 # Proof obligations and research stages
 
+**Post-Braun P14:** [modular fifth-power image refinements and complete nine-cell fixed-(e,delta,a-cap) grid](POST_BRAUN_GRID_REFINEMENT.md) now runs rigorous c-interval coverage for e=2,760,001..2,760,003 and delta=1..3, a<=64. This is neither a complete target-height search nor a third known positive identity.
+
 **Post-Braun P13:** [finite discovery-oriented high-height Mojo stripes](POST_BRAUN_DISCOVERY_STRIPES.md) search fixed (e,delta,A) slices with exact BigZ and independently replayed c-interval coverage. First target: e=2,760,001, delta=1, a<=64. This is a restricted slice even if every c is covered.
 
 **Literature-first gate:** [Known primitive E5 source/novelty registry](KNOWN_PRIMITIVE_E5_LITERATURE.md) enumerates four nontrivial primitive source classes (two strictly positive) and disallows announcing permutations, scalar multiples or signed examples as novel positive discoveries.
