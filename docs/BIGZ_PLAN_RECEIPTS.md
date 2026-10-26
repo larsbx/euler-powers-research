@@ -42,7 +42,8 @@ timeout.
 
 The written **plan** commits to its exact sorted intervals,
 `kernel/bigz_shard.mojo` and `kernel/bigz_pair_index.mojo`
-source SHA-256, the immutable upstream `finite-math-kernels` Git
+source SHA-256, the exact independent Python verifier source
+SHA-256, the immutable upstream `finite-math-kernels` Git
 commit in `scripts/run_mojo.sh`, and `pixi.lock` SHA-256.
 
 A shard transitions through scoped, monotonically increasing
