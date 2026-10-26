@@ -57,10 +57,87 @@ pixi run --locked python tools/coverage_ledger.py \
 
 ## Status
 
-**Planned.** No P17 negative result or discovery is claimed until actual native
-execution, complete independent replay and evidence checks pass. Accepted
-results will retain exact per-cell bounds, excluded prefixes, trials, rejections,
-lookup counts, native transcripts, source receipts, resources and coverage unions.
-Any new witness requires exact identity, primitivity, known-class equivalence and
-fresh literature review before a discovery claim. Regions outside the listed
-cells remain unsearched unless separately backed by accepted repository evidence.
+**Accepted on October 26, 2026.** [Native run 40340932947](https://github.com/larsbx/euler-powers-research/actions/runs/40340932947)
+completed all ten cells, fresh full arithmetic replay and byte-identical cumulative
+log replay: **409,884,672 trials, 937,235 BigZ lookups, 408,947,437 residue/nonpositive
+rejections, zero primitive positive identities.** All six latest-head workflows
+passed, automated code review was clean, and PR #51 merged at
+`99f0aedd9d75be7acd2537b4f1bae9ea4a05335a`.
+
+| Stage | Wall seconds | User seconds | System seconds | GNU max RSS (KiB) |
+| --- | ---: | ---: | ---: | ---: |
+| Search/controller + initial Python replay | 293.19 | 286.37 | 9.62 | 182,036 |
+| Separate fresh-process full replay | 116.52 | 114.80 | 1.71 | 70,620 |
+
+Native invocation wall times sum to 174.740183648 s (wrapper, process startup
+and compile/cache costs included); initial Python replay sums to 117.685242539 s.
+These measurements do not establish a same-scope algorithmic speedup.
+
+Every row below has zero primitive witnesses, with 1<=a<=1024.
+
+| delta | Enumerated c (inclusive) | Exact trials | BigZ lookups |
+| ---: | --- | ---: | ---: |
+| 5 | 235,565..270,592 | 35,868,672 | 106,745 |
+| 6 | 244,313..280,641 | 37,200,896 | 142,725 |
+| 7 | 251,962..289,428 | 38,366,208 | 68,271 |
+| 9 | 264,950..304,347 | 40,343,552 | 34,381 |
+| 10 | 270,592..310,828 | 41,202,688 | 86,503 |
+| 11 | 275,800..316,810 | 41,995,264 | 237,082 |
+| 12 | 280,641..322,371 | 42,732,544 | 14,516 |
+| 13 | 285,170..327,573 | 43,421,696 | 84,261 |
+| 14 | 289,428..332,465 | 44,070,912 | 58,477 |
+| 15 | 293,450..337,084 | 44,682,240 | 104,274 |
+
+The original accepted [ZIP](../data/experiments/p17-run-40340932947.zip),
+[aggregate receipt](../data/experiments/p17-accepted.json),
+[coverage-addition receipt](../data/experiments/p17-coverage-addition.json) and
+[complete job log](../data/experiments/p17-run-40340932947-job.log.gz) are permanent.
+ZIP SHA256: `c83bb4c5165b5ba5e00024fc2b01247ceb8048fed4424c664be3b8296308dd97`.
+All 230 ZIP files passed CRC; downloaded source/controller/verifier/ledger-code,
+predecessor, child receipt, transcript/time hashes, scopes, totals, cumulative
+addition and interval union were checked again.
+
+Implementation source: `7151330d011de99e8831ff3d6742d4bb37bd10a1`;
+GitHub tested synthetic merge `f03f38fc486e5969486a07329e4c2ea037565e8a`.
+Archived replay uses that source snapshot, extracted ZIP and
+`GITHUB_SHA=f03f38fc486e5969486a07329e4c2ea037565e8a GITHUB_RUN_ID=40340932947`
+with `tools/search_discovery_p17.py --verify --output EXTRACTED/p17`.
+This reproduces source metadata; actual hashes and every integer result still
+receive independent checks. It does not assert a new native execution.
+
+## Cumulative map and historical inventory
+
+The current pointer is [current.json](../data/experiments/current.json), selecting
+[index-p17.json](../data/experiments/index-p17.json) by hash. The human-readable
+[territory map](../data/experiments/TERRITORY.md) is generated from the ledger.
+
+The accepted P14/P15/P16/P17 union contains **40 disjoint high-height cells**,
+**930,452,224 exact (c,abs(a)) trials** and **2,483,121 BigZ lookups**. Positive
+coverage at e=2,760,001 now includes delta=1..16,64,256 with a=1..1024.
+The supported signed mode covers delta=4,16 with abs(a)<=1024 and delta=64
+with abs(a)<=256. At e=2,760,002 and 2,760,003 only the P14 positive gaps
+1..3 with a<=64 are accepted.
+
+The **full positive e=2..320 census** is a separate category. Its original
+[80-shard ZIP](../data/experiments/b320-run-40334880431.zip) and
+[crosscheck](../data/experiments/b320-accepted-crosscheck.json) are preserved.
+Its 5,201,461 positive-complement right-pair visits and one known primitive
+Lander-Parkin witness are not added to high-height (c,abs(a)) totals.
+Fresh Python replay of all downloaded shards and B144/B256/B320 reconciliation
+reproduced the original crosscheck exactly. B320 ZIP SHA256:
+`fb9f1e4f4c106a45b00d5575c1c20a33c0c29f79855c79df30380b0105ba9995`.
+
+The inventory also records native/Python test-covered calibration cells at
+144, 85,359, 85,360 and signed 14,132, with source/test/log provenance. These
+remain a separate evidence class from accepted per-cell discovery receipts.
+[Archived validation output](../data/experiments/validation-run-40334880418-job.log.gz)
+retains the exact printed scopes, counts and known-witness results. Earlier
+B12/B144/B256 runs are subsumed by B320; P13's first cell is subsumed by P14.
+No repeat receives new territory credit. External author-reported bounds are
+listed as unreproduced claims, never as this program's accepted territory.
+
+Unlisted gaps, larger first summands, other high target heights and general
+signed orderings remain open. Next positive candidates begin at delta=17 at
+e=2,760,001 under the same a cap, or at a>=1025 after a separate resource review.
+They have not been searched here. No complete high-height or global
+nonexistence claim is made.

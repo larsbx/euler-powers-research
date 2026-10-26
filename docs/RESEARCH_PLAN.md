@@ -1,5 +1,7 @@
 # Proof obligations and research stages
 
+**P17 accepted:** [ten previously untouched positive gaps](POST_BRAUN_P17.md), 409,884,672 new exact trials and zero primitive identities. The [cumulative map](../data/experiments/TERRITORY.md) records 930,452,224 disjoint high-height trials, full B320 coverage and separate test-covered domains; e=2,760,001 positive delta=1..16, a<=1024 is now complete as a restricted block.
+
 **P16 accepted:** [new a=257..1024 cells and exact two-term c bounds](POST_BRAUN_P16.md): 318,981,888 trials; 965,191 lookups; zero primitive identities. Positive coverage now reaches a=1024 at eight declared gaps, with a separate restricted signed mode; no full-height claim.
 
 **P15 accepted:** [11 disjoint positive/signed frontier cells](POST_BRAUN_FRONTIER.md): 176,372,608 exact trials; 524,286 lookups; zero primitive identities. Complete only within the stated cells and magnitude ordering. Raw accepted evidence is permanent in data/experiments.

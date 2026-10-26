@@ -140,3 +140,5 @@ lookup, without changing canonical search records.
 **Accepted discovery frontier:** [broader gaps, a=65..256, and separate one-negative-term cells](docs/POST_BRAUN_FRONTIER.md), 176,372,608 new exact trials, 524,286 lookups and zero witnesses; bounded native execution, independent full replay and durable raw evidence.
 
 **P16 accepted:** [larger minimum summands 257..1024 with Lean-checked two-term bounds](docs/POST_BRAUN_P16.md): 318,981,888 new exact trials, 965,191 lookups, zero primitive identities; complete raw evidence and combined coverage ledger preserved.
+
+**Current search territory:** [cumulative accepted map](data/experiments/TERRITORY.md) and [hashed ledger pointer](data/experiments/current.json). [P17](docs/POST_BRAUN_P17.md) added 409,884,672 exact trials, closing e=2,760,001 positive delta=1..16 with a<=1024; no new primitive identity. All 930,452,224 disjoint high-height trials, B320, calibration evidence and exclusions are logged separately.

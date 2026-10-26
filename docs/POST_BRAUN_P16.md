@@ -160,3 +160,10 @@ Next budgeted candidates are untouched positive gaps (for example 5..7 or
 Use per-cell timings and lookup counts; no fixed residue rejection factor or
 probability of finding a solution is assumed. These next regions are not yet
 searched or accepted.
+
+## Superseding P17 coverage
+
+[P17](POST_BRAUN_P17.md) completed the formerly missing positive gaps 5..7
+and 9..15 with a<=1024 at e=2,760,001. Use the [current territory map](../data/experiments/TERRITORY.md)
+and [hashed ledger pointer](../data/experiments/current.json) for the accepted
+union. Earlier next-work lists describe their original stopping points.
