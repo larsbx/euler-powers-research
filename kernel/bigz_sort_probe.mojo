@@ -12,7 +12,7 @@ from bigz_pair_index import BigPair, sort_exact_pairs, pair_index_sorted
 from euler_exact import fifth_bigz
 
 
-def emit_case(case_id: Int, records: List[BigPair]) raises:
+def emit_case(case_id: Int, mut records: List[BigPair]) raises:
     print("CASE", case_id, len(records))
     for row in records:
         print("IN", bigz_decimal(row.sum), row.a, row.b)
