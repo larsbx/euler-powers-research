@@ -239,6 +239,19 @@ def compile_binary(destination: Path) -> None:
     deps = ROOT / ".deps/finite-math-kernels/kernel"
     if not deps.is_dir():
         raise ValueError("pinned shared checkout missing; run locked research verification")
+    checkout = deps.parent
+    actual = subprocess.check_output(
+        ["git", "-C", str(checkout), "rev-parse", "HEAD"], cwd=ROOT,
+        text=True, timeout=15,
+    ).strip()
+    if actual != dependency_pin():
+        raise ValueError("untrusted finite-math-kernels HEAD: refuses dependency drift")
+    dirty = subprocess.check_output(
+        ["git", "-C", str(checkout), "status", "--porcelain",
+         "--untracked-files=all"], cwd=ROOT, text=True, timeout=15,
+    ).strip()
+    if dirty:
+        raise ValueError("untrusted finite-math-kernels working tree differs from pin")
     subprocess.run(["mojo", "build", "-I", "kernel", "-I", str(deps),
                     "kernel/bigz_shard.mojo", "-o", str(destination)],
                    check=True, cwd=ROOT, timeout=180)
