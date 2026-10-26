@@ -1,0 +1,54 @@
+name: Full BigZ exact height coverage through 320
+
+on:
+  pull_request:
+    paths:
+      - '.github/workflows/bigz-full-range.yml'
+      - 'kernel/bigz_*.mojo'
+      - 'kernel/euler_exact.mojo'
+      - 'tools/bigz_shard_plan.py'
+      - 'tests/reconcile_bigz_b320.py'
+      - 'tests/replay_partition.py'
+      - 'formal/lean/BigShardCoverage.lean'
+      - 'scripts/run_mojo.sh'
+      - 'pixi.toml'
+      - 'pixi.lock'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  b320:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: prefix-dev/setup-pixi@d3f436a425481402e6a95a1d1fc10331c708cd9e
+      - name: Bootstrap and verify pinned shared arithmetic
+        run: pixi run --locked verify
+      - name: Execute all 80 bounded native BigZ height shards through 320
+        run: |
+          mkdir -p benchmarks/results
+          /usr/bin/time -v -o benchmarks/results/bigz-b320-resource.txt \
+            pixi run --locked python tools/bigz_shard_plan.py execute \
+            --bound 320 --width 4 --modulus 35 \
+            --timeout 60 --ram-mib 4096 --max-bytes 1048576 \
+            --output benchmarks/results/bigz-shards-b320
+      - name: Replay all native shards and prove B144/B256 historical roots
+        run: |
+          pixi run --locked python tools/bigz_shard_plan.py verify \
+            --output benchmarks/results/bigz-shards-b320
+          pixi run --locked python tests/reconcile_bigz_b320.py \
+            benchmarks/results/bigz-shards-b320 \
+            --output benchmarks/results/bigz-b320-crosscheck.json
+      - name: Preserve actual native transcripts and independent acceptance
+        uses: actions/upload-artifact@v4
+        with:
+          name: exact-bigz-height-shards-B320
+          path: |
+            benchmarks/results/bigz-shards-b320/
+            benchmarks/results/bigz-b320-crosscheck.json
+            benchmarks/results/bigz-b320-resource.txt
+          if-no-files-found: error
+          retention-days: 30
