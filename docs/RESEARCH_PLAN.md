@@ -1,5 +1,7 @@
 # Proof obligations and research stages
 
+**Primary objective revised:** [a genuinely new primitive fifth-power class, positive or signed](DISCOVERY_OBJECTIVE.md), using any justified finite method. The next strategy obligation is a general signed region outside abs(a)<=b or a new exact algebraic construction; single-height grid expansion must be justified by discovery value. The [machine-readable charter](../data/DISCOVERY_CHARTER.json) and [candidate intake proposal](https://github.com/larsbx/euler-powers-research/pull/59) specify exact normalization, independent native/Python arithmetic, equivalence de-duplication and mandatory current literature review. The new intake implementation remains under review pending actual hosted execution. No discovery is claimed by this revision.
+
 **P19 accepted computational result:** [larger minimum summands and residue-first evaluation](POST_BRAUN_P19.md): 724,549,632 new exact trials, 1,620,700 BigZ lookups and zero primitive identities. Six positive gaps and supported signed delta=4 extend abs(a) to 4096 at e=2,760,001. Cumulative unique high-height work is 2,441,336,576 trials in 63 cells. The before/after benchmark checks identical production stripes and reports sample-specific measured time reductions; no universal or whole-search ratio is inferred.
 
 **P18 accepted:** [sixteen untouched positive gaps 17..32](POST_BRAUN_P18.md), 786,334,720 new exact trials, 1,340,424 BigZ lookups and zero primitive identities. The [current map](../data/experiments/TERRITORY.md) records 56 disjoint high-height cells and 1,716,786,944 trials. Positive e=2,760,001, delta=1..32, a<=1024 is complete only as this restricted block. [Pair reconstruction](PAIR_SUM_RECONSTRUCTION.md) is a separate exact algebra experiment; cached-production benchmarking remains open.
@@ -15,7 +17,7 @@
 
 **Literature-first gate:** [Known primitive E5 source/novelty registry](KNOWN_PRIMITIVE_E5_LITERATURE.md) enumerates four nontrivial primitive source classes (two strictly positive) and disallows announcing permutations, scalar multiples or signed examples as novel positive discoveries.
 
-**Primary goal:** [Discover a third genuinely new primitive strictly positive fifth-power identity](DISCOVERY_OBJECTIVE.md). Both published positive witnesses (e=144 and e=85359) are calibration fixtures. All remaining proof, benchmarking, modular, and geometry work should contribute to discovery or independent validation; the existing B320 bound is infrastructure, not the research endpoint.
+**Primary goal:** [Discover a genuinely new primitive identity, positive or signed](DISCOVERY_OBJECTIVE.md). All four audited identity classes are calibration fixtures. Proofs, benchmarking, modular constraints, algebra and finite computation must serve discovery or independent validation; no finite census bound is the research endpoint.
 
 
 ## P0 — Certified baseline

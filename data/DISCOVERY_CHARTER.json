@@ -1,0 +1,16 @@
+{
+  "schema": "E5-DISCOVERY-CHARTER-v1",
+  "primary_goal": "Find a genuinely new nontrivial primitive integer fifth-power identity class.",
+  "equation": "x1^5+x2^5+x3^5+x4^5+x5^5=0",
+  "domains": ["strictly_positive_four_term_presentation", "general_signed_nonzero_integer"],
+  "class_equivalence": ["permutation_of_all_five_signed_terms", "global_sign_reversal", "common_nonzero_rational_rescaling"],
+  "candidate_requirements": ["five_nonzero_integer_bases_after_exact_denominator_clearing", "no_opposite_cancelling_terms", "exact_zero_fifth_power_residual", "gcd_of_primitive_bases_is_one", "independent_native_BigZ_and_Python_verification", "distinct_canonical_class_from_known_identities", "current_primary_source_literature_review", "inspectable_derivation_or_search_provenance"],
+  "methods": ["exact_algebra_and_rational_parametrization", "cyclotomic_and_pair_reconstruction", "general_signed_search_without_smallest_negative_term_assumption", "meet_in_the_middle_and_streamed_indexes", "modular_and_prime_power_sieves_with_soundness_checks", "bounded_native_Mojo_search", "heuristic_candidate_generation_followed_by_exact_admission", "additional_justified_methods"],
+  "positive_results": "Report separately; a signed result never increments the strictly positive count.",
+  "stop_condition": "A new independently verified primitive class with completed novelty review and preserved evidence.",
+  "progress_policy": "Optimize strategy for discovery. Bounded negative results, throughput, proof counts and implementation merges are supporting evidence, not achievement of the discovery goal.",
+  "resource_policy": "Every computation declares finite time, memory, work and coverage bounds; expand or change strategy from measured evidence. Infinite calculations and division by zero are excluded.",
+  "known_registry_snapshot": "data/literature/known_primitive_e5_2026-10-26.json",
+  "registry_absence_is_discovery": false,
+  "current_discovery_claim": false
+}
