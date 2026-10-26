@@ -48,9 +48,18 @@ def search_stripe(
     for b in range(c_end + 1):
         powers.append(fifth_bigz(Int64(b)))
     var ring = Modulus(99000)
+    # Extra exact fifth-power images modulo primes with 5 | (p-1).
+    # These are necessary conditions for the SAME admissible b<=c,
+    # not probabilistic CRT guesses or field lifting assumptions.
+    var ring41 = Modulus(41)
+    var ring61 = Modulus(61)
     var fifth_seen = List[Bool](length=99000, fill=False)
+    var seen41 = List[Bool](length=41, fill=False)
+    var seen61 = List[Bool](length=61, fill=False)
     for b in range(1, c_start):
         fifth_seen[ring.pow(b, 5)] = True
+        seen41[ring41.pow(b, 5)] = True
+        seen61[ring61.pow(b, 5)] = True
 
     var trials = 0
     var rejected = 0
@@ -58,6 +67,8 @@ def search_stripe(
     var witnesses = 0
     for c in range(c_start, c_end + 1):
         fifth_seen[ring.pow(c, 5)] = True
+        seen41[ring41.pow(c, 5)] = True
+        seen61[ring61.pow(c, 5)] = True
         var left = bigz_sub(remainder, powers[c])
         for a in range(1, min(c, max_a) + 1):
             trials += 1
@@ -66,6 +77,12 @@ def search_stripe(
                 rejected += 1
                 continue
             if not fifth_seen[ring.reduce_bigz(candidate)]:
+                rejected += 1
+                continue
+            if not seen41[ring41.reduce_bigz(candidate)]:
+                rejected += 1
+                continue
+            if not seen61[ring61.reduce_bigz(candidate)]:
                 rejected += 1
                 continue
             lookups += 1
