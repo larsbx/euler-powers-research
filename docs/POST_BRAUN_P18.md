@@ -1,5 +1,7 @@
 # P18: untouched positive cancellation gaps 17..32
 
+**Current territory has advanced:** [P19](POST_BRAUN_P19.md) extends selected minimum-summand ranges to 4096. The P18 source, predecessor and results below remain historical evidence; see the [current map](../data/experiments/TERRITORY.md).
+
 Fixed scope: `e=2,760,001`, each `delta=e-d` in `17..32`,
 `1<=a<=1024`, `a<=b<=c<=d<e`. These sixteen cells are disjoint from
 the accepted immutable P17 predecessor `data/experiments/index-p17.json`.

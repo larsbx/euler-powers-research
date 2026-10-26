@@ -1,0 +1,1571 @@
+{
+  "schema": "E5-ACCEPTED-EXPERIMENT-ARCHIVES-v1",
+  "as_of": "2026-10-26",
+  "meaning": "All accepted post-Braun restricted cells plus the imported full positive B320 census. Calibration-only domains, historical repeats and external reports are separate; algebraic exclusions are not enumerated trials.",
+  "experiments": [
+    {
+      "id": "P14",
+      "run_id": 40310016033,
+      "artifact_id": 12644088071,
+      "archive": "p14-run-40310016033.zip",
+      "archive_sha256": "0557f355447acc51e8edd59c443f63a8aeed79aae3ba0602f5f248f231761c63",
+      "source_head": "256588293ffa9355219daa3ef9160607d03edddb",
+      "trials": 25213056,
+      "exact_lookups": 56409,
+      "primitive_witnesses": 0,
+      "parameters": {
+        "e": [
+          2760001,
+          2760002,
+          2760003
+        ],
+        "delta": [
+          1,
+          2,
+          3
+        ],
+        "positive_a_interval": [
+          1,
+          64
+        ]
+      },
+      "receipt": "postbraun-grid-e2760001-2760003-d1-3-a64/accepted-grid.json (inside original ZIP)"
+    },
+    {
+      "id": "P15",
+      "run_id": 40329902748,
+      "artifact_id": 12654187161,
+      "archive": "p15-run-40329902748.zip",
+      "archive_sha256": "bd09635a09176bbf3f0671492af8f8ce21a7fec0abf07c147dd54cc572a53ea2",
+      "source_head": "9d6dd4cc98905c29c0829e4684d6673076d505dc",
+      "tested_pr_merge_commit": "144b19eac6cee9a0724d0b3bd14902e2f63ed261",
+      "implementation_merge": "d48f9752ac3bb7f81eec78e5752dba647dc51bb3",
+      "trials": 176372608,
+      "exact_lookups": 524286,
+      "primitive_witnesses": 0,
+      "receipt": "p15-accepted-frontier.json",
+      "receipt_sha256": "e514cc31eea5e250076c94e5e051855efc24689a3eeefc969cd531a0a448740b",
+      "job_log": "p15-run-40329902748-job.log.gz",
+      "job_log_sha256": "3e10edec9f0b216187941822f0d2822ba6ee959ce0da87dda10ba0d702129c72",
+      "resource_measurements": {
+        "search_and_initial_replay": {
+          "wall_seconds": "211.02",
+          "user_seconds": "199.53",
+          "system_seconds": "13.84",
+          "gnu_max_rss_kib": 204304
+        },
+        "fresh_full_replay": {
+          "wall_seconds": "52.84",
+          "user_seconds": "50.34",
+          "system_seconds": "2.49",
+          "gnu_max_rss_kib": 110708
+        },
+        "native_invocation_wall_ns": 158358636741,
+        "initial_python_replay_wall_ns": 52005780444
+      },
+      "cells": [
+        {
+          "sign": "positive",
+          "e": 2760001,
+          "delta": 4,
+          "abs_a_min": 1,
+          "abs_a_max": 256,
+          "c_min": 207735,
+          "c_max": 258781,
+          "trials": 13068032,
+          "exact_lookups": 29231,
+          "primitive_witnesses": 0
+        },
+        {
+          "sign": "positive",
+          "e": 2760001,
+          "delta": 8,
+          "abs_a_min": 1,
+          "abs_a_max": 256,
+          "c_min": 238625,
+          "c_max": 297261,
+          "trials": 15011072,
+          "exact_lookups": 14572,
+          "primitive_witnesses": 0
+        },
+        {
+          "sign": "positive",
+          "e": 2760001,
+          "delta": 16,
+          "abs_a_min": 1,
+          "abs_a_max": 256,
+          "c_min": 274108,
+          "c_max": 341463,
+          "trials": 17243136,
+          "exact_lookups": 74472,
+          "primitive_witnesses": 0
+        },
+        {
+          "sign": "positive",
+          "e": 2760001,
+          "delta": 64,
+          "abs_a_min": 1,
+          "abs_a_max": 256,
+          "c_min": 361684,
+          "c_max": 450560,
+          "trials": 22752512,
+          "exact_lookups": 35821,
+          "primitive_witnesses": 0
+        },
+        {
+          "sign": "positive",
+          "e": 2760001,
+          "delta": 256,
+          "abs_a_min": 1,
+          "abs_a_max": 256,
+          "c_min": 477232,
+          "c_max": 594501,
+          "trials": 30021120,
+          "exact_lookups": 189335,
+          "primitive_witnesses": 0
+        },
+        {
+          "sign": "positive",
+          "e": 2760001,
+          "delta": 1,
+          "abs_a_min": 65,
+          "abs_a_max": 256,
+          "c_min": 157434,
+          "c_max": 196119,
+          "trials": 7427712,
+          "exact_lookups": 12836,
+          "primitive_witnesses": 0
+        },
+        {
+          "sign": "positive",
+          "e": 2760001,
+          "delta": 2,
+          "abs_a_min": 65,
+          "abs_a_max": 256,
+          "c_min": 180844,
+          "c_max": 225282,
+          "trials": 8532288,
+          "exact_lookups": 7007,
+          "primitive_witnesses": 0
+        },
+        {
+          "sign": "positive",
+          "e": 2760001,
+          "delta": 3,
+          "abs_a_min": 65,
+          "abs_a_max": 256,
+          "c_min": 196120,
+          "c_max": 244312,
+          "trials": 9253056,
+          "exact_lookups": 14055,
+          "primitive_witnesses": 0
+        },
+        {
+          "sign": "negative",
+          "e": 2760001,
+          "delta": 4,
+          "abs_a_min": 1,
+          "abs_a_max": 256,
+          "c_min": 207735,
+          "c_max": 258781,
+          "trials": 13068032,
+          "exact_lookups": 39362,
+          "primitive_witnesses": 0
+        },
+        {
+          "sign": "negative",
+          "e": 2760001,
+          "delta": 16,
+          "abs_a_min": 1,
+          "abs_a_max": 256,
+          "c_min": 274108,
+          "c_max": 341463,
+          "trials": 17243136,
+          "exact_lookups": 74172,
+          "primitive_witnesses": 0
+        },
+        {
+          "sign": "negative",
+          "e": 2760001,
+          "delta": 64,
+          "abs_a_min": 1,
+          "abs_a_max": 256,
+          "c_min": 361684,
+          "c_max": 450560,
+          "trials": 22752512,
+          "exact_lookups": 33423,
+          "primitive_witnesses": 0
+        }
+      ]
+    },
+    {
+      "id": "P16",
+      "run_id": 40334880575,
+      "artifact_id": 12657335699,
+      "archive": "p16-run-40334880575.zip",
+      "archive_sha256": "4de3337ad27b5683abae5e82ef85827dc1e28651b969924cbcc7cd03a9d21d68",
+      "source_head": "9ae7d72dfb53be068a7279c41861258c0f555f4d",
+      "tested_pr_merge_commit": "05c1f1127fe7d729eaaf3395f056d5cb1090a4b4",
+      "trials": 318981888,
+      "exact_lookups": 965191,
+      "primitive_witnesses": 0,
+      "residue_or_nonpositive_rejects": 318016697,
+      "receipt": "p16-accepted.json",
+      "receipt_sha256": "6bb23319f59674df0897be157e61c149aadcc325b3cee66e2c6f106763238377",
+      "job_log": "p16-run-40334880575-job.log.gz",
+      "job_log_sha256": "b2b75ac5fad9da59b9799bd19ef5d0f47b119702aa2e5244f1fb3358d042b035",
+      "formal_run_id": 40334880347,
+      "formal_job_log": "p16-formal-run-40334880347-job.log.gz",
+      "formal_job_log_sha256": "6c47ea3125d9bbc1a220261942a1655ac3e5bec805b9097a44e2731c561c4496",
+      "formal_status": "NearCancellationBounds built; 291 total kernel-checked EulerPowers theorems passed audit with no nonstandard axioms; Lean/Quint workflow success.",
+      "prior_coverage_index_sha256": "8465c8ec1f712ae677f0b4917ae0cd68aa6cd51835c76c6a74ac78ec42eff912",
+      "work_with_old_c_bound": 486073344,
+      "algebraically_excluded_pairs_not_counted_as_trials": 167091456,
+      "resource_measurements": {
+        "search_and_initial_replay": {
+          "wall_seconds": "273.74",
+          "user_seconds": "266.63",
+          "system_seconds": "10.03",
+          "gnu_max_rss_kib": 203440
+        },
+        "fresh_full_replay": {
+          "wall_seconds": "103.74",
+          "user_seconds": "101.82",
+          "system_seconds": "1.91",
+          "gnu_max_rss_kib": 110768
+        },
+        "native_invocation_wall_ns": 170094627608,
+        "initial_python_replay_wall_ns": 102935734003
+      },
+      "cells": [
+        {
+          "sign": "positive",
+          "e": 2760001,
+          "delta": 1,
+          "abs_a_min": 257,
+          "abs_a_max": 1024,
+          "c_min": 170733,
+          "c_max": 196119,
+          "legacy_c_min": 157434,
+          "algebraically_excluded_c_values": 13299,
+          "trials": 19497216,
+          "exact_lookups": 29626,
+          "primitive_witnesses": 0
+        },
+        {
+          "sign": "positive",
+          "e": 2760001,
+          "delta": 2,
+          "abs_a_min": 257,
+          "abs_a_max": 1024,
+          "c_min": 196120,
+          "c_max": 225282,
+          "legacy_c_min": 180844,
+          "algebraically_excluded_c_values": 15276,
+          "trials": 22397184,
+          "exact_lookups": 19908,
+          "primitive_witnesses": 0
+        },
+        {
+          "sign": "positive",
+          "e": 2760001,
+          "delta": 3,
+          "abs_a_min": 257,
+          "abs_a_max": 1024,
+          "c_min": 212687,
+          "c_max": 244312,
+          "legacy_c_min": 196120,
+          "algebraically_excluded_c_values": 16567,
+          "trials": 24288768,
+          "exact_lookups": 38471,
+          "primitive_witnesses": 0
+        },
+        {
+          "sign": "positive",
+          "e": 2760001,
+          "delta": 4,
+          "abs_a_min": 257,
+          "abs_a_max": 1024,
+          "c_min": 225283,
+          "c_max": 258781,
+          "legacy_c_min": 207735,
+          "algebraically_excluded_c_values": 17548,
+          "trials": 25727232,
+          "exact_lookups": 69818,
+          "primitive_witnesses": 0
+        },
+        {
+          "sign": "positive",
+          "e": 2760001,
+          "delta": 8,
+          "abs_a_min": 257,
+          "abs_a_max": 1024,
+          "c_min": 258782,
+          "c_max": 297261,
+          "legacy_c_min": 238625,
+          "algebraically_excluded_c_values": 20157,
+          "trials": 29552640,
+          "exact_lookups": 32553,
+          "primitive_witnesses": 0
+        },
+        {
+          "sign": "positive",
+          "e": 2760001,
+          "delta": 16,
+          "abs_a_min": 257,
+          "abs_a_max": 1024,
+          "c_min": 297262,
+          "c_max": 341463,
+          "legacy_c_min": 274108,
+          "algebraically_excluded_c_values": 23154,
+          "trials": 33947136,
+          "exact_lookups": 139218,
+          "primitive_witnesses": 0
+        },
+        {
+          "sign": "positive",
+          "e": 2760001,
+          "delta": 64,
+          "abs_a_min": 257,
+          "abs_a_max": 1024,
+          "c_min": 392236,
+          "c_max": 450560,
+          "legacy_c_min": 361684,
+          "algebraically_excluded_c_values": 30552,
+          "trials": 44793600,
+          "exact_lookups": 68135,
+          "primitive_witnesses": 0
+        },
+        {
+          "sign": "positive",
+          "e": 2760001,
+          "delta": 256,
+          "abs_a_min": 257,
+          "abs_a_max": 1024,
+          "c_min": 517544,
+          "c_max": 594501,
+          "legacy_c_min": 477232,
+          "algebraically_excluded_c_values": 40312,
+          "trials": 59103744,
+          "exact_lookups": 358205,
+          "primitive_witnesses": 0
+        },
+        {
+          "sign": "negative",
+          "e": 2760001,
+          "delta": 4,
+          "abs_a_min": 257,
+          "abs_a_max": 1024,
+          "c_min": 225283,
+          "c_max": 258781,
+          "legacy_c_min": 207735,
+          "algebraically_excluded_c_values": 17548,
+          "trials": 25727232,
+          "exact_lookups": 67449,
+          "primitive_witnesses": 0
+        },
+        {
+          "sign": "negative",
+          "e": 2760001,
+          "delta": 16,
+          "abs_a_min": 257,
+          "abs_a_max": 1024,
+          "c_min": 297262,
+          "c_max": 341463,
+          "legacy_c_min": 274108,
+          "algebraically_excluded_c_values": 23154,
+          "trials": 33947136,
+          "exact_lookups": 141808,
+          "primitive_witnesses": 0
+        }
+      ]
+    },
+    {
+      "cells": [
+        {
+          "abs_a_max": 1024,
+          "abs_a_min": 1,
+          "algebraically_excluded_c_values": 18349,
+          "c_max": 270592,
+          "c_min": 235565,
+          "delta": 5,
+          "e": 2760001,
+          "exact_lookups": 106745,
+          "legacy_c_min": 217216,
+          "primitive_witnesses": 0,
+          "receipt_sha256": "7b153b70ca73a3b9609157eb904c0de8bc3c036823e503e814093dcf80a2930b",
+          "sign": "positive",
+          "trials": 35868672
+        },
+        {
+          "abs_a_max": 1024,
+          "abs_a_min": 1,
+          "algebraically_excluded_c_values": 19030,
+          "c_max": 280641,
+          "c_min": 244313,
+          "delta": 6,
+          "e": 2760001,
+          "exact_lookups": 142725,
+          "legacy_c_min": 225283,
+          "primitive_witnesses": 0,
+          "receipt_sha256": "f9069885a85b0e7451a9e8458702279f9e423e972cbcf687dc67835aa063b01e",
+          "sign": "positive",
+          "trials": 37200896
+        },
+        {
+          "abs_a_max": 1024,
+          "abs_a_min": 1,
+          "algebraically_excluded_c_values": 19626,
+          "c_max": 289428,
+          "c_min": 251962,
+          "delta": 7,
+          "e": 2760001,
+          "exact_lookups": 68271,
+          "legacy_c_min": 232336,
+          "primitive_witnesses": 0,
+          "receipt_sha256": "9f581b13e35f0935e91878a753ba90ff57288dd8fb7ec01dd26dbc72905abdb5",
+          "sign": "positive",
+          "trials": 38366208
+        },
+        {
+          "abs_a_max": 1024,
+          "abs_a_min": 1,
+          "algebraically_excluded_c_values": 20637,
+          "c_max": 304347,
+          "c_min": 264950,
+          "delta": 9,
+          "e": 2760001,
+          "exact_lookups": 34381,
+          "legacy_c_min": 244313,
+          "primitive_witnesses": 0,
+          "receipt_sha256": "3d9ea129fa3d8108b42a601f28c8b9a965523984dc761bab884653a393529d6b",
+          "sign": "positive",
+          "trials": 40343552
+        },
+        {
+          "abs_a_max": 1024,
+          "abs_a_min": 1,
+          "algebraically_excluded_c_values": 21077,
+          "c_max": 310828,
+          "c_min": 270592,
+          "delta": 10,
+          "e": 2760001,
+          "exact_lookups": 86503,
+          "legacy_c_min": 249515,
+          "primitive_witnesses": 0,
+          "receipt_sha256": "7d7aee0e50c32478c77ec77acedfa647db7262474b8aa898f2a0d768bbd9cc2f",
+          "sign": "positive",
+          "trials": 41202688
+        },
+        {
+          "abs_a_max": 1024,
+          "abs_a_min": 1,
+          "algebraically_excluded_c_values": 21483,
+          "c_max": 316810,
+          "c_min": 275800,
+          "delta": 11,
+          "e": 2760001,
+          "exact_lookups": 237082,
+          "legacy_c_min": 254317,
+          "primitive_witnesses": 0,
+          "receipt_sha256": "b91432b6cca6ee08039c090bc66945ded91f7effeaff207159c6e59d9b3e71c9",
+          "sign": "positive",
+          "trials": 41995264
+        },
+        {
+          "abs_a_max": 1024,
+          "abs_a_min": 1,
+          "algebraically_excluded_c_values": 21859,
+          "c_max": 322371,
+          "c_min": 280641,
+          "delta": 12,
+          "e": 2760001,
+          "exact_lookups": 14516,
+          "legacy_c_min": 258782,
+          "primitive_witnesses": 0,
+          "receipt_sha256": "a8a8d0705a647582d53fdf8de6afe94e0de64173667a6545bca28356e83fc192",
+          "sign": "positive",
+          "trials": 42732544
+        },
+        {
+          "abs_a_max": 1024,
+          "abs_a_min": 1,
+          "algebraically_excluded_c_values": 22212,
+          "c_max": 327573,
+          "c_min": 285170,
+          "delta": 13,
+          "e": 2760001,
+          "exact_lookups": 84261,
+          "legacy_c_min": 262958,
+          "primitive_witnesses": 0,
+          "receipt_sha256": "9143ea9637af3d3657c60c83e994ac7e4dbb8be18925b71133af6cec1086c483",
+          "sign": "positive",
+          "trials": 43421696
+        },
+        {
+          "abs_a_max": 1024,
+          "abs_a_min": 1,
+          "algebraically_excluded_c_values": 22544,
+          "c_max": 332465,
+          "c_min": 289428,
+          "delta": 14,
+          "e": 2760001,
+          "exact_lookups": 58477,
+          "legacy_c_min": 266884,
+          "primitive_witnesses": 0,
+          "receipt_sha256": "dedf20be86e825f85ed1952175711db4881a53acf3543b1cee8eb2e0b752acec",
+          "sign": "positive",
+          "trials": 44070912
+        },
+        {
+          "abs_a_max": 1024,
+          "abs_a_min": 1,
+          "algebraically_excluded_c_values": 22858,
+          "c_max": 337084,
+          "c_min": 293450,
+          "delta": 15,
+          "e": 2760001,
+          "exact_lookups": 104274,
+          "legacy_c_min": 270592,
+          "primitive_witnesses": 0,
+          "receipt_sha256": "761400687009a0168f56233bb605125c058cf9ef3c13ed382591fba2365a04bc",
+          "sign": "positive",
+          "trials": 44682240
+        }
+      ],
+      "exact_lookups": 937235,
+      "id": "P17",
+      "meaning": "Complete restricted cells only; archive publication metadata is recorded separately.",
+      "primitive_witnesses": 0,
+      "prior_coverage_index_sha256": "17b78a2667b7f32d96d46ebbaf6e1218c97504af6438fb515b18fe8932ffc2c9",
+      "receipt_sha256": "3bcf7d7b0db62c7c5d128614a0897cbe912c91a47c1360ad458cf9540395c5ba",
+      "source": {
+        "files_sha256": {
+          "data/literature/known_primitive_e5_2026-10-26.json": "2abc549c114ba1f0f66570881dcf1e274a9f2b987af467cbf3aaf9d727dedc24",
+          "kernel/euler_exact.mojo": "021c0ca046e0f3e0e477b40aa3f7960262ab7f830762ca32ee4627d1523b546e",
+          "kernel/near_cancellation.mojo": "4293628055b73cca88ee77ace7cd0d8c9acf8b1f2ff66d551991e9a908f8f950",
+          "kernel/near_cancellation_stripe.mojo": "365a415ea60b9270b0c5845663e42dc6f55b9dd67680f66e001b47fbc9c1227d",
+          "pixi.lock": "6f901c255c305ba985e8e7afded9c03955bc84672df98df2ab57f5e79bab6b45",
+          "pixi.toml": "17b932909b7e3bf90a8e38338d3dad3b690a7ee39df453564f12322adf1e10ec",
+          "scripts/run_mojo.sh": "1dc7922d417569dbf5e0f678c2640830940c2f328e3308864c7bd7aaf8ab7286",
+          "scripts/run_research_cgroup.sh": "1612c5b3f2ddf8417bc17de19473aa1788c6f55afe9092f6eef3bc043935815f",
+          "tools/search_novel_stripes.py": "6fca09761a8dfc08f8e0d071c4d653ba70bddb0eb5c9ebce006a1fc22ac3385f"
+        },
+        "finite_math_kernels_pin": "c5b2d3d7879bcf2354d4d9784bd20a6b3dc610fd",
+        "git_commit": "f03f38fc486e5969486a07329e4c2ea037565e8a",
+        "workflow_run_id": "40340932947"
+      },
+      "status": "native_and_independent_full_replay_accepted",
+      "trials": 409884672,
+      "witnesses": [],
+      "run_id": 40340932947,
+      "artifact_id": 12659845787,
+      "source_head": "7151330d011de99e8831ff3d6742d4bb37bd10a1",
+      "tested_pr_merge_commit": "f03f38fc486e5969486a07329e4c2ea037565e8a",
+      "implementation_merge": "99f0aedd9d75be7acd2537b4f1bae9ea4a05335a",
+      "archive": "p17-run-40340932947.zip",
+      "archive_sha256": "c83bb4c5165b5ba5e00024fc2b01247ceb8048fed4424c664be3b8296308dd97",
+      "receipt": "p17-accepted.json",
+      "coverage_addition": "p17-coverage-addition.json",
+      "coverage_addition_sha256": "e9cd56ba0ef4505ba73a606216b3c3e6db7c9049cfa2cb9b15aa005de442f37d",
+      "job_log": "p17-run-40340932947-job.log.gz",
+      "job_log_sha256": "0cc4df0a110e310c0a578ba9971d6225496c139c439194cb63ff9fbf86aa8810",
+      "residue_or_nonpositive_rejects": 408947437,
+      "resource_measurements": {
+        "search_and_initial_replay": {
+          "wall_seconds": "293.19",
+          "user_seconds": "286.37",
+          "system_seconds": "9.62",
+          "gnu_max_rss_kib": 182036
+        },
+        "fresh_full_replay": {
+          "wall_seconds": "116.52",
+          "user_seconds": "114.80",
+          "system_seconds": "1.71",
+          "gnu_max_rss_kib": 70620
+        },
+        "native_invocation_wall_ns": 174740183648,
+        "initial_python_replay_wall_ns": 117685242539
+      }
+    },
+    {
+      "cells": [
+        {
+          "abs_a_max": 1024,
+          "abs_a_min": 1,
+          "algebraically_excluded_c_values": 23437,
+          "c_max": 345628,
+          "c_min": 300888,
+          "delta": 17,
+          "e": 2760001,
+          "exact_lookups": 54296,
+          "legacy_c_min": 277451,
+          "primitive_witnesses": 0,
+          "receipt_sha256": "373e1e6e80918e7dad9039348eda655e1638c0a4343ba577c5d24fb7bce27964",
+          "sign": "positive",
+          "trials": 45814784
+        },
+        {
+          "abs_a_max": 1024,
+          "abs_a_min": 1,
+          "algebraically_excluded_c_values": 23706,
+          "c_max": 349602,
+          "c_min": 304347,
+          "delta": 18,
+          "e": 2760001,
+          "exact_lookups": 91771,
+          "legacy_c_min": 280641,
+          "primitive_witnesses": 0,
+          "receipt_sha256": "9100f8bcfd84052a4aceb4bc82cc2ee87381acbf5295ee05ecd5019066148490",
+          "sign": "positive",
+          "trials": 46342144
+        },
+        {
+          "abs_a_max": 1024,
+          "abs_a_min": 1,
+          "algebraically_excluded_c_values": 23964,
+          "c_max": 353403,
+          "c_min": 307656,
+          "delta": 19,
+          "e": 2760001,
+          "exact_lookups": 33040,
+          "legacy_c_min": 283692,
+          "primitive_witnesses": 0,
+          "receipt_sha256": "a3e0dbe7c1e38c09406714a13eeb03a7f3effe77e710a89089a6fb22000a91b8",
+          "sign": "positive",
+          "trials": 46845952
+        },
+        {
+          "abs_a_max": 1024,
+          "abs_a_min": 1,
+          "algebraically_excluded_c_values": 24211,
+          "c_max": 357047,
+          "c_min": 310828,
+          "delta": 20,
+          "e": 2760001,
+          "exact_lookups": 119204,
+          "legacy_c_min": 286617,
+          "primitive_witnesses": 0,
+          "receipt_sha256": "2da9ba48f2bba97c31e2b94c3bb4b939dab556e8f5f0e6c8dc0126a6117cef3d",
+          "sign": "positive",
+          "trials": 47329280
+        },
+        {
+          "abs_a_max": 1024,
+          "abs_a_min": 1,
+          "algebraically_excluded_c_values": 24448,
+          "c_max": 360548,
+          "c_min": 313876,
+          "delta": 21,
+          "e": 2760001,
+          "exact_lookups": 128643,
+          "legacy_c_min": 289428,
+          "primitive_witnesses": 0,
+          "receipt_sha256": "0b7c9f3be5072bacd927cf76b94f69031961bf2e754a16b43a8f3e5dd7ad9652",
+          "sign": "positive",
+          "trials": 47793152
+        },
+        {
+          "abs_a_max": 1024,
+          "abs_a_min": 1,
+          "algebraically_excluded_c_values": 24677,
+          "c_max": 363918,
+          "c_min": 316810,
+          "delta": 22,
+          "e": 2760001,
+          "exact_lookups": 32902,
+          "legacy_c_min": 292133,
+          "primitive_witnesses": 0,
+          "receipt_sha256": "d1fbcb91ccf9d680161221dfb79d362fa200102e94938d90fefc075be228ce69",
+          "sign": "positive",
+          "trials": 48239616
+        },
+        {
+          "abs_a_max": 1024,
+          "abs_a_min": 1,
+          "algebraically_excluded_c_values": 24897,
+          "c_max": 367168,
+          "c_min": 319639,
+          "delta": 23,
+          "e": 2760001,
+          "exact_lookups": 56888,
+          "legacy_c_min": 294742,
+          "primitive_witnesses": 0,
+          "receipt_sha256": "3ee21ac733450410399fed537df596ee5bc6ecd98d43962f5b6f2afb981280fe",
+          "sign": "positive",
+          "trials": 48670720
+        },
+        {
+          "abs_a_max": 1024,
+          "abs_a_min": 1,
+          "algebraically_excluded_c_values": 25111,
+          "c_max": 370307,
+          "c_min": 322372,
+          "delta": 24,
+          "e": 2760001,
+          "exact_lookups": 115365,
+          "legacy_c_min": 297261,
+          "primitive_witnesses": 0,
+          "receipt_sha256": "480269d4bf7192383000c6d4405d346163a2e4f91d8b8ea52cb425e045fe2a12",
+          "sign": "positive",
+          "trials": 49086464
+        },
+        {
+          "abs_a_max": 1024,
+          "abs_a_min": 1,
+          "algebraically_excluded_c_values": 25316,
+          "c_max": 373342,
+          "c_min": 325014,
+          "delta": 25,
+          "e": 2760001,
+          "exact_lookups": 205054,
+          "legacy_c_min": 299698,
+          "primitive_witnesses": 0,
+          "receipt_sha256": "80dda6a7b1176c38ad7886fb82cf9b60d46288d181b9ce852e3ee2e09a8efb92",
+          "sign": "positive",
+          "trials": 49488896
+        },
+        {
+          "abs_a_max": 1024,
+          "abs_a_min": 1,
+          "algebraically_excluded_c_values": 25516,
+          "c_max": 376282,
+          "c_min": 327574,
+          "delta": 26,
+          "e": 2760001,
+          "exact_lookups": 74884,
+          "legacy_c_min": 302058,
+          "primitive_witnesses": 0,
+          "receipt_sha256": "1ecfd4d88549b907ba7e112d50f0a1ad41d2dd1c3dbd62b57b0295d866bb536a",
+          "sign": "positive",
+          "trials": 49878016
+        },
+        {
+          "abs_a_max": 1024,
+          "abs_a_min": 1,
+          "algebraically_excluded_c_values": 25709,
+          "c_max": 379133,
+          "c_min": 330056,
+          "delta": 27,
+          "e": 2760001,
+          "exact_lookups": 44059,
+          "legacy_c_min": 304347,
+          "primitive_witnesses": 0,
+          "receipt_sha256": "2e1e6489133e34d9db0756bab5ba857085a5e43a40313d9374914fdb19a11109",
+          "sign": "positive",
+          "trials": 50255872
+        },
+        {
+          "abs_a_max": 1024,
+          "abs_a_min": 1,
+          "algebraically_excluded_c_values": 25896,
+          "c_max": 381901,
+          "c_min": 332465,
+          "delta": 28,
+          "e": 2760001,
+          "exact_lookups": 62596,
+          "legacy_c_min": 306569,
+          "primitive_witnesses": 0,
+          "receipt_sha256": "419cbc958708bf2c7ff541f629e538a188fe9ec337b132e62e14ad460d247db4",
+          "sign": "positive",
+          "trials": 50623488
+        },
+        {
+          "abs_a_max": 1024,
+          "abs_a_min": 1,
+          "algebraically_excluded_c_values": 26078,
+          "c_max": 384591,
+          "c_min": 334806,
+          "delta": 29,
+          "e": 2760001,
+          "exact_lookups": 128361,
+          "legacy_c_min": 308728,
+          "primitive_witnesses": 0,
+          "receipt_sha256": "470007501b5ce45df34203c985e46bb0811e807590bbedec7b7544ca6c70f52d",
+          "sign": "positive",
+          "trials": 50980864
+        },
+        {
+          "abs_a_max": 1024,
+          "abs_a_min": 1,
+          "algebraically_excluded_c_values": 26256,
+          "c_max": 387207,
+          "c_min": 337084,
+          "delta": 30,
+          "e": 2760001,
+          "exact_lookups": 85019,
+          "legacy_c_min": 310828,
+          "primitive_witnesses": 0,
+          "receipt_sha256": "a5f32ec393dc26b0c000b4093a0207633fc9799d03a09c839d8ae0e03652d7db",
+          "sign": "positive",
+          "trials": 51326976
+        },
+        {
+          "abs_a_max": 1024,
+          "abs_a_min": 1,
+          "algebraically_excluded_c_values": 26429,
+          "c_max": 389755,
+          "c_min": 339302,
+          "delta": 31,
+          "e": 2760001,
+          "exact_lookups": 81529,
+          "legacy_c_min": 312873,
+          "primitive_witnesses": 0,
+          "receipt_sha256": "4e931cd2f5fdf410593ae5c0616708247fc19ec39b32ee47bc8410b1d771b07a",
+          "sign": "positive",
+          "trials": 51664896
+        },
+        {
+          "abs_a_max": 1024,
+          "abs_a_min": 1,
+          "algebraically_excluded_c_values": 26597,
+          "c_max": 392237,
+          "c_min": 341463,
+          "delta": 32,
+          "e": 2760001,
+          "exact_lookups": 26813,
+          "legacy_c_min": 314866,
+          "primitive_witnesses": 0,
+          "receipt_sha256": "c8423c910433778f5e0ad2259ce60146f7fbce6cecdfcc34a0fb220797b480fd",
+          "sign": "positive",
+          "trials": 51993600
+        }
+      ],
+      "exact_lookups": 1340424,
+      "id": "P18",
+      "meaning": "Complete restricted cells only; archive publication metadata is recorded separately.",
+      "primitive_witnesses": 0,
+      "prior_coverage_index_sha256": "ea695ffa19ac46bd5c001616f8849a960e92417d1bbb643c006d265d356a3dde",
+      "receipt_sha256": "c4281cd67b4d96a1b152d883145864f3e817d7adae08b41cfbe3099feec15374",
+      "source": {
+        "files_sha256": {
+          "data/literature/known_primitive_e5_2026-10-26.json": "2abc549c114ba1f0f66570881dcf1e274a9f2b987af467cbf3aaf9d727dedc24",
+          "kernel/euler_exact.mojo": "021c0ca046e0f3e0e477b40aa3f7960262ab7f830762ca32ee4627d1523b546e",
+          "kernel/near_cancellation.mojo": "4293628055b73cca88ee77ace7cd0d8c9acf8b1f2ff66d551991e9a908f8f950",
+          "kernel/near_cancellation_stripe.mojo": "365a415ea60b9270b0c5845663e42dc6f55b9dd67680f66e001b47fbc9c1227d",
+          "pixi.lock": "6f901c255c305ba985e8e7afded9c03955bc84672df98df2ab57f5e79bab6b45",
+          "pixi.toml": "17b932909b7e3bf90a8e38338d3dad3b690a7ee39df453564f12322adf1e10ec",
+          "scripts/run_mojo.sh": "1dc7922d417569dbf5e0f678c2640830940c2f328e3308864c7bd7aaf8ab7286",
+          "scripts/run_research_cgroup.sh": "1612c5b3f2ddf8417bc17de19473aa1788c6f55afe9092f6eef3bc043935815f",
+          "tools/search_novel_stripes.py": "6fca09761a8dfc08f8e0d071c4d653ba70bddb0eb5c9ebce006a1fc22ac3385f"
+        },
+        "finite_math_kernels_pin": "c5b2d3d7879bcf2354d4d9784bd20a6b3dc610fd",
+        "git_commit": "b2982e5e95f66fa45553f18b3376df3a5cddd5d8",
+        "workflow_run_id": "40352704602"
+      },
+      "status": "native_and_independent_full_replay_accepted",
+      "trials": 786334720,
+      "witnesses": [],
+      "run_id": 40352704602,
+      "artifact_id": 12664414093,
+      "source_head": "5cb5ef5f254e03936c9547139304c95db628b92c",
+      "tested_pr_merge_commit": "b2982e5e95f66fa45553f18b3376df3a5cddd5d8",
+      "implementation_merge": "631490a18031b0419c793daddf55f4b0eeaa6610",
+      "archive": "p18-run-40352704602.zip",
+      "archive_sha256": "feb14989f1335459fb8d4a2b36bec234b3e0560e02ce372fb064e502331030a9",
+      "receipt": "p18-accepted.json",
+      "coverage_addition": "p18-coverage-addition.json",
+      "coverage_addition_sha256": "a855f9fac0872a2b3f1a8eb46a871687ab4617e6c9bf976ec778b877d751f383",
+      "job_log": "p18-run-40352704602-job.log.gz",
+      "job_log_sha256": "c3c3046b2dc6584cb819d761fa5fe83a349bdbbc8240d3ab63e79caaac8aa0f6",
+      "residue_or_nonpositive_rejects": 784994296,
+      "resource_measurements": {
+        "search_and_initial_replay": {
+          "wall_seconds": "575.79",
+          "user_seconds": "562.40",
+          "system_seconds": "18.87",
+          "gnu_max_rss_kib": 184180
+        },
+        "fresh_full_replay": {
+          "wall_seconds": "237.46",
+          "user_seconds": "234.12",
+          "system_seconds": "3.31",
+          "gnu_max_rss_kib": 93496
+        },
+        "native_invocation_wall_ns": 340694402985,
+        "initial_python_replay_wall_ns": 233838480872
+      }
+    },
+    {
+      "cells": [
+        {
+          "abs_a_max": 4096,
+          "abs_a_min": 1025,
+          "algebraically_excluded_c_values": 13299,
+          "c_max": 196119,
+          "c_min": 170733,
+          "delta": 1,
+          "e": 2760001,
+          "exact_lookups": 126730,
+          "legacy_c_min": 157434,
+          "primitive_witnesses": 0,
+          "receipt_sha256": "314d9f5468dbf6ed915c80960747173b830db40bb679a658600a243ba00c5f11",
+          "sign": "positive",
+          "trials": 77988864
+        },
+        {
+          "abs_a_max": 4096,
+          "abs_a_min": 1025,
+          "algebraically_excluded_c_values": 15276,
+          "c_max": 225282,
+          "c_min": 196120,
+          "delta": 2,
+          "e": 2760001,
+          "exact_lookups": 76041,
+          "legacy_c_min": 180844,
+          "primitive_witnesses": 0,
+          "receipt_sha256": "6f31dd1c8809abe1860f35bd0ba9ec4d63bf0ef919af0c8fcf4ae21264bd5f04",
+          "sign": "positive",
+          "trials": 89588736
+        },
+        {
+          "abs_a_max": 4096,
+          "abs_a_min": 1025,
+          "algebraically_excluded_c_values": 16567,
+          "c_max": 244312,
+          "c_min": 212687,
+          "delta": 3,
+          "e": 2760001,
+          "exact_lookups": 150813,
+          "legacy_c_min": 196120,
+          "primitive_witnesses": 0,
+          "receipt_sha256": "7358f78e975658401239ed88437237fe0fb3bd9180e606652fbc4f8eccc547d0",
+          "sign": "positive",
+          "trials": 97155072
+        },
+        {
+          "abs_a_max": 4096,
+          "abs_a_min": 1025,
+          "algebraically_excluded_c_values": 17548,
+          "c_max": 258781,
+          "c_min": 225283,
+          "delta": 4,
+          "e": 2760001,
+          "exact_lookups": 283751,
+          "legacy_c_min": 207735,
+          "primitive_witnesses": 0,
+          "receipt_sha256": "1200835fdba4913f7f9ec94783e8ac9d1259fff28366ea3a5972fe35887b54b8",
+          "sign": "positive",
+          "trials": 102908928
+        },
+        {
+          "abs_a_max": 4096,
+          "abs_a_min": 1025,
+          "algebraically_excluded_c_values": 20157,
+          "c_max": 297261,
+          "c_min": 258782,
+          "delta": 8,
+          "e": 2760001,
+          "exact_lookups": 127233,
+          "legacy_c_min": 238625,
+          "primitive_witnesses": 0,
+          "receipt_sha256": "8cda3c83c83c3000e2c81ba13b626043c202dad8cc20e897fa1983942ae322c6",
+          "sign": "positive",
+          "trials": 118210560
+        },
+        {
+          "abs_a_max": 4096,
+          "abs_a_min": 1025,
+          "algebraically_excluded_c_values": 23154,
+          "c_max": 341463,
+          "c_min": 297262,
+          "delta": 16,
+          "e": 2760001,
+          "exact_lookups": 573909,
+          "legacy_c_min": 274108,
+          "primitive_witnesses": 0,
+          "receipt_sha256": "5c772cc0295969b1f8ead9715d266c1c0f1c871c3fbcb960c31754c72f2aa59c",
+          "sign": "positive",
+          "trials": 135788544
+        },
+        {
+          "abs_a_max": 4096,
+          "abs_a_min": 1025,
+          "algebraically_excluded_c_values": 17548,
+          "c_max": 258781,
+          "c_min": 225283,
+          "delta": 4,
+          "e": 2760001,
+          "exact_lookups": 282223,
+          "legacy_c_min": 207735,
+          "primitive_witnesses": 0,
+          "receipt_sha256": "eedcce4f4c3d79cef499fd89b1bc22191b1409373bb8637149799df5a9eb13fd",
+          "sign": "negative",
+          "trials": 102908928
+        }
+      ],
+      "exact_lookups": 1620700,
+      "id": "P19",
+      "meaning": "Complete restricted cells only; archive publication metadata is recorded separately.",
+      "primitive_witnesses": 0,
+      "prior_coverage_index_sha256": "7ef954ad0c9b10330da78aa74ead86dcc9d2b40137b94268367b3228712a4687",
+      "receipt_sha256": "4efa6feaa6acdd9a05537b87afb55412a4a299e7d1c182449d8ffc6becd6bfd3",
+      "source": {
+        "files_sha256": {
+          "data/literature/known_primitive_e5_2026-10-26.json": "2abc549c114ba1f0f66570881dcf1e274a9f2b987af467cbf3aaf9d727dedc24",
+          "kernel/euler_exact.mojo": "021c0ca046e0f3e0e477b40aa3f7960262ab7f830762ca32ee4627d1523b546e",
+          "kernel/near_cancellation.mojo": "4293628055b73cca88ee77ace7cd0d8c9acf8b1f2ff66d551991e9a908f8f950",
+          "kernel/near_cancellation_stripe.mojo": "083b04a011880b3e37b1113e190f9e1bf706bfddde5063a63d061570567c10fe",
+          "pixi.lock": "6f901c255c305ba985e8e7afded9c03955bc84672df98df2ab57f5e79bab6b45",
+          "pixi.toml": "17b932909b7e3bf90a8e38338d3dad3b690a7ee39df453564f12322adf1e10ec",
+          "scripts/run_mojo.sh": "1dc7922d417569dbf5e0f678c2640830940c2f328e3308864c7bd7aaf8ab7286",
+          "scripts/run_research_cgroup.sh": "1612c5b3f2ddf8417bc17de19473aa1788c6f55afe9092f6eef3bc043935815f",
+          "tools/search_novel_stripes.py": "9b98f3d8809ad8ce0b64b8f38df701ae79a56afd397b359252c5aed298c2597b"
+        },
+        "finite_math_kernels_pin": "c5b2d3d7879bcf2354d4d9784bd20a6b3dc610fd",
+        "git_commit": "5b733864503f48125fbdb0aae08c08f9a25ac58a",
+        "workflow_run_id": "40358860783"
+      },
+      "status": "native_and_independent_full_replay_accepted",
+      "trials": 724549632,
+      "witnesses": [],
+      "run_id": 40358860783,
+      "artifact_id": 12667282649,
+      "source_head": "dd8fe2e43f88287fcfbc190938aa0947212475a0",
+      "tested_pr_merge_commit": "5b733864503f48125fbdb0aae08c08f9a25ac58a",
+      "archive": "p19-run-40358860783.zip",
+      "archive_sha256": "f58f471cc27b6aa307495546b8e97ecaeb6ea94aec9a19903cf5ee4ecb224694",
+      "receipt": "p19-accepted.json",
+      "coverage_addition": "p19-coverage-addition.json",
+      "coverage_addition_sha256": "7c19c58e25ae48a686ac5193ee1aecfa7cee5eb3e0619115575c2b358f781abe",
+      "job_log": "p19-run-40358860783-job.log.gz",
+      "job_log_sha256": "a7a8587c0957c27e287ee332601e7f2f8f53de90c70b09cb6dd5167f008492e4",
+      "residue_or_nonpositive_rejects": 722928932,
+      "resource_measurements": {
+        "search_and_initial_replay": {
+          "wall_seconds": "146.66",
+          "user_seconds": "143.35",
+          "system_seconds": "4.01",
+          "gnu_max_rss_kib": 179264
+        },
+        "fresh_full_replay": {
+          "wall_seconds": "107.10",
+          "user_seconds": "106.46",
+          "system_seconds": "0.62",
+          "gnu_max_rss_kib": 69852
+        },
+        "native_invocation_wall_ns": 39168890845,
+        "initial_python_replay_wall_ns": 107080743872
+      }
+    }
+  ],
+  "unsearched_examples": [
+    "At e=2760001, positive a>=4097 at delta=1,2,3,4,8,16; a>=1025 at delta=5..7,9..15,17..32,64,256; all a at positive gaps outside 1..32,64,256.",
+    "At e=2760001, supported signed delta=4: abs(a)>=4097; delta=16: abs(a)>=1025; delta=64: abs(a)>=257; all other signed gaps. General signed abs(a)>b and multiple negative terms remain open.",
+    "At e=2760002 and 2760003, positive a>=65 and gaps outside 1..3; all signed modes.",
+    "Other high target heights outside the listed cells; calibration-only test scopes are separately listed. General signed orderings, including abs(a)>b and multiple negative terms, remain open."
+  ],
+  "failed_attempts": [
+    {
+      "run_id": 40329491348,
+      "meaning": "Native calibration passed; virtual-address limit caused allocator failure before any search cell was accepted. Not negative mathematical evidence."
+    }
+  ],
+  "supersedes": "index-p18.json (unchanged accepted predecessor input)",
+  "coverage_summary": {
+    "high_height_cells": 63,
+    "high_height_exact_trials": 2441336576,
+    "high_height_exact_lookups": 5444245,
+    "rectangles": [
+      {
+        "e": 2760001,
+        "sign": "negative",
+        "delta_min": 64,
+        "delta_max": 64,
+        "abs_a_min": 1,
+        "abs_a_max": 256,
+        "c_coverage": "complete admissible c; see exact enumerated and algebraically excluded intervals in receipts"
+      },
+      {
+        "e": 2760001,
+        "sign": "negative",
+        "delta_min": 16,
+        "delta_max": 16,
+        "abs_a_min": 1,
+        "abs_a_max": 1024,
+        "c_coverage": "complete admissible c; see exact enumerated and algebraically excluded intervals in receipts"
+      },
+      {
+        "e": 2760001,
+        "sign": "negative",
+        "delta_min": 4,
+        "delta_max": 4,
+        "abs_a_min": 1,
+        "abs_a_max": 4096,
+        "c_coverage": "complete admissible c; see exact enumerated and algebraically excluded intervals in receipts"
+      },
+      {
+        "e": 2760001,
+        "sign": "positive",
+        "delta_min": 5,
+        "delta_max": 7,
+        "abs_a_min": 1,
+        "abs_a_max": 1024,
+        "c_coverage": "complete admissible c; see exact enumerated and algebraically excluded intervals in receipts"
+      },
+      {
+        "e": 2760001,
+        "sign": "positive",
+        "delta_min": 9,
+        "delta_max": 15,
+        "abs_a_min": 1,
+        "abs_a_max": 1024,
+        "c_coverage": "complete admissible c; see exact enumerated and algebraically excluded intervals in receipts"
+      },
+      {
+        "e": 2760001,
+        "sign": "positive",
+        "delta_min": 17,
+        "delta_max": 32,
+        "abs_a_min": 1,
+        "abs_a_max": 1024,
+        "c_coverage": "complete admissible c; see exact enumerated and algebraically excluded intervals in receipts"
+      },
+      {
+        "e": 2760001,
+        "sign": "positive",
+        "delta_min": 64,
+        "delta_max": 64,
+        "abs_a_min": 1,
+        "abs_a_max": 1024,
+        "c_coverage": "complete admissible c; see exact enumerated and algebraically excluded intervals in receipts"
+      },
+      {
+        "e": 2760001,
+        "sign": "positive",
+        "delta_min": 256,
+        "delta_max": 256,
+        "abs_a_min": 1,
+        "abs_a_max": 1024,
+        "c_coverage": "complete admissible c; see exact enumerated and algebraically excluded intervals in receipts"
+      },
+      {
+        "e": 2760001,
+        "sign": "positive",
+        "delta_min": 1,
+        "delta_max": 4,
+        "abs_a_min": 1,
+        "abs_a_max": 4096,
+        "c_coverage": "complete admissible c; see exact enumerated and algebraically excluded intervals in receipts"
+      },
+      {
+        "e": 2760001,
+        "sign": "positive",
+        "delta_min": 8,
+        "delta_max": 8,
+        "abs_a_min": 1,
+        "abs_a_max": 4096,
+        "c_coverage": "complete admissible c; see exact enumerated and algebraically excluded intervals in receipts"
+      },
+      {
+        "e": 2760001,
+        "sign": "positive",
+        "delta_min": 16,
+        "delta_max": 16,
+        "abs_a_min": 1,
+        "abs_a_max": 4096,
+        "c_coverage": "complete admissible c; see exact enumerated and algebraically excluded intervals in receipts"
+      },
+      {
+        "e": 2760002,
+        "sign": "positive",
+        "delta_min": 1,
+        "delta_max": 3,
+        "abs_a_min": 1,
+        "abs_a_max": 64,
+        "c_coverage": "complete admissible c; see exact enumerated and algebraically excluded intervals in receipts"
+      },
+      {
+        "e": 2760003,
+        "sign": "positive",
+        "delta_min": 1,
+        "delta_max": 3,
+        "abs_a_min": 1,
+        "abs_a_max": 64,
+        "c_coverage": "complete admissible c; see exact enumerated and algebraically excluded intervals in receipts"
+      }
+    ],
+    "full_height_censuses": [
+      {
+        "id": "B320",
+        "domain": "strictly_positive",
+        "e_min": 2,
+        "e_max": 320,
+        "ordering": "1<=a<=b<=c<=d<e",
+        "primitive": true,
+        "complete": true,
+        "shards": 80,
+        "trial_unit": "positive_complement_right_pair_visits",
+        "right_pair_visits": 5201461,
+        "primitive_witnesses": [
+          [
+            27,
+            84,
+            110,
+            133,
+            144
+          ]
+        ],
+        "partition_rows": 5742,
+        "root_sha256": "729a29fdb2c6bc391a22748831e324963f532aa093f294f3a88f2d85eaf69681",
+        "source_head": "9ae7d72dfb53be068a7279c41861258c0f555f4d",
+        "source": {
+          "exact_bridge_sha256": "021c0ca046e0f3e0e477b40aa3f7960262ab7f830762ca32ee4627d1523b546e",
+          "finite_math_kernels_pin": "c5b2d3d7879bcf2354d4d9784bd20a6b3dc610fd",
+          "index_sha256": "efd90e9a921ab720391dd111fe87cb5b6b823f27d99f9d5da898a6de8fc8fc81",
+          "mojo_sha256": "34f7bbbb0ca2fee69a10d67aa9f7293b6204c39ede6dd6ffc46b32071def9be7",
+          "pixi_lock_sha256": "6f901c255c305ba985e8e7afded9c03955bc84672df98df2ab57f5e79bab6b45",
+          "verifier_sha256": "cfdd6041236594db3faf9d7ba67e6d4f7c98c953b6880f2bedc86e15bfcaa6e9"
+        },
+        "run_id": 40334880431,
+        "artifact_id": 12656102820,
+        "archive": "b320-run-40334880431.zip",
+        "archive_sha256": "fb9f1e4f4c106a45b00d5575c1c20a33c0c29f79855c79df30380b0105ba9995",
+        "crosscheck": "b320-accepted-crosscheck.json",
+        "crosscheck_sha256": "25e973dfbd550ec092de182dfc80fff39d685d6fc4d07bef0ccc28f8fa8f1ec0",
+        "resource_measurements": {
+          "execution_and_initial_replay_wall_seconds": "22.97",
+          "user_seconds": "21.80",
+          "system_seconds": "1.06",
+          "gnu_max_rss_kib": 254500
+        },
+        "evidence_document": "docs/BIGZ_B320_COMPLETE.md",
+        "import_verification": "Original ZIP digest and all CRCs checked; all 80 native shards replayed by Python again; full B144/B256/B320 crosscheck exactly reproduced. Imported prior territory, not a new high-height search."
+      }
+    ],
+    "meaning": "Only admitted finite scopes. Algebraic exclusions are not enumerated trials; calibration and external reports are separate."
+  },
+  "full_height_censuses": [
+    {
+      "id": "B320",
+      "domain": "strictly_positive",
+      "e_min": 2,
+      "e_max": 320,
+      "ordering": "1<=a<=b<=c<=d<e",
+      "primitive": true,
+      "complete": true,
+      "shards": 80,
+      "trial_unit": "positive_complement_right_pair_visits",
+      "right_pair_visits": 5201461,
+      "primitive_witnesses": [
+        [
+          27,
+          84,
+          110,
+          133,
+          144
+        ]
+      ],
+      "partition_rows": 5742,
+      "root_sha256": "729a29fdb2c6bc391a22748831e324963f532aa093f294f3a88f2d85eaf69681",
+      "source_head": "9ae7d72dfb53be068a7279c41861258c0f555f4d",
+      "source": {
+        "exact_bridge_sha256": "021c0ca046e0f3e0e477b40aa3f7960262ab7f830762ca32ee4627d1523b546e",
+        "finite_math_kernels_pin": "c5b2d3d7879bcf2354d4d9784bd20a6b3dc610fd",
+        "index_sha256": "efd90e9a921ab720391dd111fe87cb5b6b823f27d99f9d5da898a6de8fc8fc81",
+        "mojo_sha256": "34f7bbbb0ca2fee69a10d67aa9f7293b6204c39ede6dd6ffc46b32071def9be7",
+        "pixi_lock_sha256": "6f901c255c305ba985e8e7afded9c03955bc84672df98df2ab57f5e79bab6b45",
+        "verifier_sha256": "cfdd6041236594db3faf9d7ba67e6d4f7c98c953b6880f2bedc86e15bfcaa6e9"
+      },
+      "run_id": 40334880431,
+      "artifact_id": 12656102820,
+      "archive": "b320-run-40334880431.zip",
+      "archive_sha256": "fb9f1e4f4c106a45b00d5575c1c20a33c0c29f79855c79df30380b0105ba9995",
+      "crosscheck": "b320-accepted-crosscheck.json",
+      "crosscheck_sha256": "25e973dfbd550ec092de182dfc80fff39d685d6fc4d07bef0ccc28f8fa8f1ec0",
+      "resource_measurements": {
+        "execution_and_initial_replay_wall_seconds": "22.97",
+        "user_seconds": "21.80",
+        "system_seconds": "1.06",
+        "gnu_max_rss_kib": 254500
+      },
+      "evidence_document": "docs/BIGZ_B320_COMPLETE.md",
+      "import_verification": "Original ZIP digest and all CRCs checked; all 80 native shards replayed by Python again; full B144/B256/B320 crosscheck exactly reproduced. Imported prior territory, not a new high-height search."
+    }
+  ],
+  "validation_evidence": {
+    "source_head": "9ae7d72dfb53be068a7279c41861258c0f555f4d",
+    "run_id": 40334880418,
+    "job_id": 121613654898,
+    "job_log": "validation-run-40334880418-job.log.gz",
+    "job_log_sha256": "ea9cad35f4c5fa0b2257d021367cf2cd5b6f7706556c37f475277b96a769240d",
+    "meaning": "Native/Python test-covered scopes, kept separate from per-cell accepted discovery receipts and unique high-height trial totals."
+  },
+  "test_covered_domains": [
+    {
+      "e": 144,
+      "delta": 11,
+      "sign": "positive",
+      "abs_a_min": 1,
+      "abs_a_max": 64,
+      "c_min": 93,
+      "c_max": 115,
+      "trials": 1472,
+      "exact_lookups": 1,
+      "primitive_witnesses": 1,
+      "known_witnesses": [
+        [
+          27,
+          84,
+          110,
+          133,
+          144
+        ]
+      ],
+      "source_test": "tests/test_near_cancellation.py",
+      "evidence": "validation_evidence",
+      "classification": "native_python_test_scope; also subsumed by full B320"
+    },
+    {
+      "e": 85359,
+      "delta": 77,
+      "sign": "positive",
+      "abs_a_min": 1,
+      "abs_a_max": 64,
+      "c_min": 23255,
+      "c_max": 28969,
+      "trials": 365760,
+      "exact_lookups": 18036,
+      "primitive_witnesses": 1,
+      "known_witnesses": [
+        [
+          55,
+          3183,
+          28969,
+          85282,
+          85359
+        ]
+      ],
+      "source_test": "tests/test_near_cancellation.py",
+      "evidence": "validation_evidence",
+      "classification": "native_python_test_scope; no standalone accepted stripe receipt"
+    },
+    {
+      "e": 85360,
+      "delta": 77,
+      "sign": "positive",
+      "abs_a_min": 1,
+      "abs_a_max": 64,
+      "c_min": 23255,
+      "c_max": 28969,
+      "trials": 365760,
+      "exact_lookups": 42499,
+      "primitive_witnesses": 0,
+      "known_witnesses": [],
+      "source_test": "tests/test_near_cancellation.py",
+      "evidence": "validation_evidence",
+      "classification": "native_python_test_scope; negative only in this exact cell"
+    },
+    {
+      "e": 14132,
+      "delta": 64,
+      "sign": "negative",
+      "abs_a_min": 1,
+      "abs_a_max": 256,
+      "c_min": 5758,
+      "c_max": 6613,
+      "bound_mode": "two_term",
+      "known_witnesses": [
+        [
+          -220,
+          5027,
+          6237,
+          14068,
+          14132
+        ]
+      ],
+      "source_test": "tests/test_discovery_p16.py",
+      "source_head": "9ae7d72dfb53be068a7279c41861258c0f555f4d",
+      "evidence_job_log": "p16-run-40334880575-job.log.gz",
+      "classification": "native_python_test_scope; individual stdout compared by test but not published as standalone stripe receipts; excluded from discovery-trial totals"
+    }
+  ],
+  "historical_subsumed_scopes": [
+    {
+      "id": "P13-initial",
+      "e": 2760001,
+      "delta": 1,
+      "sign": "positive",
+      "abs_a_min": 1,
+      "abs_a_max": 64,
+      "superseded_by": "P14 accepted cell",
+      "run_id": 40307504786,
+      "artifact_id": 12642673378,
+      "evidence_document": "docs/POST_BRAUN_DISCOVERY_STRIPES.md",
+      "counted_as_new": false
+    },
+    {
+      "id": "B12-B144-B256",
+      "positive_e_ranges": [
+        [
+          2,
+          12
+        ],
+        [
+          2,
+          144
+        ],
+        [
+          2,
+          256
+        ]
+      ],
+      "superseded_by": "full B320 census",
+      "counted_as_new": false
+    }
+  ],
+  "external_reports_not_accepted_coverage": {
+    "source_registry": "data/literature/known_primitive_e5_2026-10-26.json",
+    "reported_bounds": {
+      "author_reported_braun_nonnegative_exhaustive_e_le": 2760000,
+      "author_reported_braun_signed_exhaustive_e_le": 1450000,
+      "search_reproduction_by_this_repository": "NOT reproduced, except independently accepted strictly positive e<=320",
+      "warning": "Neither Braun's large coverage nor a finite machine search proves the four-source literature list exhaustive over unbounded integers."
+    },
+    "meaning": "External author-reported ranges are not reproduced territory of this program."
+  },
+  "known_identity_point_checks": {
+    "classification": "known registry point verifications, not searched parameter blocks and not new discoveries",
+    "registry_snapshot": "data/literature/known_primitive_e5_2026-10-26.json",
+    "registry_sha256": "2abc549c114ba1f0f66570881dcf1e274a9f2b987af467cbf3aaf9d727dedc24",
+    "reviewed_as_of": "2026-10-26",
+    "native_evidence_job_log": "p16-run-40334880575-job.log.gz",
+    "records": [
+      {
+        "id": "E5-1966-LANDER-PARKIN",
+        "summands": [
+          27,
+          84,
+          110,
+          133
+        ],
+        "target": 144,
+        "domain": "strictly_positive"
+      },
+      {
+        "id": "E5-1996-SCHER-SEIDL",
+        "summands": [
+          -220,
+          5027,
+          6237,
+          14068
+        ],
+        "target": 14132,
+        "domain": "signed_with_one_negative_summand"
+      },
+      {
+        "id": "E5-2004-FRYE",
+        "summands": [
+          55,
+          3183,
+          28969,
+          85282
+        ],
+        "target": 85359,
+        "domain": "strictly_positive"
+      },
+      {
+        "id": "E5-2026-BRAUN",
+        "summands": [
+          -1340632,
+          719115,
+          1331622,
+          1956213
+        ],
+        "target": 1956878,
+        "domain": "signed_with_one_negative_summand"
+      }
+    ]
+  },
+  "algebra_conformance_not_search_coverage": [
+    {
+      "id": "cyclotomic5",
+      "classification": "algebra_conformance_only",
+      "discovery_trials": 0,
+      "run_id": 40350072406,
+      "archive": "../algebra/cyclotomic5-40350072406.zip",
+      "archive_sha256": "e04d757ddcaae40eb8300d3c85dc4e78f888b713feec079f87ec8b777b34071a",
+      "scope_document": "../../docs/EXACT_CYCLOTOMIC5.md"
+    },
+    {
+      "id": "pair-sum-reconstruction",
+      "classification": "algebra_conformance_only",
+      "discovery_trials": 0,
+      "run_id": 40353821388,
+      "cases": 37,
+      "native_queries": 106,
+      "archive": "../algebra/pair-sum-40353821388.zip",
+      "archive_sha256": "2952e72aa9118a8ec6a6c76b2c773a8773b3224381804cc28909793c998a9978",
+      "scope_document": "../../docs/PAIR_SUM_RECONSTRUCTION.md"
+    }
+  ],
+  "repeated_source_head_runs": [
+    {
+      "id": "P19-superseded-source-head",
+      "classification": "superseded validation run, identical mathematical source/scopes/results; no new discovery credit",
+      "run_id": 40358563573,
+      "artifact_id": 12665874770,
+      "source_head": "3682f13cee895456a9559f467f89bf21065117cc",
+      "tested_pr_merge_commit": "846de7cf5c9617f7cc7535a8059b0c6d528efa13",
+      "archive": "p19-superseded-40358563573.zip",
+      "archive_sha256": "94bb0cecc77310ff710894ec289245980ccf690608a9c22ca42cc4871127c888",
+      "job_log": "p19-superseded-40358563573-job.log.gz",
+      "job_log_sha256": "68165727eca39bcd350a719d12fbfb0816eeffdcf3140c0a37de6869066424ee",
+      "trials_in_run": 724549632,
+      "discovery_trials_credited": 0,
+      "reason": "Native comparison/search/fresh replay passed, but a legacy-grid cap regression failed on that head. Latest source adds an explicit legacy-grid 1024 guard and passes that regression. Sources relevant to the P19 arithmetic and benchmark, all scopes, counts and witnesses agree; unique credit belongs only to latest-head P19."
+    }
+  ],
+  "computational_comparisons_not_new_territory": [
+    {
+      "id": "P19-residue-first",
+      "run_id": 40358860783,
+      "native_queries": 24,
+      "discovery_trials_credited": 0,
+      "classification": "same-source-bound production stripe conformance and timing, not separate complete discovery cells",
+      "archive": "p19-run-40358860783.zip",
+      "receipt": "p19-residue-first-accepted.json",
+      "receipt_sha256": "cbb1eb564cb1565aa32d060ed0c1039bf9daf11234d0dc9e0ba2f4be188db0f0",
+      "before_original_source_sha256": "365a415ea60b9270b0c5845663e42dc6f55b9dd67680f66e001b47fbc9c1227d",
+      "before_source_difference": "Only A policy guard relaxed 1024 to 4096; original source fingerprint verified.",
+      "medians": [
+        {
+          "sign": "positive",
+          "delta": 1,
+          "e": 2760001,
+          "a_min": 1025,
+          "a_max": 4096,
+          "c_min": 170733,
+          "c_max": 174828,
+          "before_median_process_wall_ns": 1030583689,
+          "after_median_process_wall_ns": 134256195
+        },
+        {
+          "sign": "negative",
+          "delta": 4,
+          "e": 2760001,
+          "a_min": 1025,
+          "a_max": 4096,
+          "c_min": 225283,
+          "c_max": 229378,
+          "before_median_process_wall_ns": 1663767633,
+          "after_median_process_wall_ns": 175002351
+        },
+        {
+          "sign": "positive",
+          "delta": 16,
+          "e": 2760001,
+          "a_min": 1025,
+          "a_max": 4096,
+          "c_min": 319362,
+          "c_max": 323457,
+          "before_median_process_wall_ns": 1149558807,
+          "after_median_process_wall_ns": 193946801
+        }
+      ],
+      "measurement": "Precompiled original production stripe before/after. Includes process startup, exact power-cache and residue-prefix construction. Compilation measured separately. Three repetitions per large stripe.",
+      "formal_log": "p19-formal-40358860941-job.log.gz",
+      "formal_log_sha256": "2f483a2ff19bca5f4da06019e5330ea058cbd32629aebd05704a5fb87bca352e"
+    }
+  ]
+}
