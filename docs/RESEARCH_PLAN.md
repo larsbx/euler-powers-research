@@ -95,6 +95,14 @@ and shares BigZ and gcd with the signed known-solution verifier. This
 is a prerequisite for evaluating larger bounds, not permission to widen
 those bounds or to promote finite computation into a theorem.
 
+## P8 BigZ gap-free height coverage and independently replayed receipts
+
+The [BigZ shard plan and receipt contract](BIGZ_PLAN_RECEIPTS.md)
+provides deterministic 2..B plans, explicitly bounded native Mojo
+worker execution, scoped retry/abort records and independent exact
+Python replay before publication of a finite accepted manifest.
+The CI acceptance corpus covers every height 2..12, not 2..320.
+
 ## P7 structured BigZ pair indexing and bounded E5 shards
 
 The [Mojo native BigZ shard contract](BIGZ_SHARDS.md) introduces a lossless
