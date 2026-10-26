@@ -51,6 +51,28 @@ jobs:
           path: benchmarks/results/bigz-shards-b12
           if-no-files-found: error
           retention-days: 30
+      - name: Execute all BigZ shards through height 144
+        run: |
+          /usr/bin/time -v -o benchmarks/results/bigz-b144-resource.txt \
+            pixi run --locked python tools/bigz_shard_plan.py execute \
+            --bound 144 --width 4 --modulus 35 --timeout 60 \
+            --ram-mib 4096 --max-bytes 1048576 \
+            --output benchmarks/results/bigz-shards-b144
+          pixi run --locked python tools/bigz_shard_plan.py verify \
+            --output benchmarks/results/bigz-shards-b144
+          pixi run --locked python tests/reconcile_bigz_b144.py \
+            benchmarks/results/bigz-shards-b144 \
+            --output benchmarks/results/bigz-b144-crosscheck.json
+      - name: Preserve complete BigZ B144 Mojo transcripts and crosscheck
+        uses: actions/upload-artifact@v4
+        with:
+          name: exact-bigz-height-shards-B144
+          path: |
+            benchmarks/results/bigz-shards-b144/
+            benchmarks/results/bigz-b144-crosscheck.json
+            benchmarks/results/bigz-b144-resource.txt
+          if-no-files-found: error
+          retention-days: 30
       - name: Preserve raw benchmark measurements
         uses: actions/upload-artifact@v4
         with:
