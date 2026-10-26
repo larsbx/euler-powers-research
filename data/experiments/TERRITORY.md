@@ -1,5 +1,9 @@
 # Accepted Euler search territory
 
+The near-cancellation map below and the P20 signed two-gap map at the end
+use different parameterizations and trial units. Both are finite coverage
+statements; their iteration totals are not added.
+
 | e | First term | delta | abs(a) | c coverage |
 | ---: | --- | --- | --- | --- |
 | 2,760,001 | negative | 64 | 1..256 | complete admissible c |
@@ -52,3 +56,28 @@ new discoveries; the JSON ledger preserves their exact tuples and provenance.
 Exact cyclotomic and signed pair reconstruction conformance is recorded separately in `data/algebra`; it contributes zero Euler discovery cells.
 
 Production residue-first benchmarks and the superseded P19 run are inventoried separately and receive zero duplicate discovery credit. P19 extends selected positive and supported signed minimum summands through 4096; other gaps and general signed orderings remain open.
+
+## P20 signed two-gap territory
+
+The [separate signed ledger](index-p20-signed-two-gap.json) and
+[hashed pointer](signed-two-gap-current.json) record 160 cells (320 orientations).
+
+| parameter | exact declared values |
+|---|---|
+| e | 1956877, 1956878, 1956879, 2760001, 3000001 |
+| delta=e-d | 64, 665, 4096, 16384 |
+| h=abs(c-u) | 64, 1024, 9010, 16384 |
+| b | 65537..131072; 524289..589824 |
+| orientation 0 | u=r,c=r+h; b+1<=r<=e-delta-h |
+| orientation 1 | c=r,u=r+h; b<=r<=min(e-delta,e-1-h) |
+
+All admissible r in each listed cell are covered by exact inversion of a
+strictly increasing fifth-power difference. There are 20,971,520 exact
+b/orientation trials and zero identities. This domain has u>b and is disjoint
+from the old signed u<=b cells. The [accepted receipt](two-gap-40421394757-accepted.json)
+preserves original native artifacts and complete independent Python replay.
+
+Every undeclared e/delta/h/b, u=b, u=c, u>=e, two negative input summands and
+complete target-height coverage remain unsearched by this experiment.
+Braun calibration and all repeated workflows get zero new coverage credit.
+No new primitive or global nonexistence claim follows from this finite result.

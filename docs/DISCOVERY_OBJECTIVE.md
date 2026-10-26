@@ -67,6 +67,11 @@ tools. Their caps are experiment policies, not definitions of the goal.
 Existing accepted cells and limitations remain unchanged; this objective
 revision adds no search coverage or new identity.
 
+[P20](SIGNED_TWO_GAP_SEARCH.md) subsequently executed a first signed two-gap
+experiment with u>b. Its finite negative result and measured resource use
+are now logged separately. Future work must explore undeclared territory
+or new constructions; the genuinely new primitive goal remains unmet.
+
 ## Candidate admission from any method
 
 Every method must feed the same admission process: accept exact rational
@@ -90,6 +95,10 @@ refusals and 1,440 Python equivalence cases pass. Independent local Python
 replay checks every stored result. This is conformance only, with zero search
 coverage. The hosted job used 3.59 seconds wall time and 247,600 KiB maximum
 RSS including compilation and Python; these are not search throughput metrics.
+A later [clean-dependency conformance run](../data/algebra/candidate-intake-40421223476-accepted.json)
+also passed after adding wrong-HEAD and tracked/staged/untracked checkout
+refusal controls: 3.53 seconds wall and 249,712 KiB peak RSS. Both original
+archives remain preserved as zero-coverage conformance evidence.
 
 Example proposal (a known calibration identity, not a discovery):
 
