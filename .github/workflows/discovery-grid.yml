@@ -1,0 +1,48 @@
+name: Systematic post-Braun e-delta discovery grid (exact Mojo)
+
+on:
+  pull_request:
+    paths:
+      - ".github/workflows/discovery-grid.yml"
+      - "kernel/near_cancellation_stripe.mojo"
+      - "tools/search_novel_stripes.py"
+      - "tools/search_discovery_grid.py"
+      - "tests/test_discovery_grid.py"
+      - "tests/test_near_cancellation_stripes.py"
+      - "pixi.toml"
+      - "pixi.lock"
+      - "scripts/run_mojo.sh"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  post-braun-grid:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: prefix-dev/setup-pixi@d3f436a425481402e6a95a1d1fc10331c708cd9e
+      - name: Verify immutable exact fifth-power arithmetic dependency
+        run: pixi run --locked verify
+      - name: Test exact grid coverage and tamper refusal
+        run: pixi run --locked python tests/test_discovery_grid.py
+      - name: Complete all 9 fixed (e,delta) search cells
+        run: |
+          mkdir -p benchmarks/results
+          /usr/bin/time -v -o benchmarks/results/postbraun-grid-resources.txt \
+            pixi run --locked python tools/search_discovery_grid.py \
+              --e-start 2760001 --e-end 2760003 \
+              --delta-start 1 --delta-end 3 \
+              --a-cap 64 --c-width 4096 --timeout 240 \
+              --output benchmarks/results/postbraun-grid-e2760001-2760003-d1-3-a64
+      - name: Preserve all exact native grid transcripts and acceptance
+        uses: actions/upload-artifact@v4
+        with:
+          name: postbraun-grid-e2760001-2760003-d1-3-a64
+          path: |
+            benchmarks/results/postbraun-grid-e2760001-2760003-d1-3-a64/
+            benchmarks/results/postbraun-grid-resources.txt
+          if-no-files-found: error
+          retention-days: 30
