@@ -30,7 +30,8 @@ REGISTRY = ROOT/"data/literature/known_primitive_e5_2026-10-26.json"
 
 def grid_plan(e_start: int, e_end: int, delta_start: int,
               delta_end: int, a_cap: int, width: int) -> list[dict]:
-    if (e_start < 2760001 or e_end > 4000000 or
+    if (not 1 <= a_cap <= 1024 or
+        e_start < 2760001 or e_end > 4000000 or
         e_end < e_start or e_end-e_start > 7 or
         delta_start < 1 or delta_end > 256 or
         delta_end < delta_start or delta_end-delta_start > 7 or
@@ -168,3 +169,4 @@ if __name__=="__main__":
             RuntimeError) as err:
         print(f"REFUSED E5GRID: {err}",file=sys.stderr)
         raise SystemExit(1)
+

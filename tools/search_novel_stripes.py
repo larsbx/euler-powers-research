@@ -72,7 +72,7 @@ def two_fifth_ceil(n: int, upper: int) -> int:
 def plan(e: int, delta: int, a_cap: int, width: int,
          a_min: int = 1, sign: str = "positive", tight: bool = False) -> dict:
     if not (5 <= e <= 4000000 and 1 <= delta <= 256 and delta < e and
-            1 <= a_min <= a_cap <= 1024 and sign in ("positive", "negative")
+            1 <= a_min <= a_cap <= 4096 and sign in ("positive", "negative")
             and 1 <= width <= 4096):
         raise ValueError("unsupported high-height finite search domain")
     d = e-delta

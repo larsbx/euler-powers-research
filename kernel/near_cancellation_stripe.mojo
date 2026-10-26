@@ -41,7 +41,7 @@ def search_stripe(
 ) raises:
     # Resource policy, not a mathematical upper bound on E5.
     if (e < 5 or e > 4000000 or delta < 1 or delta > 256 or
-        delta >= e or min_a < 1 or min_a > max_a or max_a > 1024 or
+        delta >= e or min_a < 1 or min_a > max_a or max_a > 4096 or
         c_start < 1 or c_start > c_end or c_end >= e or
         c_end - c_start >= 4096 or c_end > 600000):
         raise Error("E5STRIPE range or explicit resource budget exceeded")
@@ -92,6 +92,16 @@ def search_stripe(
         seen41[ring41.pow(b, 5)] = True
         seen61[ring61.pow(b, 5)] = True
 
+    # Exact cached a^5 residues. Cache only existing power-table entries;
+    # small calibration heights can have max_a greater than c_end.
+    var a99000 = List[Int]()
+    var a41 = List[Int]()
+    var a61 = List[Int]()
+    for a in range(min(max_a, c_end)+1):
+        a99000.append(ring.reduce_bigz(powers[a]))
+        a41.append(ring41.reduce_bigz(powers[a]))
+        a61.append(ring61.reduce_bigz(powers[a]))
+
     var trials = 0
     var rejected = 0
     var lookups = 0
@@ -101,24 +111,33 @@ def search_stripe(
         seen41[ring41.pow(c, 5)] = True
         seen61[ring61.pow(c, 5)] = True
         var left = bigz_sub(remainder, powers[c])
+        var left99000 = ring.reduce_bigz(left)
+        var left41 = ring41.reduce_bigz(left)
+        var left61 = ring61.reduce_bigz(left)
         for a in range(min_a, min(c, max_a) + 1):
             trials += 1
             var signed_a = a
             if negative:
                 signed_a = -a
+            # Each arithmetic operand is a canonical residue. Values before
+            # reduction lie in [0,2*m), with m<=99000; machine Int is safe.
+            var r99000 = (left99000 + 99000 - a99000[a]) % 99000
+            var r41 = (left41 + 41 - a41[a]) % 41
+            var r61 = (left61 + 61 - a61[a]) % 61
+            if negative:
+                r99000 = (left99000 + a99000[a]) % 99000
+                r41 = (left41 + a41[a]) % 41
+                r61 = (left61 + a61[a]) % 61
+            if not fifth_seen[r99000] or not seen41[r41] or not seen61[r61]:
+                rejected += 1
+                continue
+            # BigZ complement construction and positivity are deferred until
+            # every necessary residue gate passes. Combined rejection counts
+            # and exact lookup/witness semantics remain unchanged.
             var candidate = bigz_sub(left, powers[a])
             if negative:
                 candidate = bigz_add(left, powers[a])
             if candidate.sign <= 0:
-                rejected += 1
-                continue
-            if not fifth_seen[ring.reduce_bigz(candidate)]:
-                rejected += 1
-                continue
-            if not seen41[ring41.reduce_bigz(candidate)]:
-                rejected += 1
-                continue
-            if not seen61[ring61.reduce_bigz(candidate)]:
                 rejected += 1
                 continue
             lookups += 1
