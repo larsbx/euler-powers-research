@@ -21,6 +21,7 @@ import BigShardCoverage
 import BigZLowerBound
 import BigZMergeSort
 import NearCancellationBounds
+import Cyclotomic5
 
 /-! Audit all EulerPowers theorems for additional axioms and opaque holes. -/
 open Lean Elab Command in
