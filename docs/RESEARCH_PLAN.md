@@ -95,6 +95,15 @@ and shares BigZ and gcd with the signed known-solution verifier. This
 is a prerequisite for evaluating larger bounds, not permission to widen
 those bounds or to promote finite computation into a theorem.
 
+## P9 independently accepted full B144 BigZ search
+
+The [B144 native BigZ crosscheck](BIGZ_B144_CROSSCHECK.md) runs all
+36 consecutive 4-height shards and independently checks each native
+transcript before comparing its reconstructed canonical PART/CERT rows
+against the historical B144 fixture and SHA roots. This strengthens
+cross-algorithm bounded evidence without claiming B256/B320 whole
+range execution or a universal theorem about compiled completeness.
+
 ## P8 BigZ gap-free height coverage and independently replayed receipts
 
 The [BigZ shard plan and receipt contract](BIGZ_PLAN_RECEIPTS.md)

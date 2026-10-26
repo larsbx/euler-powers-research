@@ -86,6 +86,10 @@ pixi run --locked python tools/bigz_shard_plan.py verify \
   --output benchmarks/results/bigz-shards-b12
 ```
 
+The [P9 full B144 native BigZ reconciliation](BIGZ_B144_CROSSCHECK.md)
+checks every target height through 144 against both a per-shard exact
+Python oracle and historical independent packed-index certificates.
+
 The CI lane additionally runs `tests/test_bigz_plan_native.py`.
 It executes and verifies real native shards covering **every target
 height 2..12**, checks deterministic receipt reuse, and deliberately

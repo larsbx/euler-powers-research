@@ -51,4 +51,18 @@ theorem bigzPlan12_missing_tail_refused :
 theorem bigzPlan12_excess_refused :
     validPlan 12 [(2,5),(6,9),(10,13)] = false := by decide
 
+/-- Exact 36-width-four shard plan for the B144 native BigZ CI run. -/
+def bigzPlan144 : List (Nat × Nat) :=
+  [(2,5), (6,9), (10,13), (14,17), (18,21), (22,25), (26,29), (30,33), (34,37), (38,41), (42,45), (46,49), (50,53), (54,57), (58,61), (62,65), (66,69), (70,73), (74,77), (78,81), (82,85), (86,89), (90,93), (94,97), (98,101), (102,105), (106,109), (110,113), (114,117), (118,121), (122,125), (126,129), (130,133), (134,137), (138,141), (142,144)]
+
+theorem bigzPlan144_valid :
+    validPlan 144 bigzPlan144 = true := by decide
+
+theorem bigzPlan144_width :
+    bigzPlan144.all (fun p => decide (p.2 - p.1 < 4)) = true := by decide
+
+theorem bigzPlan144_covers (e : Nat) (hlo : 2 ≤ e) (hhi : e ≤ 144) :
+    ∃ lo hi, (lo,hi) ∈ bigzPlan144 ∧ lo ≤ e ∧ e ≤ hi := by
+  exact validPlan_covers 144 bigzPlan144 bigzPlan144_valid e hlo hhi
+
 end EulerPowers
