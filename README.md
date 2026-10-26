@@ -141,8 +141,10 @@ lookup, without changing canonical search records.
 
 **P16 accepted:** [larger minimum summands 257..1024 with Lean-checked two-term bounds](docs/POST_BRAUN_P16.md): 318,981,888 new exact trials, 965,191 lookups, zero primitive identities; complete raw evidence and combined coverage ledger preserved.
 
-**Current search territory:** [cumulative accepted map](data/experiments/TERRITORY.md) and [hashed ledger pointer](data/experiments/current.json). [P18](docs/POST_BRAUN_P18.md) added 786,334,720 exact trials, extending e=2,760,001 positive coverage through delta=32 with a<=1024; zero new primitive identities. All 1,716,786,944 disjoint high-height trials, B320, calibration evidence and algebraic exclusions remain distinct.
+**Current search territory:** [accepted map](data/experiments/TERRITORY.md) and [hashed ledger pointer](data/experiments/current.json). [P19](docs/POST_BRAUN_P19.md) added 724,549,632 new exact trials with a=1025..4096 in six positive and one supported signed cell at e=2,760,001; zero primitive identities. The union records 63 disjoint high-height cells and 2,441,336,576 trials. Existing e=2,760,001 positive delta=1..32 with a<=1024 remains complete only as a restricted block. B320, calibration, benchmarks and repeats remain separate.
 
 Exact algebra research: [fifth cyclotomic ring and norm checks](docs/EXACT_CYCLOTOMIC5.md) (separate from search coverage).
 
 [Exact signed pair reconstruction](docs/PAIR_SUM_RECONSTRUCTION.md): seven new Lean identities and 106 independently replayed native queries, including larger signed terms. Mixed measured costs; no production speedup or Euler discovery coverage claimed.
+
+[P19 residue-first computation](docs/POST_BRAUN_P19.md) measured lower native process times on three identical production stripes, with unchanged exact counts and transcripts. Five additional Lean statements cover residue equivalence, machine bounds and guard order. Timings apply to the declared sample workloads.

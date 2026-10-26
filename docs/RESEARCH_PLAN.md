@@ -1,5 +1,7 @@
 # Proof obligations and research stages
 
+**P19 accepted computational result:** [larger minimum summands and residue-first evaluation](POST_BRAUN_P19.md): 724,549,632 new exact trials, 1,620,700 BigZ lookups and zero primitive identities. Six positive gaps and supported signed delta=4 extend abs(a) to 4096 at e=2,760,001. Cumulative unique high-height work is 2,441,336,576 trials in 63 cells. The before/after benchmark checks identical production stripes and reports sample-specific measured time reductions; no universal or whole-search ratio is inferred.
+
 **P18 accepted:** [sixteen untouched positive gaps 17..32](POST_BRAUN_P18.md), 786,334,720 new exact trials, 1,340,424 BigZ lookups and zero primitive identities. The [current map](../data/experiments/TERRITORY.md) records 56 disjoint high-height cells and 1,716,786,944 trials. Positive e=2,760,001, delta=1..32, a<=1024 is complete only as this restricted block. [Pair reconstruction](PAIR_SUM_RECONSTRUCTION.md) is a separate exact algebra experiment; cached-production benchmarking remains open.
 
 **P17 accepted:** [ten previously untouched positive gaps](POST_BRAUN_P17.md), 409,884,672 new exact trials and zero primitive identities. The [cumulative map](../data/experiments/TERRITORY.md) records 930,452,224 disjoint high-height trials, full B320 coverage and separate test-covered domains; e=2,760,001 positive delta=1..16, a<=1024 is now complete as a restricted block.
