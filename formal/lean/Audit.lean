@@ -22,6 +22,7 @@ import BigZLowerBound
 import BigZMergeSort
 import NearCancellationBounds
 import Cyclotomic5
+import PairSumReconstruction
 
 /-! Audit all EulerPowers theorems for additional axioms and opaque holes. -/
 open Lean Elab Command in

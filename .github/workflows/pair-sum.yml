@@ -1,0 +1,44 @@
+name: Exact signed fifth-power pair reconstruction
+on:
+  pull_request:
+    paths:
+      - '.github/workflows/pair-sum.yml'
+      - 'algebra/pair_sum*'
+      - 'tests/test_pair_sum_reconstruction.py'
+      - 'kernel/euler_exact.mojo'
+      - 'kernel/verify_known.mojo'
+      - 'scripts/run_mojo.sh'
+      - 'pixi.*'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  pair-comparison:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: prefix-dev/setup-pixi@d3f436a425481402e6a95a1d1fc10331c708cd9e
+      - name: Verify pinned arithmetic and initialize the exact dependency
+        run: pixi run --locked verify
+      - name: Compile once, compare both exact algorithms in interleaved processes
+        run: |
+          mkdir -p benchmarks/results
+          /usr/bin/time -v -o benchmarks/results/pair-sum-resources.txt \
+            pixi run --locked python tests/test_pair_sum_reconstruction.py \
+            --output benchmarks/results/pair-sum
+      - name: Independently replay every native query and resource receipt
+        run: |
+          /usr/bin/time -v -o benchmarks/results/pair-sum-replay-resources.txt \
+            pixi run --locked python tests/test_pair_sum_reconstruction.py \
+            --verify --output benchmarks/results/pair-sum
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: exact-pair-sum-comparison
+          path: |
+            benchmarks/results/pair-sum/
+            benchmarks/results/pair-sum-resources.txt
+            benchmarks/results/pair-sum-replay-resources.txt
+          if-no-files-found: error
+          retention-days: 90
