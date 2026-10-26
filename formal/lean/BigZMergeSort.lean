@@ -29,7 +29,19 @@ theorem exactSignedPairLE_iff (x y : ExactSignedPair) :
         (x.1 = y.1 ∧ (x.2.1 < y.2.1 ∨
           (x.2.1 = y.2.1 ∧ x.2.2 ≤ y.2.2))) := by
   unfold exactSignedPairLE
-  split_ifs <;> simp_all <;> omega
+  by_cases h₁ : x.1 < y.1
+  · simp [h₁]
+  · by_cases h₂ : y.1 < x.1
+    · simp [h₁, h₂]
+      omega
+    · by_cases h₃ : x.2.1 < y.2.1
+      · simp [h₁, h₂, h₃]
+        omega
+      · by_cases h₄ : y.2.1 < x.2.1
+        · simp [h₁, h₂, h₃, h₄]
+          omega
+        · simp [h₁, h₂, h₃, h₄]
+          omega
 
 theorem exactSignedPairLE_trans (x y z : ExactSignedPair)
     (hxy : exactSignedPairLE x y = true)
