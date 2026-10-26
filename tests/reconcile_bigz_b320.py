@@ -22,6 +22,7 @@ from test_pair_partition import oracle as independent_packed_oracle
 LEGACY_144 = ROOT / "certificates/pair_partition_e144_m35.json"
 ROOT_144 = "5b8ed68d8512bb11bf4ac57e2f79657e65893427c157c0615b784d86671af482"
 ROOT_256 = "157fdbc83048ddc782d8aa04c9691d0c34dabfaf96819a6976dd6671e284e07e"
+ROOT_320 = "729a29fdb2c6bc391a22748831e324963f532aa093f294f3a88f2d85eaf69681"
 WITNESS = (27, 84, 110, 133, 144)
 WITNESS_LINE = "CERT E5v1 " + " ".join(map(str, WITNESS))
 
@@ -82,7 +83,7 @@ def reconcile(folder: Path) -> dict:
             # for the exact native interval by shard.validate_acceptance.
             expected_parts = None
             expected_certs = [WITNESS]
-        root = ROOT_144 if bound == 144 else ROOT_256 if bound == 256 else None
+        root = ROOT_144 if bound == 144 else ROOT_256 if bound == 256 else ROOT_320
         report = replay(projected_lines, bound, 35,
                         expected_parts, expected_certs, root)
         if report["certificates"] != 1:
@@ -103,6 +104,8 @@ def reconcile(folder: Path) -> dict:
                 raise ValueError("BigZ prefix B144 canonical stream differs from historical packed stream")
         if bound == 256 and report["right_pair_visits"] != 2664481:
             raise ValueError("B256 visits differ from independently checked packed search")
+        if bound == 320 and report["right_pair_visits"] != 5201461:
+            raise ValueError("B320 visits differ from independently replayed full Mojo search")
         outcomes.append(outcome)
     if accepted["right_pair_visits"] != outcomes[-1]["positive_right_pair_visits"]:
         raise ValueError("complete B320 visits differ from accepted plan")
