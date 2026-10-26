@@ -39,6 +39,18 @@ jobs:
           path: benchmarks/results/modulus-selection.json
           if-no-files-found: error
           retention-days: 30
+      - name: Execute gap-free BigZ shards 2..12 and independent replay
+        run: |
+          pixi run --locked python tools/bigz_shard_plan.py execute --bound 12 --width 4 --modulus 35 --timeout 60 --ram-mib 4096 --output benchmarks/results/bigz-shards-b12
+          pixi run --locked python tools/bigz_shard_plan.py verify --output benchmarks/results/bigz-shards-b12
+          pixi run --locked python tests/test_bigz_plan_native.py
+      - name: Preserve accepted BigZ B12 shards and scope receipts
+        uses: actions/upload-artifact@v4
+        with:
+          name: exact-bigz-height-shards-B12
+          path: benchmarks/results/bigz-shards-b12
+          if-no-files-found: error
+          retention-days: 30
       - name: Preserve raw benchmark measurements
         uses: actions/upload-artifact@v4
         with:
