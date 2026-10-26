@@ -24,6 +24,8 @@ bound. All enumerated trials and impossible prefixes remain distinct.
 
 The native and Python intake cap rises from 1024 to 4096; c, target-height,
 gap, stripe-width, timeout and physical-memory policies are unchanged.
+The legacy multi-height grid keeps an explicit 1024 cap, preserving its
+original resource contract when the shared stripe cap increases.
 Small-height tests explicitly exercise `A>c_end`, where the a residue cache
 must stop at the actual power table's endpoint. The search remains limited
 to the declared ordering; general signed `abs(a)>b` is not covered.
