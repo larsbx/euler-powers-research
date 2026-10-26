@@ -95,6 +95,14 @@ and shares BigZ and gcd with the signed known-solution verifier. This
 is a prerequisite for evaluating larger bounds, not permission to widen
 those bounds or to promote finite computation into a theorem.
 
+## P11 BigZ exact ordering and Lean lower-bound trace refinement
+
+The [BigZ signed lower-bound proof and trace contract](BIGZ_LOWER_BOUND_REFINEMENT.md)
+uses the same native BigZ production comparison path in traced and untraced
+execution; Python and Lean independently replay bounded >Int64 observation
+transcripts against the kernel-checked arbitrary signed lower-bound theorem.
+The B320 native result and pinned digest are unchanged.
+
 ## P10 complete 2..320 exact native BigZ plan and historical root reconciliation
 
 The [dedicated full B320 BigZ workflow](BIGZ_B320_COMPLETE.md) executes

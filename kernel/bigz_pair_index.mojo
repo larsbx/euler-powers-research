@@ -7,6 +7,7 @@ pair indices give canonical deterministic ordering. At equal sums
 lower_bound finds the first possible record.
 """
 from finite_exact.bigint_z import BigZ, bigz_add, bigz_eq, bigz_lt
+from finite_exact.exact_decimal import bigz_decimal
 
 
 struct BigPair(Copyable):
@@ -60,17 +61,33 @@ def sort_exact_pairs(mut values: List[BigPair]):
         width *= 2
 
 
-def pair_lower_bound(values: List[BigPair], target: BigZ) -> Int:
-    """First index with exact pair sum >= target; no lossy reductions."""
+def _pair_lower_bound_core(
+    values: List[BigPair], target: BigZ, emit_trace: Bool
+) -> Int:
+    """Identical native branching for production and observable execution."""
     var low = 0
     var high = len(values)
     while low < high:
         var mid = low + (high - low) // 2
+        if emit_trace:
+            print("STEP", low, high, mid, bigz_decimal(values[mid].sum))
         if bigz_lt(values[mid].sum, target):
             low = mid + 1
         else:
             high = mid
+    if emit_trace:
+        print("STOP", low)
     return low
+
+
+def pair_lower_bound(values: List[BigPair], target: BigZ) -> Int:
+    """First exact sum >= target; no narrowing to Int64."""
+    return _pair_lower_bound_core(values, target, False)
+
+
+def trace_pair_lower_bound(values: List[BigPair], target: BigZ) -> Int:
+    """Observational transcript from the exact same production branch logic."""
+    return _pair_lower_bound_core(values, target, True)
 
 
 def matching_exact_pairs(
