@@ -83,15 +83,21 @@ def independent_oracle(e: int, delta: int, a_cap: int,
     by_power = {value:x for x,value in enumerate(powers)}
     # Full b-residue prefix is a *necessary* modular prefilter only.
     seen = set(pow(b, 5, 99000) for b in range(1, lo))
+    seen41 = set(pow(b, 5, 41) for b in range(1, lo))
+    seen61 = set(pow(b, 5, 61) for b in range(1, lo))
     lines = [f"DOMAIN E5STRIPEv1 {e} {delta} {a_cap} {lo} {hi}",
              f"BOUNDS {bounds['c_min']} {bounds['c_max']} {e-delta}"]
     trials = rejected = lookups = hits = 0
     for c in range(lo,hi+1):
         seen.add(powers[c] % 99000)
+        seen41.add(powers[c] % 41)
+        seen61.add(powers[c] % 61)
         for a in range(1,min(c,a_cap)+1):
             trials += 1
             complement = D-powers[c]-powers[a]
-            if complement <= 0 or complement%99000 not in seen:
+            if (complement <= 0 or complement%99000 not in seen or
+                    complement%41 not in seen41 or
+                    complement%61 not in seen61):
                 rejected += 1
                 continue
             lookups += 1
