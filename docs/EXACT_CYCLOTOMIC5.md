@@ -43,12 +43,16 @@ divisor of `x-y` and `Q(x,y)` divides `5*y^4`, directly from the displayed
 remainder identity. These statements allow signed integers and the zero
 cases; the exactly-one-factor conclusion requires the stated nondivisibility.
 
-`formal/lean/Cyclotomic5.lean` proves eight universally quantified integer
+`formal/lean/Cyclotomic5.lean` proves twelve theorems: eight universally quantified integer
 polynomial/remainder statements, including both fifth-power factorizations
-and the modulo-25 equality. The existing axiom audit imports them. The
-formal file does **not** yet construct the quotient ring, prove its norm
-theorem, or verify the native arithmetic implementation. The norm formula
-and quotient arithmetic have independent computational conformance checks.
+and the modulo-25 equality; associativity, commutativity and the unit law
+for an explicit integer coefficient model of multiplication; and the scalar
+norm formula as a product of the four explicitly represented conjugates.
+The existing axiom audit imports them. The formal file does **not** yet
+construct an abstract quotient ring or a general norm/automorphism API,
+prove the determinant equivalence, or verify the native arithmetic
+implementation and compiler lowering. Those implementation comparisons
+have independent computational conformance checks.
 The fourth-power unit observation and common-divisor corollary above are
 elementary consequences, not separately named Lean theorems here.
 
@@ -98,5 +102,37 @@ The receipt is a reproducibility record, not a signed remote attestation.
 The all-repository Lean/Quint workflow checks the new proofs separately.
 
 This is **algebra conformance evidence**, not search coverage. The accepted
-territory ledger and its trial count remain unchanged. Hosted execution
-results and durable evidence will be linked here after acceptance.
+territory ledger and its trial count remain unchanged.
+
+## Accepted native execution
+
+[Hosted run 40350072406](https://github.com/larsbx/euler-powers-research/actions/runs/40350072406)
+passed native conformance and the fresh full independent replay, at source
+head `bc53176dc262674c8a83bf4b46cb58a29ce98eaa`. The receipt's `GITHUB_SHA`
+is the synthetic PR test merge `adeae7e10bf7aca056ab0802bcbccf6c88975a3d`.
+The raw artifact (ID `12663447063`, five files) is preserved permanently as
+[cyclotomic5-40350072406.zip](../data/algebra/cyclotomic5-40350072406.zip),
+with [an inspectable receipt](../data/algebra/cyclotomic5-40350072406-accepted.json).
+Its SHA-256 is
+`e04d757ddcaae40eb8300d3c85dc4e78f888b713feec079f87ec8b777b34071a`.
+The transcript hash is
+`dd8aa82405162b8d4bd6cf2d0f057698e9045d50911afb4ba8869994f564c179`.
+
+| Measured process | Wall seconds | User seconds | System seconds | Maximum RSS KiB |
+| --- | ---: | ---: | ---: | ---: |
+| Native invocation, including wrapper/compiler/execution | 4.46 | 5.02 | 0.27 | 257,036 |
+| Full acceptance process, including Python checks and native invocation | 4.85 | 5.39 | 0.33 | 257,036 |
+| Separate fresh Python replay process | 0.23 | 0.20 | 0.02 | 69,284 |
+
+These are conformance-process measurements, not a search benchmark or a
+measurement of a precompiled kernel alone. The 16 large cases reach
+145-digit coefficients and a 577-digit norm. After artifact download, ZIP
+SHA-256, CRC, file/source hashes and the complete transcript were checked
+again by a separate local Python replay. The first native attempt, run
+`40349854407`, failed at compilation because of probe list-construction
+syntax; it produced no accepted receipt. The corrected run above passed.
+
+To replay the preserved evidence, extract the ZIP into a fresh directory
+and run `python tests/test_cyclotomic5.py --verify --output EXTRACTED/cyclotomic5`
+using the source files with the receipt's recorded hashes. Later commits
+may add proofs or documentation without changing those arithmetic sources.

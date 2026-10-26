@@ -43,4 +43,42 @@ theorem phi5_ramified_mod25 (y k : Int) :
   rw [phi5_ramified_remainder]
   omega
 
+/-! A coefficient model of the implemented quotient multiplication. This is
+not a proof about compiler lowering or the imported BigZ implementation. -/
+structure Cyclo5Int where
+  c0 : Int
+  c1 : Int
+  c2 : Int
+  c3 : Int
+  deriving Repr, DecidableEq
+
+def cyclo5Mul (a b : Cyclo5Int) : Cyclo5Int :=
+  let r := a.c1*b.c3+a.c2*b.c2+a.c3*b.c1
+  ⟨a.c0*b.c0+a.c2*b.c3+a.c3*b.c2-r,
+   a.c0*b.c1+a.c1*b.c0+a.c3*b.c3-r,
+   a.c0*b.c2+a.c1*b.c1+a.c2*b.c0-r,
+   a.c0*b.c3+a.c1*b.c2+a.c2*b.c1+a.c3*b.c0-r⟩
+
+theorem cyclo5_mul_comm (a b : Cyclo5Int) : cyclo5Mul a b = cyclo5Mul b a := by
+  cases a; cases b
+  simp only [cyclo5Mul]
+  congr 1 <;> grind
+
+theorem cyclo5_mul_assoc (a b c : Cyclo5Int) :
+    cyclo5Mul (cyclo5Mul a b) c = cyclo5Mul a (cyclo5Mul b c) := by
+  cases a; cases b; cases c
+  simp only [cyclo5Mul]
+  congr 1 <;> grind
+
+theorem cyclo5_mul_one (a : Cyclo5Int) : cyclo5Mul a ⟨1,0,0,0⟩ = a := by
+  cases a
+  simp [cyclo5Mul]
+
+/-- The four conjugates of x-y*z multiply to the scalar Q(x,y). -/
+theorem cyclo5_difference_norm (x y : Int) :
+    cyclo5Mul (cyclo5Mul ⟨x,-y,0,0⟩ ⟨x,0,-y,0⟩)
+      (cyclo5Mul ⟨x,0,0,-y⟩ ⟨x+y,y,y,y⟩) = ⟨phi5 x y,0,0,0⟩ := by
+  simp only [cyclo5Mul, phi5]
+  congr 1 <;> grind
+
 end EulerPowers
