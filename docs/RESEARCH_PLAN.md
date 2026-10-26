@@ -1,5 +1,7 @@
 # Proof obligations and research stages
 
+**Post-Braun P13:** [finite discovery-oriented high-height Mojo stripes](POST_BRAUN_DISCOVERY_STRIPES.md) search fixed (e,delta,A) slices with exact BigZ and independently replayed c-interval coverage. First target: e=2,760,001, delta=1, a<=64. This is a restricted slice even if every c is covered.
+
 **Literature-first gate:** [Known primitive E5 source/novelty registry](KNOWN_PRIMITIVE_E5_LITERATURE.md) enumerates four nontrivial primitive source classes (two strictly positive) and disallows announcing permutations, scalar multiples or signed examples as novel positive discoveries.
 
 **Primary goal:** [Discover a third genuinely new primitive strictly positive fifth-power identity](DISCOVERY_OBJECTIVE.md). Both published positive witnesses (e=144 and e=85359) are calibration fixtures. All remaining proof, benchmarking, modular, and geometry work should contribute to discovery or independent validation; the existing B320 bound is infrastructure, not the research endpoint.

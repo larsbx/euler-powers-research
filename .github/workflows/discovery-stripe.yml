@@ -1,0 +1,47 @@
+name: Post-Braun discovery territory (exact Mojo finite stripes)
+
+on:
+  pull_request:
+    paths:
+      - ".github/workflows/discovery-stripe.yml"
+      - "kernel/near_cancellation_stripe.mojo"
+      - "kernel/near_cancellation.mojo"
+      - "kernel/euler_exact.mojo"
+      - "tools/search_novel_stripes.py"
+      - "tests/test_near_cancellation_stripes.py"
+      - "pixi.toml"
+      - "pixi.lock"
+      - "scripts/run_mojo.sh"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  one-high-height-slice:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: prefix-dev/setup-pixi@d3f436a425481402e6a95a1d1fc10331c708cd9e
+      - name: Bootstrap and check pinned shared BigZ arithmetic
+        run: pixi run --locked verify
+      - name: Independent calibrated high-height stripe tests
+        run: pixi run --locked python tests/test_near_cancellation_stripes.py
+      - name: Cover e=2760001, delta=1, all admissible c and a<=64
+        run: |
+          mkdir -p benchmarks/results
+          /usr/bin/time -v -o benchmarks/results/post-braun-delta1-resources.txt \
+            pixi run --locked python tools/search_novel_stripes.py \
+              --e 2760001 --delta 1 --a-cap 64 --c-width 4096 \
+              --timeout 120 \
+              --output benchmarks/results/post-braun-e2760001-delta1-a64
+      - name: Retain exact native transcripts and restricted-slice receipts
+        uses: actions/upload-artifact@v4
+        with:
+          name: post-braun-e2760001-delta1-a64
+          path: |
+            benchmarks/results/post-braun-e2760001-delta1-a64/
+            benchmarks/results/post-braun-delta1-resources.txt
+          retention-days: 30
+          if-no-files-found: error

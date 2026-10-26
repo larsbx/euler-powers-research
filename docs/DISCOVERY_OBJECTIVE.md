@@ -93,6 +93,10 @@ the prior B320 complete census; genuine algorithmic scaling has
 to reproduce the second published target efficiently before
 making conjectural third-solution discovery claims.
 
+## P13: Search outside the author-reported nonnegative exhaustive height
+
+The [post-Braun exact near-cancellation stripe protocol](POST_BRAUN_DISCOVERY_STRIPES.md) implements independently accepted complete c-stripes for an explicit e, delta and small-a cap, using native Mojo BigZ and an independent Python power hash oracle. The first target e=2,760,001, delta=1, a<=64 is beyond the *author-reported* nonnegative search height but remains a *restricted* parameter slice. Source provenance and negative-slice scope are mandatory.
+
 ## Next experiments prioritized by discovery yield
 
 1. Measure the native search's runtime and peak memory on the

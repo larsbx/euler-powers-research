@@ -105,6 +105,8 @@ extend this bounded positive census without changing its arithmetic scope. The
 replaces per-hit exhaustive reconstruction and records controlled native benchmarks.
 **Verified literature baseline:** [four known nontrivial primitive fifth-power classes, only two strictly positive](docs/KNOWN_PRIMITIVE_E5_LITERATURE.md) — independently checked with exact integers, source citations and normalized permutation/scaling/sign equivalence.
 
+**Post-Braun exploration:** [independently replayed native Mojo high-height near-cancellation stripes](docs/POST_BRAUN_DISCOVERY_STRIPES.md) now target e=2,760,001 in a rigorously scoped delta=1, a<=64 trial beyond the author-reported nonnegative coverage, without calling an incomplete height search exhaustive.
+
 **Research priority:** [Find the next, genuinely new primitive strictly positive fifth-power solution](docs/DISCOVERY_OBJECTIVE.md). Our two known positive reference identities are at e=144 and e=85359; scalable near-cancellation search, not merely more bounded formal proofs, is now the main discovery program.
 
 The [BigZ exact merge-sort sorted-permutation theorem and native conformance](docs/BIGZ_MERGESORT_PROOF.md)
