@@ -95,6 +95,10 @@ def test_receipt_tampering():
         refused(lambda: plan.validate_acceptance(folder, p, 1048576))
         other.write_bytes(content)
         assert plan.validate_acceptance(folder, p, 1048576) == accepted
+        orphan = folder / "e010-011.txt"
+        orphan.write_bytes(b"DOMAIN E5BIGSHARDv1 10 11 35\\n")
+        refused(lambda: plan.validate_acceptance(folder, p, 1048576))
+        orphan.unlink()
         bad = deepcopy(p)
         bad["intervals"] = [[2, 5], [7, 9]]
         refused(lambda: plan.validate_acceptance(folder, bad, 1048576))
