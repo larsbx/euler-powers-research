@@ -53,6 +53,11 @@ def verify_child(folder: Path, expected: dict) -> dict:
         raise ValueError("foreign/partial child scope")
     if len(record.get("per_stripe",[]))!=len(expected["ranges"]):
         raise ValueError("missing/extra child stripe")
+    expected_names={
+        f"c{lo:06d}-{hi:06d}.txt" for lo,hi in expected["ranges"]
+    }
+    if {p.name for p in folder.glob("c*.txt")}!=expected_names:
+        raise ValueError("extra, missing or out-of-plan native transcripts")
     for observed, interval in zip(record["per_stripe"],expected["ranges"]):
         if observed["interval"]!=interval:
             raise ValueError("gap, repeated or out-of-order child stripe")
