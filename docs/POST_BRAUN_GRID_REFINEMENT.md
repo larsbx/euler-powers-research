@@ -53,6 +53,33 @@ controller uses **exclusive fresh output directories**; a failed
 rerun cannot mutate existing scientific evidence. It refuses
 missing/duplicate/out-of-plan transcripts or parameter cells.
 
+### Accepted native hosted nine-cell result
+
+The first hosted grid execution **passed** with exact native Mojo
+transcript replay by an independent Python power-hash oracle. It
+executed every mathematically admissible c in all **nine** declared
+cells (e=2,760,001..2,760,003; delta=1..3; a<=64):
+
+- **25,213,056** (c,a) combinations tested.
+- **56,409** exact b-fifth-power binary lookups after necessary
+  modular and positivity filtering.
+- **Zero** primitive strictly positive solutions in this
+  restricted parameter grid.
+- For the previously tested P13 fixed slice
+  `e=2,760,001, delta=1, a<=64`, exact lookups fell from
+  **145,430** with modulus-99000 alone to **3,519** using the three
+  exact modular images. This is lookup-count improvement,
+  **not** a demonstrated 41-fold elapsed-time speedup.
+
+The actual raw Mojo streams, per-cell source-bound accepted receipts,
+nine-cell grid manifest and resource report are preserved in the
+[full hosted artifact](https://github.com/larsbx/euler-powers-research/actions/runs/40309437424/artifacts/12643947275).
+The green run reports 25,213,056 trials across those cells, but
+neither proves global nonexistence nor covers other delta values,
+other heights, or `a>64`. The underlying source/replay result is
+dated **2026-10-26** and is independent of Braun's much larger
+author-reported coverage.
+
 The first bounded novelty-territory grid uses
 
 ```text
