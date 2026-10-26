@@ -59,6 +59,12 @@ def python_checks():
                   [27,84,110,133],['27','84','110','133',-144]):
         r=dict(good);r['terms']=terms;refused(lambda r=r:analyze(r,known))
     bad=dict(good);bad['provenance']='';refused(lambda:analyze(bad,known))
+    for field,value in (('primitive_terms',['27','84','110','134','-144']),
+                        ('known_id','invented'),('discovery_claim',True),
+                        ('status','discovered'),('cleared_integer_gcd','2')):
+        forged=analyze(good,known);forged[field]=value
+        # Must refuse before attempting to execute this nonexistent binary.
+        refused(lambda forged=forged:verify_native(forged,Path('/nonexistent-candidate-verifier')))
     for p in corpus():assert analyze(p,known)['status']=='known_class'
     return count
 

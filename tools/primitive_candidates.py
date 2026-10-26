@@ -102,6 +102,13 @@ def expected_native(terms):
 
 
 def verify_native(analysis,binary):
+    # Bind every arithmetic/classification field to a fresh exact analysis;
+    # native agreement on an attacker-modified nonzero residual is not
+    # candidate acceptance, and caller-supplied labels carry no authority.
+    fresh=analyze(analysis['proposal'])
+    if analysis!=fresh:
+        raise ValueError('modified or foreign candidate analysis')
+    analysis=fresh
     outputs={}
     for label in ('cleared_integer_terms','primitive_terms'):
         terms=analysis[label]
