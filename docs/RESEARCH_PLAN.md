@@ -95,6 +95,15 @@ and shares BigZ and gcd with the signed known-solution verifier. This
 is a prerequisite for evaluating larger bounds, not permission to widen
 those bounds or to promote finite computation into a theorem.
 
+## P10 complete 2..320 exact native BigZ plan and historical root reconciliation
+
+The [dedicated full B320 BigZ workflow](BIGZ_B320_COMPLETE.md) executes
+all 80 width-four target-height shards, independently checks every
+actual native PART/CERT output and replays historical B144 and B256
+prefixes against archived roots. This is a bounded computational
+achievement only after the hosted workflow passes and preserves its
+accepted actual transcripts; no extrapolation to unbounded solutions.
+
 ## P9 independently accepted full B144 BigZ search
 
 The [B144 native BigZ crosscheck](BIGZ_B144_CROSSCHECK.md) runs all
