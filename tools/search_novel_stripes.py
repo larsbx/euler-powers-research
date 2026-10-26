@@ -138,7 +138,12 @@ def main() -> None:
     records = []
     totals = Counter()
     outset = args.output.resolve()
-    outset.mkdir(parents=True,exist_ok=True)
+    # Each accepted corpus is immutable. Exclusive directory creation
+    # prevents a rerun, changed scope or overlapping worker from
+    # overwriting even one pre-existing verified transcript.
+    # After an interruption use a fresh directory; never merge partial
+    # foreign evidence into an accepted scientific run.
+    outset.mkdir(parents=True,exist_ok=False)
     started = monotonic_ns()
     for lo,hi in scope["ranges"]:
         command = ["bash","scripts/run_mojo.sh",
