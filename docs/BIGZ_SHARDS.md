@@ -81,6 +81,14 @@ only a digest. The signed known-solution program, the B144 and
 B256 packed streams, and the independent replay digest commitments
 are still required unchanged by their existing CI gates.
 
+## Gap-free successor
+
+The [P8 gap-free plan and independently replayed receipt protocol](BIGZ_PLAN_RECEIPTS.md)
+is the control-plane successor to these independently checked but
+noncontiguous P7 specimens. It verifies a complete small interval
+2..12 before allowing an accepted finite-range manifest. A plan alone
+is not evidence of completed execution.
+
 ## Limits and further work
 
 This implements a **lossless arbitrary-precision index** and finite
