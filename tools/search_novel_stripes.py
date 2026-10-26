@@ -57,23 +57,43 @@ def three_fifth_ceil(n: int, upper: int) -> int:
     return lo
 
 
+def two_fifth_ceil(n: int, upper: int) -> int:
+    """Least x>=0 with 2*x**5>=n (or upper+1); exact integer inequalities."""
+    lo, hi = 0, upper+1
+    while lo < hi:
+        mid = (lo+hi)//2
+        if 2*mid**5 < n:
+            lo = mid+1
+        else:
+            hi = mid
+    return lo
+
+
 def plan(e: int, delta: int, a_cap: int, width: int,
-         a_min: int = 1, sign: str = "positive") -> dict:
+         a_min: int = 1, sign: str = "positive", tight: bool = False) -> dict:
     if not (5 <= e <= 4000000 and 1 <= delta <= 256 and delta < e and
-            1 <= a_min <= a_cap <= 256 and sign in ("positive", "negative")
+            1 <= a_min <= a_cap <= 1024 and sign in ("positive", "negative")
             and 1 <= width <= 4096):
         raise ValueError("unsupported high-height finite search domain")
     d = e-delta
     difference = e**5-d**5
     c_min = three_fifth_ceil(difference, d)
+    legacy_min = c_min
+    if tight:
+        threshold = difference-(a_cap**5 if sign == "positive" else 0)
+        c_min = max(c_min, two_fifth_ceil(threshold,d))
     c_max = fifth_floor(difference + (a_cap**5 if sign == "negative" else 0), d)
     if not (1 <= c_min <= c_max <= d and c_max <= 600000):
         raise ValueError("empty/out-of-policy exact c-bound range")
     ranges = [[x, min(x+width-1, c_max)]
               for x in range(c_min, c_max+1, width)]
-    return {"e":e, "delta":delta, "a_cap":a_cap, "a_min":a_min, "sign":sign, "d":d,
+    scope = {"e":e, "delta":delta, "a_cap":a_cap, "a_min":a_min, "sign":sign, "d":d,
             "c_min":c_min, "c_max":c_max, "c_width":width,
             "ranges":ranges, "pairs_upper_budget":(a_cap-a_min+1)*(c_max-c_min+1)}
+    if tight:
+        scope.update({"bound_mode":"two_term", "legacy_c_min":legacy_min,
+                      "algebraically_excluded_c_values":c_min-legacy_min})
+    return scope
 
 
 def independent_oracle(e: int, delta: int, a_cap: int,
@@ -91,6 +111,8 @@ def independent_oracle(e: int, delta: int, a_cap: int,
     domain = (f"DOMAIN E5STRIPEv1 {e} {delta} {a_cap} {lo} {hi}"
               if a_min == 1 and not negative else
               f"DOMAIN E5STRIPEv2 {e} {delta} {a_min} {a_cap} {int(negative)} {lo} {hi}")
+    if bounds.get("bound_mode") == "two_term":
+        domain = f"DOMAIN E5STRIPEv3 {e} {delta} {a_min} {a_cap} {int(negative)} {lo} {hi}"
     lines = [domain,
              f"BOUNDS {bounds['c_min']} {bounds['c_max']} {e-delta}"]
     trials = rejected = lookups = hits = 0
@@ -143,6 +165,7 @@ def main() -> None:
     ap.add_argument("--a-cap",required=True)
     ap.add_argument("--a-min",default="1")
     ap.add_argument("--sign",choices=("positive","negative"),default="positive")
+    ap.add_argument("--tight-bounds",action="store_true")
     ap.add_argument("--c-width",default="4096")
     ap.add_argument("--timeout",default="120")
     ap.add_argument("--output",required=True,type=Path)
@@ -153,7 +176,7 @@ def main() -> None:
     if not 5 <= timeout <= 300:
         raise ValueError("bounded per-stripe wall time required")
     a_min = natural(args.a_min)
-    scope = plan(e,delta,a_cap,width,a_min,args.sign)
+    scope = plan(e,delta,a_cap,width,a_min,args.sign,args.tight_bounds)
     known_registry = json.loads(KNOWN.read_text(encoding="utf-8"))
     known = {
         (*r["summands"],r["target"]):r["id"]
@@ -177,6 +200,8 @@ def main() -> None:
                    "kernel/near_cancellation_stripe.mojo",
                    str(e),str(delta),str(a_cap),str(lo),str(hi),
                    str(a_min),str(int(args.sign == "negative"))]
+        if args.tight_bounds:
+            command.append("1")
         time_file = outset/f"c{lo:06d}-{hi:06d}.time"
         command = ["/usr/bin/time","-f","%e %U %S %M","-o",str(time_file),*command]
         native_started = monotonic_ns()
@@ -228,7 +253,8 @@ def main() -> None:
                               for lo,hi in scope["ranges"]):
         raise ValueError("trials do not cover finite (a,c) domain")
     source = source_identity()
-    manifest = {"schema":SCHEMA if a_min==1 and args.sign=="positive" else "E5-DELTA-STRIPE-ACCEPTANCE-v2","scope":scope,
+    manifest = {"schema":("E5-DELTA-STRIPE-ACCEPTANCE-v3" if args.tight_bounds else
+                          SCHEMA if a_min==1 and args.sign=="positive" else "E5-DELTA-STRIPE-ACCEPTANCE-v2"),"scope":scope,
                 "source":source,"totals":dict(sorted(totals.items())),
                 "witnesses":records,"resources":resources,
                 "per_stripe":[

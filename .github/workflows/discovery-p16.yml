@@ -1,0 +1,55 @@
+name: Larger minimum-summand discovery P16 (exact Mojo)
+on:
+  pull_request:
+    paths:
+      - '.github/workflows/discovery-p16.yml'
+      - 'kernel/**'
+      - 'tools/search*'
+      - 'tests/test_discovery_p16.py'
+      - 'scripts/run_mojo.sh'
+      - 'scripts/run_research_cgroup.sh'
+      - 'pixi.*'
+      - 'data/experiments/index.json'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  frontier:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: prefix-dev/setup-pixi@d3f436a425481402e6a95a1d1fc10331c708cd9e
+      - name: Verify pinned arithmetic and signed native calibration
+        run: |
+          pixi run --locked verify
+          pixi run --locked python tests/test_discovery_p16.py
+      - name: Execute 10 new disjoint larger-summand cells under 2 GiB physical-memory cgroup limit
+        run: |
+          mkdir -p benchmarks/results
+          bash scripts/run_research_cgroup.sh \
+            /usr/bin/time -v -o benchmarks/results/p16-resources.txt \
+            "$(command -v pixi)" run --locked python tools/search_discovery_p16.py \
+            --output benchmarks/results/p16
+      - name: Fresh-process independent exact replay of all native evidence
+        run: |
+          bash scripts/run_research_cgroup.sh \
+            /usr/bin/time -v -o benchmarks/results/p16-replay-resources.txt \
+            "$(command -v pixi)" run --locked python tools/search_discovery_p16.py \
+            --verify --output benchmarks/results/p16
+      - name: Print accepted coverage and resource measurements
+        run: |
+          cat benchmarks/results/p16/accepted-p16.json
+          cat benchmarks/results/p16-resources.txt
+          cat benchmarks/results/p16-replay-resources.txt
+      - name: Preserve raw inputs, native transcripts, source receipts and resource measurements
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: postbraun-p16-e2760001-a257-1024
+          path: |
+            benchmarks/results/p16/
+            benchmarks/results/p16-resources.txt
+            benchmarks/results/p16-replay-resources.txt
+          if-no-files-found: error
+          retention-days: 90
