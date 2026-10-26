@@ -65,7 +65,7 @@ def test_plan():
         (fixture / "kernel/bigz_pair_index.mojo").write_text("index-v1")
         (fixture / "kernel/euler_exact.mojo").write_text("power-five-v1")
         (fixture / "pixi.lock").write_text("locked-v1")
-        (fixture / "scripts/run_mojo.sh").write_text('PIN="' + "a" * 40 + '"\\n')
+        (fixture / "scripts/run_mojo.sh").write_text('PIN="' + "a" * 40 + '"\n')
         with patch.object(plan, "ROOT", fixture):
             original = plan.make_plan(12, 4, 35)
             plan.check_plan(original)
