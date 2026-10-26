@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import subprocess
+from tempfile import TemporaryDirectory
 from pathlib import Path
 import sys
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'tools'))
@@ -45,7 +46,28 @@ def main():
             "kernel/near_cancellation_stripe.mojo",*args],
             cwd=ROOT,text=True,capture_output=True)
         assert result.returncode!=0,(args,result.stdout)
-    print("High-height stripe finite-domain guards and native exact arithmetic passed.")
+    # Scientific acceptance records are immutable: changing the
+    # declared scope cannot overwrite an already accepted transcript,
+    # even when only the first worker would have executed.
+    with TemporaryDirectory() as tmp:
+        existing = Path(tmp) / "accepted"
+        existing.mkdir()
+        marker = existing / "accepted.json"
+        marker.write_text("immutable original scientific record",encoding="ascii")
+        for A in (1, 64):
+            refused = subprocess.run(
+                [sys.executable, "tools/search_novel_stripes.py",
+                 "--e", "144", "--delta", "11", "--a-cap", str(A),
+                 "--output", str(existing)],
+                cwd=ROOT, capture_output=True, text=True,
+            )
+            assert refused.returncode != 0
+            assert marker.read_text(encoding="ascii") == (
+                "immutable original scientific record"
+            )
+            assert len(list(existing.iterdir())) == 1
+    print("High-height stripe exactness, finite guards, and "
+          "immutable evidence destination checks passed.")
 
 
 if __name__=="__main__":
