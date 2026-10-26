@@ -23,6 +23,8 @@ pixi run --locked python tests/test_prime_power_sieve.py
 pixi run --locked python tests/test_digit_filter.py
 pixi run --locked python tests/test_extended_bound.py
 pixi run --locked python tests/test_bigz_shards.py
+(cd formal/lean && lake build bigz-trace-replay)
+pixi run --locked python tests/test_bigz_trace.py
 python3 tests/test_bigz_plan.py
 
 # Replay the actual Mojo stdout, never a Python-reconstructed replacement.
