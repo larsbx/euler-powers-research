@@ -85,8 +85,15 @@ def main():
         assert gcd(a, b, c, d, e) == 1
     cases = ((144, 11, 64), (85359, 77, 64), (85360, 77, 64))
     for e, delta, small_a in cases:
-        observed = run_mojo("kernel/near_cancellation.mojo",
-                            str(e), str(delta), str(small_a))
+        native = subprocess.run(
+            ["bash", "scripts/run_mojo.sh", "kernel/near_cancellation.mojo",
+             str(e), str(delta), str(small_a)],
+            cwd=ROOT, capture_output=True, text=True,
+        )
+        assert native.returncode == 0, (
+            f"Mojo delta slice failed: {native.stderr}\\n{native.stdout}"
+        )
+        observed = native.stdout.splitlines()
         expected = oracle(e, delta, small_a)
         assert observed == expected, (
             "native near-cancellation diverges from independent exact Python",
