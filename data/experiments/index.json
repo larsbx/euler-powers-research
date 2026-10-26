@@ -1,0 +1,213 @@
+{
+  "schema": "E5-ACCEPTED-EXPERIMENT-ARCHIVES-v1",
+  "as_of": "2026-10-26",
+  "meaning": "Only the listed finite parameter cells are accepted. No complete high-height or general signed census.",
+  "experiments": [
+    {
+      "id": "P14",
+      "run_id": 40310016033,
+      "artifact_id": 12644088071,
+      "archive": "p14-run-40310016033.zip",
+      "archive_sha256": "0557f355447acc51e8edd59c443f63a8aeed79aae3ba0602f5f248f231761c63",
+      "source_head": "256588293ffa9355219daa3ef9160607d03edddb",
+      "trials": 25213056,
+      "exact_lookups": 56409,
+      "primitive_witnesses": 0,
+      "parameters": {
+        "e": [
+          2760001,
+          2760002,
+          2760003
+        ],
+        "delta": [
+          1,
+          2,
+          3
+        ],
+        "positive_a_interval": [
+          1,
+          64
+        ]
+      },
+      "receipt": "postbraun-grid-e2760001-2760003-d1-3-a64/accepted-grid.json (inside original ZIP)"
+    },
+    {
+      "id": "P15",
+      "run_id": 40329902748,
+      "artifact_id": 12654187161,
+      "archive": "p15-run-40329902748.zip",
+      "archive_sha256": "bd09635a09176bbf3f0671492af8f8ce21a7fec0abf07c147dd54cc572a53ea2",
+      "source_head": "9d6dd4cc98905c29c0829e4684d6673076d505dc",
+      "tested_pr_merge_commit": "144b19eac6cee9a0724d0b3bd14902e2f63ed261",
+      "implementation_merge": "d48f9752ac3bb7f81eec78e5752dba647dc51bb3",
+      "trials": 176372608,
+      "exact_lookups": 524286,
+      "primitive_witnesses": 0,
+      "receipt": "p15-accepted-frontier.json",
+      "receipt_sha256": "e514cc31eea5e250076c94e5e051855efc24689a3eeefc969cd531a0a448740b",
+      "job_log": "p15-run-40329902748-job.log.gz",
+      "job_log_sha256": "3e10edec9f0b216187941822f0d2822ba6ee959ce0da87dda10ba0d702129c72",
+      "resource_measurements": {
+        "search_and_initial_replay": {
+          "wall_seconds": "211.02",
+          "user_seconds": "199.53",
+          "system_seconds": "13.84",
+          "gnu_max_rss_kib": 204304
+        },
+        "fresh_full_replay": {
+          "wall_seconds": "52.84",
+          "user_seconds": "50.34",
+          "system_seconds": "2.49",
+          "gnu_max_rss_kib": 110708
+        },
+        "native_invocation_wall_ns": 158358636741,
+        "initial_python_replay_wall_ns": 52005780444
+      },
+      "cells": [
+        {
+          "sign": "positive",
+          "e": 2760001,
+          "delta": 4,
+          "abs_a_min": 1,
+          "abs_a_max": 256,
+          "c_min": 207735,
+          "c_max": 258781,
+          "trials": 13068032,
+          "exact_lookups": 29231,
+          "primitive_witnesses": 0
+        },
+        {
+          "sign": "positive",
+          "e": 2760001,
+          "delta": 8,
+          "abs_a_min": 1,
+          "abs_a_max": 256,
+          "c_min": 238625,
+          "c_max": 297261,
+          "trials": 15011072,
+          "exact_lookups": 14572,
+          "primitive_witnesses": 0
+        },
+        {
+          "sign": "positive",
+          "e": 2760001,
+          "delta": 16,
+          "abs_a_min": 1,
+          "abs_a_max": 256,
+          "c_min": 274108,
+          "c_max": 341463,
+          "trials": 17243136,
+          "exact_lookups": 74472,
+          "primitive_witnesses": 0
+        },
+        {
+          "sign": "positive",
+          "e": 2760001,
+          "delta": 64,
+          "abs_a_min": 1,
+          "abs_a_max": 256,
+          "c_min": 361684,
+          "c_max": 450560,
+          "trials": 22752512,
+          "exact_lookups": 35821,
+          "primitive_witnesses": 0
+        },
+        {
+          "sign": "positive",
+          "e": 2760001,
+          "delta": 256,
+          "abs_a_min": 1,
+          "abs_a_max": 256,
+          "c_min": 477232,
+          "c_max": 594501,
+          "trials": 30021120,
+          "exact_lookups": 189335,
+          "primitive_witnesses": 0
+        },
+        {
+          "sign": "positive",
+          "e": 2760001,
+          "delta": 1,
+          "abs_a_min": 65,
+          "abs_a_max": 256,
+          "c_min": 157434,
+          "c_max": 196119,
+          "trials": 7427712,
+          "exact_lookups": 12836,
+          "primitive_witnesses": 0
+        },
+        {
+          "sign": "positive",
+          "e": 2760001,
+          "delta": 2,
+          "abs_a_min": 65,
+          "abs_a_max": 256,
+          "c_min": 180844,
+          "c_max": 225282,
+          "trials": 8532288,
+          "exact_lookups": 7007,
+          "primitive_witnesses": 0
+        },
+        {
+          "sign": "positive",
+          "e": 2760001,
+          "delta": 3,
+          "abs_a_min": 65,
+          "abs_a_max": 256,
+          "c_min": 196120,
+          "c_max": 244312,
+          "trials": 9253056,
+          "exact_lookups": 14055,
+          "primitive_witnesses": 0
+        },
+        {
+          "sign": "negative",
+          "e": 2760001,
+          "delta": 4,
+          "abs_a_min": 1,
+          "abs_a_max": 256,
+          "c_min": 207735,
+          "c_max": 258781,
+          "trials": 13068032,
+          "exact_lookups": 39362,
+          "primitive_witnesses": 0
+        },
+        {
+          "sign": "negative",
+          "e": 2760001,
+          "delta": 16,
+          "abs_a_min": 1,
+          "abs_a_max": 256,
+          "c_min": 274108,
+          "c_max": 341463,
+          "trials": 17243136,
+          "exact_lookups": 74172,
+          "primitive_witnesses": 0
+        },
+        {
+          "sign": "negative",
+          "e": 2760001,
+          "delta": 64,
+          "abs_a_min": 1,
+          "abs_a_max": 256,
+          "c_min": 361684,
+          "c_max": 450560,
+          "trials": 22752512,
+          "exact_lookups": 33423,
+          "primitive_witnesses": 0
+        }
+      ]
+    }
+  ],
+  "unsearched_examples": [
+    "Other heights; at e=2760002 and 2760003, positive a>=65.",
+    "At e=2760001, positive gaps outside 1,2,3,4,8,16,64,256; positive a>=257.",
+    "Signed gaps outside 4,16,64 at e=2760001; abs(a)>=257; negative term with abs(a)>b; two or more negative terms."
+  ],
+  "failed_attempts": [
+    {
+      "run_id": 40329491348,
+      "meaning": "Native calibration passed; virtual-address limit caused allocator failure before any search cell was accepted. Not negative mathematical evidence."
+    }
+  ]
+}
