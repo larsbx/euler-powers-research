@@ -1,5 +1,8 @@
 # Proof obligations and research stages
 
+**Primary goal:** [Discover a third genuinely new primitive strictly positive fifth-power identity](DISCOVERY_OBJECTIVE.md). Both published positive witnesses (e=144 and e=85359) are calibration fixtures. All remaining proof, benchmarking, modular, and geometry work should contribute to discovery or independent validation; the existing B320 bound is infrastructure, not the research endpoint.
+
+
 ## P0 — Certified baseline
 
 - Check the four published primitive integer examples by exact integer arithmetic and gcd.
