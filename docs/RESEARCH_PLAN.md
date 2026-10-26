@@ -1,5 +1,7 @@
 # Proof obligations and research stages
 
+**P18 accepted:** [sixteen untouched positive gaps 17..32](POST_BRAUN_P18.md), 786,334,720 new exact trials, 1,340,424 BigZ lookups and zero primitive identities. The [current map](../data/experiments/TERRITORY.md) records 56 disjoint high-height cells and 1,716,786,944 trials. Positive e=2,760,001, delta=1..32, a<=1024 is complete only as this restricted block. [Pair reconstruction](PAIR_SUM_RECONSTRUCTION.md) is a separate exact algebra experiment; cached-production benchmarking remains open.
+
 **P17 accepted:** [ten previously untouched positive gaps](POST_BRAUN_P17.md), 409,884,672 new exact trials and zero primitive identities. The [cumulative map](../data/experiments/TERRITORY.md) records 930,452,224 disjoint high-height trials, full B320 coverage and separate test-covered domains; e=2,760,001 positive delta=1..16, a<=1024 is now complete as a restricted block.
 
 **P16 accepted:** [new a=257..1024 cells and exact two-term c bounds](POST_BRAUN_P16.md): 318,981,888 trials; 965,191 lookups; zero primitive identities. Positive coverage now reaches a=1024 at eight declared gaps, with a separate restricted signed mode; no full-height claim.

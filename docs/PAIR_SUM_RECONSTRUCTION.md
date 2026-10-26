@@ -86,9 +86,69 @@ pixi run --locked python tests/test_pair_sum_reconstruction.py --output /tmp/pai
 pixi run --locked python tests/test_pair_sum_reconstruction.py --verify --output /tmp/pair-sum-new
 ```
 
-Status: native comparison pending. This algorithm-development track adds
-**zero Euler discovery cells**. Positive gaps 17..32 are being searched
+This algorithm-development track adds **zero Euler discovery cells**. Positive gaps 17..32 are being searched
 separately using the existing accepted controller, not this new algorithm.
 Future work must benchmark the actual cached production workload and
 derive complete finite bounds before replacing any discovery path or
 admitting general signed Euler boxes.
+
+
+## Accepted comparison and exact worked example
+
+[Native run 40353821388](https://github.com/larsbx/euler-powers-research/actions/runs/40353821388)
+passed all 106 queries and fresh full replay at source
+`9ba3ccff7b63154578585657b616d5a5c735ef54`, synthetic test merge
+`ceed4c4e4808a814b8fcf44c6595c850fbb83b55`. The original 216-file
+[ZIP](../data/algebra/pair-sum-40353821388.zip),
+[extracted receipt](../data/algebra/pair-sum-40353821388-accepted.json),
+[native job log](../data/algebra/pair-sum-40353821388-job.log.gz), and
+[formal job log](../data/algebra/pair-sum-formal-40353821271-job.log.gz)
+are permanent. ZIP SHA-256:
+`2952e72aa9118a8ec6a6c76b2c773a8773b3224381804cc28909793c998a9978`.
+Downloaded ZIP CRC, source/resource hashes, all raw transcripts and a
+separate local full Python replay passed again. All five source-head
+workflows passed, the latest-head review had no findings, and PR #55 merged.
+Pinned Lean 4.34.1 built the new proofs and audited 348 theorems with no
+nonstandard axioms (including generated proof auxiliaries).
+
+For the seeded signed pair `a=-8192`, `b=4097`, the native algorithm recovered
+
+```text
+R = -35,739,158,580,566,142,975
+s = -4095
+sqrt(Delta) = 419,471,365
+p = (5*s^2-sqrt(Delta))/10 = -33,562,624
+sqrt(T) = 12,289
+a = (s-sqrt(T))/2 = -8192
+b = (s+sqrt(T))/2 = 4097
+```
+
+This is a pair reconstruction control beyond Int64, not a new Euler
+identity. At B=8192, all 32,768 nonzero sums were tested for this target;
+72 divided R exactly, one passed the bounded discriminant square test,
+and one pair passed the complete reconstruction. Increasing R by one
+left four exact divisors and zero square survivors/pairs in the same box.
+
+| B | Target from seeded pair plus offset | Scan median ms | Reconstruction median ms |
+| ---: | --- | ---: | ---: |
+| 64 | (-64,3), offset 0 | 9.918 | 9.928 |
+| 64 | (8,63), offset 1 | 9.657 | 10.228 |
+| 4096 | (1025,3183), offset 0 | 15.439 | 13.547 |
+| 4096 | (-4096,2049), offset 0 | 16.772 | 17.062 |
+| 8192 | (4097,8191), offset 0 | 22.515 | 18.795 |
+| 8192 | (-8192,4097), offset 0 | 22.483 | 23.666 |
+| 8192 | (-8192,4097), offset 1 | 22.472 | 20.251 |
+| 8192 | (8191,8192), offset -1 | 21.629 | 19.716 |
+
+Each median uses three interleaved same-binary process invocations. Across
+all 53 invocations per method, process wall sums were 0.722273314 seconds
+for scan and 0.677232561 seconds for reconstruction. Maximum query RSS
+was 25,612 KiB. Compilation separately took 3.61 seconds, 4.98 user seconds,
+0.19 system seconds and 254,024 KiB maximum RSS. The full acceptance process
+was 5.56 seconds / 254,024 KiB; fresh replay was 0.29 seconds / 69,228 KiB.
+Raw per-query wall/user/system/RSS and nanosecond timings remain in the ZIP.
+
+The mixed case results and startup/table costs do not establish a speedup
+for cached Euler stripes. The existing discovery algorithm remains in use.
+Historical replay uses the recorded source hashes and
+`python tests/test_pair_sum_reconstruction.py --verify --output EXTRACTED/pair-sum`.
