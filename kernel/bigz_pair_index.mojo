@@ -7,6 +7,7 @@ pair indices give canonical deterministic ordering. At equal sums
 lower_bound finds the first possible record.
 """
 from finite_exact.bigint_z import BigZ, bigz_add, bigz_eq, bigz_lt
+from finite_exact.exact_decimal import bigz_decimal
 
 
 struct BigPair(Copyable):
@@ -69,7 +70,6 @@ def _pair_lower_bound_core(
     while low < high:
         var mid = low + (high - low) // 2
         if emit_trace:
-            from finite_exact.exact_decimal import bigz_decimal
             print("STEP", low, high, mid, bigz_decimal(values[mid].sum))
         if bigz_lt(values[mid].sum, target):
             low = mid + 1
