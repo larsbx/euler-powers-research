@@ -18,8 +18,9 @@ residue-sieve = "bash scripts/run_mojo.sh kernel/residue_sieve.mojo"
 census-144 = "bash scripts/run_mojo.sh kernel/positive_census.mojo 144"
 census-shard-a = "bash scripts/run_mojo.sh kernel/positive_census.mojo 2 72"
 census-shard-b = "bash scripts/run_mojo.sh kernel/positive_census.mojo 73 144"
-verify-research = "python tests/check_research_kernels.py && python tests/test_pair_partition.py && python tests/test_euler_exact_bridge.py && python tests/test_prime_power_sieve.py && python tests/test_digit_filter.py && python tests/modulus_frontier.py && python tests/test_extended_bound.py && python tests/test_bigz_shards.py && python tests/test_bigz_plan.py && python tests/test_bigz_trace.py --python-only && python tests/test_bigz_sort.py && python tests/test_near_cancellation.py && python tests/test_known_primitive_registry.py && python tests/test_near_cancellation_stripes.py && python tests/test_discovery_grid.py"
+verify-research = "python tests/check_research_kernels.py && python tests/test_pair_partition.py && python tests/test_euler_exact_bridge.py && python tests/test_prime_power_sieve.py && python tests/test_digit_filter.py && python tests/modulus_frontier.py && python tests/test_extended_bound.py && python tests/test_bigz_shards.py && python tests/test_bigz_plan.py && python tests/test_bigz_trace.py --python-only && python tests/test_bigz_sort.py && python tests/test_near_cancellation.py && python tests/test_known_primitive_registry.py && python tests/test_near_cancellation_stripes.py && python tests/test_discovery_grid.py && python tests/test_discovery_frontier.py"
 pair-index-conformance = "python tests/test_pair_index_conformance.py"
 trace-conformance = "python tests/test_lean_trace_replay.py"
 
 pair-partition = "bash scripts/run_mojo.sh kernel/pair_partition.mojo 144 35"
+

@@ -137,3 +137,12 @@ This is the research **north star**. Additional formal verification
 and code abstraction are justified when they improve the chance of
 discovering, validating or explaining a *new* primitive positive
 fifth-power identity—not as ends in themselves.
+
+## October 26 expanded discovery scope
+
+The user also authorizes seeking a genuinely new signed primitive identity.
+Relative to the four-entry literature registry this would be a fifth signed-or-positive
+class, while the positive goal remains a third positive class. [P15](POST_BRAUN_FRONTIER.md)
+adds a separately labelled one-negative-term search; it never counts signed
+identities as positive discoveries.
+

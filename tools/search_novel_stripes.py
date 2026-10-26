@@ -1,9 +1,9 @@
 """Deterministic, fully replayed E5 near-cancellation (e,delta,a-cap) stripes.
 
 Runs the REAL Mojo BigZ code. A different Python exact hash-power oracle
-reconstructs every trial, rejection, lookup, and positive witness.
+reconstructs every trial, rejection, lookup, and signed or positive witness.
 Accepted coverage is only the fixed (e,delta,a<=A) c-domain, never all
-values of delta, a or e. Published large-search claims aren't reproduced.
+values of delta, a or e. The signed mode requires abs(a)<=b<=c<=d. Published large-search claims aren't reproduced.
 
 Example:
  pixi run --locked python tools/search_novel_stripes.py \\
@@ -57,21 +57,23 @@ def three_fifth_ceil(n: int, upper: int) -> int:
     return lo
 
 
-def plan(e: int, delta: int, a_cap: int, width: int) -> dict:
+def plan(e: int, delta: int, a_cap: int, width: int,
+         a_min: int = 1, sign: str = "positive") -> dict:
     if not (5 <= e <= 4000000 and 1 <= delta <= 256 and delta < e and
-            1 <= a_cap <= 64 and 1 <= width <= 4096):
+            1 <= a_min <= a_cap <= 256 and sign in ("positive", "negative")
+            and 1 <= width <= 4096):
         raise ValueError("unsupported high-height finite search domain")
     d = e-delta
     difference = e**5-d**5
     c_min = three_fifth_ceil(difference, d)
-    c_max = fifth_floor(difference, d)
+    c_max = fifth_floor(difference + (a_cap**5 if sign == "negative" else 0), d)
     if not (1 <= c_min <= c_max <= d and c_max <= 600000):
         raise ValueError("empty/out-of-policy exact c-bound range")
     ranges = [[x, min(x+width-1, c_max)]
               for x in range(c_min, c_max+1, width)]
-    return {"e":e, "delta":delta, "a_cap":a_cap, "d":d,
+    return {"e":e, "delta":delta, "a_cap":a_cap, "a_min":a_min, "sign":sign, "d":d,
             "c_min":c_min, "c_max":c_max, "c_width":width,
-            "ranges":ranges, "pairs_upper_budget":a_cap*(c_max-c_min+1)}
+            "ranges":ranges, "pairs_upper_budget":(a_cap-a_min+1)*(c_max-c_min+1)}
 
 
 def independent_oracle(e: int, delta: int, a_cap: int,
@@ -85,16 +87,21 @@ def independent_oracle(e: int, delta: int, a_cap: int,
     seen = set(pow(b, 5, 99000) for b in range(1, lo))
     seen41 = set(pow(b, 5, 41) for b in range(1, lo))
     seen61 = set(pow(b, 5, 61) for b in range(1, lo))
-    lines = [f"DOMAIN E5STRIPEv1 {e} {delta} {a_cap} {lo} {hi}",
+    a_min, negative = bounds["a_min"], bounds["sign"] == "negative"
+    domain = (f"DOMAIN E5STRIPEv1 {e} {delta} {a_cap} {lo} {hi}"
+              if a_min == 1 and not negative else
+              f"DOMAIN E5STRIPEv2 {e} {delta} {a_min} {a_cap} {int(negative)} {lo} {hi}")
+    lines = [domain,
              f"BOUNDS {bounds['c_min']} {bounds['c_max']} {e-delta}"]
     trials = rejected = lookups = hits = 0
     for c in range(lo,hi+1):
         seen.add(powers[c] % 99000)
         seen41.add(powers[c] % 41)
         seen61.add(powers[c] % 61)
-        for a in range(1,min(c,a_cap)+1):
+        for a in range(a_min,min(c,a_cap)+1):
             trials += 1
-            complement = D-powers[c]-powers[a]
+            signed_a = -a if negative else a
+            complement = D-powers[c]-signed_a**5
             if (complement <= 0 or complement%99000 not in seen or
                     complement%41 not in seen41 or
                     complement%61 not in seen61):
@@ -104,9 +111,9 @@ def independent_oracle(e: int, delta: int, a_cap: int,
             b = by_power.get(complement)
             if b is not None and a <= b <= c:
                 if gcd(a,b,c,e-delta,e)==1:
-                    assert powers[a]+powers[b]+powers[c]+(e-delta)**5==e**5
+                    assert signed_a**5+powers[b]+powers[c]+(e-delta)**5==e**5
                     hits += 1
-                    lines.append(f"CERT E5v1 {a} {b} {c} {e-delta} {e}")
+                    lines.append(f"CERT E5v1 {signed_a} {b} {c} {e-delta} {e}")
     lines.append(f"SUMMARY {hi-lo+1} {trials} {rejected} {lookups} {hits}")
     return "\n".join(lines)+"\n"
 
@@ -119,11 +126,23 @@ def sha(data: bytes) -> str:
     return sha256(data).hexdigest()
 
 
+def source_identity() -> dict:
+    paths = ["kernel/near_cancellation_stripe.mojo", "kernel/near_cancellation.mojo",
+             "kernel/euler_exact.mojo", "scripts/run_mojo.sh", "pixi.toml", "pixi.lock",
+             "tools/search_novel_stripes.py", str(KNOWN.relative_to(ROOT))]
+    return {"files_sha256":{p:sha((ROOT/p).read_bytes()) for p in paths},
+            "git_commit":os.environ.get("GITHUB_SHA", "local-uncommitted"),
+            "workflow_run_id":os.environ.get("GITHUB_RUN_ID", "local"),
+            "finite_math_kernels_pin":"c5b2d3d7879bcf2354d4d9784bd20a6b3dc610fd"}
+
+
 def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--e",required=True)
     ap.add_argument("--delta",required=True)
     ap.add_argument("--a-cap",required=True)
+    ap.add_argument("--a-min",default="1")
+    ap.add_argument("--sign",choices=("positive","negative"),default="positive")
     ap.add_argument("--c-width",default="4096")
     ap.add_argument("--timeout",default="120")
     ap.add_argument("--output",required=True,type=Path)
@@ -133,14 +152,16 @@ def main() -> None:
     )
     if not 5 <= timeout <= 300:
         raise ValueError("bounded per-stripe wall time required")
-    scope = plan(e,delta,a_cap,width)
+    a_min = natural(args.a_min)
+    scope = plan(e,delta,a_cap,width,a_min,args.sign)
     known_registry = json.loads(KNOWN.read_text(encoding="utf-8"))
     known = {
         (*r["summands"],r["target"]):r["id"]
         for r in known_registry["records"]
-        if r["domain"]=="strictly_positive"
+
     }
     actual_covered = []
+    resources = []
     records = []
     totals = Counter()
     outset = args.output.resolve()
@@ -154,12 +175,20 @@ def main() -> None:
     for lo,hi in scope["ranges"]:
         command = ["bash","scripts/run_mojo.sh",
                    "kernel/near_cancellation_stripe.mojo",
-                   str(e),str(delta),str(a_cap),str(lo),str(hi)]
+                   str(e),str(delta),str(a_cap),str(lo),str(hi),
+                   str(a_min),str(int(args.sign == "negative"))]
+        time_file = outset/f"c{lo:06d}-{hi:06d}.time"
+        command = ["/usr/bin/time","-f","%e %U %S %M","-o",str(time_file),*command]
+        native_started = monotonic_ns()
         native = subprocess.run(command,cwd=ROOT,text=True,capture_output=True,
                                 timeout=timeout,check=False)
         if native.returncode != 0:
             raise RuntimeError(f"native failed [{lo},{hi}]: {native.stderr}")
+        native_ns = monotonic_ns()-native_started
+        wall,user,system,rss = time_file.read_text().strip().split()
+        replay_started = monotonic_ns()
         expected = independent_oracle(e,delta,a_cap,lo,hi,scope)
+        replay_ns = monotonic_ns()-replay_started
         if native.stdout != expected:
             raise AssertionError(f"Mojo disagrees with independent exact oracle at [{lo},{hi}]")
         lines = native.stdout.splitlines()
@@ -171,7 +200,8 @@ def main() -> None:
             raise ValueError("native witness count mismatch")
         for cert in certificate_lines:
             terms = tuple(map(int,cert.split(" ")[2:]))
-            if (len(terms)!=5 or not 1<=terms[0]<=terms[1]<=terms[2]<=terms[3]<terms[4]
+            if (len(terms)!=5 or not a_min<=abs(terms[0])<=min(a_cap,terms[1])<=terms[2]<=terms[3]<terms[4]
+                    or (terms[0]<0)!=(args.sign=="negative")
                     or gcd(*terms)!=1
                     or sum(x**5 for x in terms[:4])!=terms[4]**5):
                 raise ValueError("unsupported/incorrect witness identity")
@@ -185,28 +215,27 @@ def main() -> None:
         payload=native.stdout.encode("ascii")
         transcript.write_bytes(payload)
         actual_covered.append([lo,hi])
+        resources.append({"interval":[lo,hi],"native_wall_ns":native_ns,
+                          "python_replay_wall_ns":replay_ns,
+                          "gnu_wall_seconds":wall,"gnu_user_seconds":user,
+                          "gnu_system_seconds":system,"max_rss_kib":int(rss),
+                          "time_file_sha256":sha(time_file.read_bytes())})
         print(f"VERIFIED e={e},delta={delta},a<={a_cap}, c={lo}..{hi}: "
               f"{row[1]} trials, {row[3]} exact lookups, {row[4]} certs",flush=True)
     if actual_covered!=scope["ranges"] or totals["c_values"]!=scope["c_max"]-scope["c_min"]+1:
         raise ValueError("coverage has a gap, duplication or missing tail")
-    if totals["trials"]!=sum(sum(min(c,a_cap) for c in range(lo,hi+1))
+    if totals["trials"]!=sum(sum(max(0,min(c,a_cap)-a_min+1) for c in range(lo,hi+1))
                               for lo,hi in scope["ranges"]):
         raise ValueError("trials do not cover finite (a,c) domain")
-    source = {
-        "mojo_stripe_sha256":sha((ROOT/"kernel/near_cancellation_stripe.mojo").read_bytes()),
-        "mojo_bridge_sha256":sha((ROOT/"kernel/near_cancellation.mojo").read_bytes()),
-        "exact_math_sha256":sha((ROOT/"kernel/euler_exact.mojo").read_bytes()),
-        "python_verifier_sha256":sha(Path(__file__).read_bytes()),
-        "known_registry_sha256":sha(KNOWN.read_bytes()),
-    }
-    manifest = {"schema":SCHEMA,"scope":scope,
+    source = source_identity()
+    manifest = {"schema":SCHEMA if a_min==1 and args.sign=="positive" else "E5-DELTA-STRIPE-ACCEPTANCE-v2","scope":scope,
                 "source":source,"totals":dict(sorted(totals.items())),
-                "witnesses":records,
+                "witnesses":records,"resources":resources,
                 "per_stripe":[
                     {"interval":interval,
                      "transcript_sha256":sha((outset/(f"c{interval[0]:06d}-{interval[1]:06d}.txt")).read_bytes())}
                     for interval in actual_covered],
-                "meaning":"complete for exactly e,delta,a<=A and every mathematically admissible c; NOT a complete e search or novel-solution declaration"}
+                "meaning":"complete for exactly e,delta,sign,A_MIN<=abs(a)<=A, abs(a)<=b<=c<=d and the full enclosing c interval; NOT a complete e or signed census or novel-solution declaration"}
     output=outset/"accepted.json"
     temp=outset/"accepted.json.pending"
     with temp.open("wb") as f:
@@ -217,7 +246,7 @@ def main() -> None:
     print(f"ACCEPTED E5STRIPE e={e} delta={delta} a<={a_cap}: "
           f"{len(actual_covered)} stripes, {totals['trials']} trials, "
           f"{totals['exact_lookups']} exact lookups, "
-          f"{len(records)} primitive positive certificates, "
+          f"{len(records)} primitive certificates, "
           f"elapsed_ms={(monotonic_ns()-started)//1000000}.",
           flush=True)
 
@@ -228,3 +257,4 @@ if __name__=="__main__":
     except (ValueError,AssertionError,OSError,subprocess.SubprocessError,RuntimeError) as err:
         print(f"REFUSED E5STRIPE: {err}",file=sys.stderr)
         raise SystemExit(1)
+
