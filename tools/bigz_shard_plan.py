@@ -73,6 +73,7 @@ def source_context() -> dict:
     return {
         "mojo_sha256": digest((ROOT / "kernel/bigz_shard.mojo").read_bytes()),
         "index_sha256": digest((ROOT / "kernel/bigz_pair_index.mojo").read_bytes()),
+        "exact_bridge_sha256": digest((ROOT / "kernel/euler_exact.mojo").read_bytes()),
         "verifier_sha256": digest(Path(__file__).read_bytes()),
         "pixi_lock_sha256": digest((ROOT / "pixi.lock").read_bytes()),
         "finite_math_kernels_pin": dependency_pin(),
