@@ -10,6 +10,7 @@ import json
 from pathlib import Path
 import sys
 import tempfile
+from unittest.mock import patch
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "tools"))
 import bigz_shard_plan as plan
@@ -54,6 +55,22 @@ def test_plan():
     stale = plan.make_plan(16, 4, 35)
     stale["source"]["finite_math_kernels_pin"] = "0" * 40
     refused(lambda: plan.check_plan(stale))
+    # A change in the Euler adapter (not just the worker/index) must
+    # invalidate the old plan before any receipt can be reused.
+    with tempfile.TemporaryDirectory() as td:
+        fixture = Path(td)
+        (fixture / "kernel").mkdir()
+        (fixture / "scripts").mkdir()
+        (fixture / "kernel/bigz_shard.mojo").write_text("worker-v1")
+        (fixture / "kernel/bigz_pair_index.mojo").write_text("index-v1")
+        (fixture / "kernel/euler_exact.mojo").write_text("power-five-v1")
+        (fixture / "pixi.lock").write_text("locked-v1")
+        (fixture / "scripts/run_mojo.sh").write_text('PIN="' + "a" * 40 + '"\\n')
+        with patch.object(plan, "ROOT", fixture):
+            original = plan.make_plan(12, 4, 35)
+            plan.check_plan(original)
+            (fixture / "kernel/euler_exact.mojo").write_text("power-four-incorrect")
+            refused(lambda: plan.check_plan(original))
 
 
 def test_receipt_tampering():
