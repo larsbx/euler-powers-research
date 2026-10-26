@@ -82,6 +82,15 @@ jobs:
           path: benchmarks/results/bigz-trace.txt
           if-no-files-found: error
           retention-days: 30
+      - name: Native BigZ mergesort permutation and exact order probes
+        run: pixi run --locked python tests/test_bigz_sort.py --output benchmarks/results/bigz-sort-trace.txt
+      - name: Preserve actual native sorted BigZ records
+        uses: actions/upload-artifact@v4
+        with:
+          name: native-bigz-merge-sort-records
+          path: benchmarks/results/bigz-sort-trace.txt
+          if-no-files-found: error
+          retention-days: 30
       - name: Preserve raw benchmark measurements
         uses: actions/upload-artifact@v4
         with:
