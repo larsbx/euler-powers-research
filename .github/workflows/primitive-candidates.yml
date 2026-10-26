@@ -1,0 +1,39 @@
+name: Any-method primitive candidate admission
+on:
+  pull_request:
+    paths:
+      - '.github/workflows/primitive-candidates.yml'
+      - 'discovery/**'
+      - 'tools/primitive_candidates.py'
+      - 'tests/test_primitive_candidates.py'
+      - 'data/DISCOVERY_CHARTER.json'
+      - 'data/literature/known_primitive_e5_2026-10-26.json'
+      - 'scripts/run_mojo.sh'
+      - 'pixi.*'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  candidate-intake:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: prefix-dev/setup-pixi@d3f436a425481402e6a95a1d1fc10331c708cd9e
+      - name: Verify pinned arithmetic and initialize dependency
+        run: pixi run --locked verify
+      - name: Exact normalization, equivalence, generic native BigZ and rejection controls
+        run: |
+          mkdir -p benchmarks/results
+          /usr/bin/time -v -o benchmarks/results/candidate-intake-resources.txt \
+            pixi run --locked python tests/test_primitive_candidates.py \
+            --output benchmarks/results/candidate-intake
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: candidate-intake-conformance
+          path: |
+            benchmarks/results/candidate-intake/
+            benchmarks/results/candidate-intake-resources.txt
+          if-no-files-found: error
+          retention-days: 90

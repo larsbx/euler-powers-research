@@ -77,11 +77,19 @@ residuals/gcds with native BigZ and Python arithmetic. A known class remains
 known; an unknown class requires current literature review. Caller-supplied
 classification and discovery labels carry no authority.
 
-The generic native candidate intake implementation is under review in
-[PR #59](https://github.com/larsbx/euler-powers-research/pull/59).
-Its local Python equivalence/rejection tests pass, but hosted jobs are queued
-with no execution steps as of this goal revision. Native acceptance is not
-established. This policy update does not publish that unverified implementation.
+The generic intake is implemented in `tools/primitive_candidates.py` and
+`discovery/verify_candidate.mojo`. Run `pixi run --locked verify` to initialize
+the pinned dependency, then `pixi run --locked python tools/primitive_candidates.py
+proposal.json --output fresh-result-directory`. It stores original input,
+native stdout and source/run-bound receipt; it never announces a discovery.
+
+The [accepted hosted conformance receipt](../data/algebra/candidate-intake-40408676983-accepted.json)
+preserves the original archive and decoded job log. All 20 known-class exact
+rational/scaled proposals, 42 native arithmetic invocations, six malformed
+refusals and 1,440 Python equivalence cases pass. Independent local Python
+replay checks every stored result. This is conformance only, with zero search
+coverage. The hosted job used 3.59 seconds wall time and 247,600 KiB maximum
+RSS including compilation and Python; these are not search throughput metrics.
 
 Example proposal (a known calibration identity, not a discovery):
 
