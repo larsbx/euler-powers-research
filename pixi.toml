@@ -23,4 +23,3 @@ pair-index-conformance = "python tests/test_pair_index_conformance.py"
 trace-conformance = "python tests/test_lean_trace_replay.py"
 
 pair-partition = "bash scripts/run_mojo.sh kernel/pair_partition.mojo 144 35"
-

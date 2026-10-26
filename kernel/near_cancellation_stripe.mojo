@@ -146,4 +146,3 @@ def main() raises:
         Int(e.value()), Int(delta.value()), Int(a.value()),
         Int(lower.value()), Int(upper.value()), min_a, negative
     )
-

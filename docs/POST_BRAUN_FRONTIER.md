@@ -68,7 +68,7 @@ calibration plus minimum-summand exclusion test cover both search modes.
 rejects overlap/P14 repeats, enforces the work ceiling, and permits 600 seconds
 per cell (120 seconds per native stripe). A cell timeout kills its entire
 process group and cannot publish aggregate acceptance. Hosted execution limits
-each process to 2 GiB virtual address space and the job to 30 minutes.
+the whole process tree to 2 GiB physical memory (systemd MemoryMax, zero swap) and the job to 30 minutes.
 Fresh output directories prevent modification of prior accepted evidence.
 
 Each stripe preserves native stdout, raw GNU time output, wall time in integer
@@ -84,9 +84,8 @@ cryptographic remote attestation.
 
 ```sh
 pixi run --locked python tests/test_discovery_frontier.py
-ulimit -v 2097152
-/usr/bin/time -v -o frontier-resources.txt \
-  pixi run --locked python tools/search_discovery_frontier.py --output benchmarks/results/frontier
+bash scripts/run_research_cgroup.sh /usr/bin/time -v -o frontier-resources.txt \
+  "$(command -v pixi)" run --locked python tools/search_discovery_frontier.py --output benchmarks/results/frontier
 pixi run --locked python tools/search_discovery_frontier.py --verify --output benchmarks/results/frontier
 ```
 
@@ -104,3 +103,9 @@ Any candidate needs exact identity, primitivity, equivalence normalization,
 comparison with all four known classes, and fresh primary-source literature
 review before a discovery claim. A signed candidate cannot be called a third
 positive example.
+
+The initial run 40329491348 passed native positive/signed calibration but failed
+before accepting any search cell: a 2 GiB RLIMIT_AS blocked tcmalloc
+1 GiB-aligned virtual reservations. The revised workflow uses a 2 GiB physical
+memory cgroup instead, with zero swap and a 1,200 s whole-tree service limit.
+That failed attempt is not a negative mathematical search result.

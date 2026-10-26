@@ -7,6 +7,7 @@ on:
       - 'tools/search*'
       - 'tests/test_discovery_frontier.py'
       - 'scripts/run_mojo.sh'
+      - 'scripts/run_research_cgroup.sh'
       - 'pixi.*'
   workflow_dispatch:
 permissions:
@@ -22,18 +23,18 @@ jobs:
         run: |
           pixi run --locked verify
           pixi run --locked python tests/test_discovery_frontier.py
-      - name: Execute 11 new disjoint finite cells under 2 GiB address-space limit
+      - name: Execute 11 new disjoint finite cells under 2 GiB physical-memory cgroup limit
         run: |
           mkdir -p benchmarks/results
-          ulimit -v 2097152
-          /usr/bin/time -v -o benchmarks/results/frontier-resources.txt \
-            pixi run --locked python tools/search_discovery_frontier.py \
+          bash scripts/run_research_cgroup.sh \
+            /usr/bin/time -v -o benchmarks/results/frontier-resources.txt \
+            "$(command -v pixi)" run --locked python tools/search_discovery_frontier.py \
             --output benchmarks/results/frontier
       - name: Fresh-process independent exact replay of all native evidence
         run: |
-          ulimit -v 2097152
-          /usr/bin/time -v -o benchmarks/results/frontier-replay-resources.txt \
-            pixi run --locked python tools/search_discovery_frontier.py \
+          bash scripts/run_research_cgroup.sh \
+            /usr/bin/time -v -o benchmarks/results/frontier-replay-resources.txt \
+            "$(command -v pixi)" run --locked python tools/search_discovery_frontier.py \
             --verify --output benchmarks/results/frontier
       - name: Print accepted coverage and resource measurements
         run: |

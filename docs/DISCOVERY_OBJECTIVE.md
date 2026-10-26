@@ -145,4 +145,3 @@ Relative to the four-entry literature registry this would be a fifth signed-or-p
 class, while the positive goal remains a third positive class. [P15](POST_BRAUN_FRONTIER.md)
 adds a separately labelled one-negative-term search; it never counts signed
 identities as positive discoveries.
-

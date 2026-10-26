@@ -128,7 +128,7 @@ def sha(data: bytes) -> str:
 
 def source_identity() -> dict:
     paths = ["kernel/near_cancellation_stripe.mojo", "kernel/near_cancellation.mojo",
-             "kernel/euler_exact.mojo", "scripts/run_mojo.sh", "pixi.toml", "pixi.lock",
+             "kernel/euler_exact.mojo", "scripts/run_mojo.sh", "scripts/run_research_cgroup.sh", "pixi.toml", "pixi.lock",
              "tools/search_novel_stripes.py", str(KNOWN.relative_to(ROOT))]
     return {"files_sha256":{p:sha((ROOT/p).read_bytes()) for p in paths},
             "git_commit":os.environ.get("GITHUB_SHA", "local-uncommitted"),
@@ -257,4 +257,3 @@ if __name__=="__main__":
     except (ValueError,AssertionError,OSError,subprocess.SubprocessError,RuntimeError) as err:
         print(f"REFUSED E5STRIPE: {err}",file=sys.stderr)
         raise SystemExit(1)
-
