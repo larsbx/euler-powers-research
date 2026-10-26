@@ -69,15 +69,27 @@ revision adds no search coverage or new identity.
 
 ## Candidate admission from any method
 
-`tools/primitive_candidates.py` accepts five exact rational strings plus
-method/provenance, clears denominators and computes the primitive signature.
-It checks all five nonzero bases, excludes cancelling terms, verifies the
-fifth-power residual and gcd, and compares against the registry snapshot.
-It then invokes `discovery/verify_candidate.mojo` on both the cleared input
-and normalized primitive tuple, checking the actual BigZ residual and gcd
-against independent Python arithmetic. A known class remains known; an
-unknown class remains a candidate requiring current literature review.
-The tool never emits `discovery_claim=true`.
+Every method must feed the same admission process: accept exact rational
+or integer five-term zero-sum proposals with method/provenance, clear
+nonzero denominators, compute the primitive signature and compare known
+classes. Independently verify both cleared input and normalized primitive
+residuals/gcds with native BigZ and Python arithmetic. A known class remains
+known; an unknown class requires current literature review. Caller-supplied
+classification and discovery labels carry no authority.
+
+The generic intake is implemented in `tools/primitive_candidates.py` and
+`discovery/verify_candidate.mojo`. Run `pixi run --locked verify` to initialize
+the pinned dependency, then `pixi run --locked python tools/primitive_candidates.py
+proposal.json --output fresh-result-directory`. It stores original input,
+native stdout and source/run-bound receipt; it never announces a discovery.
+
+The [accepted hosted conformance receipt](../data/algebra/candidate-intake-40408676983-accepted.json)
+preserves the original archive and decoded job log. All 20 known-class exact
+rational/scaled proposals, 42 native arithmetic invocations, six malformed
+refusals and 1,440 Python equivalence cases pass. Independent local Python
+replay checks every stored result. This is conformance only, with zero search
+coverage. The hosted job used 3.59 seconds wall time and 247,600 KiB maximum
+RSS including compilation and Python; these are not search throughput metrics.
 
 Example proposal (a known calibration identity, not a discovery):
 
@@ -90,18 +102,11 @@ Example proposal (a known calibration identity, not a discovery):
 }
 ```
 
-```sh
-pixi run --locked verify
-pixi run --locked python tools/primitive_candidates.py proposal.json --output /tmp/candidate-new
-```
-
-Output directories are exclusive and contain the original proposal, actual
-native stdout for cleared and primitive inputs, source/run hashes and a
-receipt. Current intake policy permits up to 128 decimal digits per rational
-component and 1024 per native integer base; these are finite resource limits,
-not mathematical restrictions or a claim to cover larger inputs. Every
-denominator is checked nonzero before exact division. No floating-point
-value is admitted as a candidate base.
+Implementation proposals must preserve original inputs, actual native stdout,
+source/run hashes and immutable receipts. Finite intake digit caps and search
+bounds are resource policies rather than restrictions on the mathematical
+goal. Every denominator must be checked nonzero before exact division; no
+floating-point base is accepted as an exact candidate.
 
 ## Evidence and reporting
 

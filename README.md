@@ -151,4 +151,4 @@ Exact algebra research: [fifth cyclotomic ring and norm checks](docs/EXACT_CYCLO
 
 [P19 residue-first computation](docs/POST_BRAUN_P19.md) measured lower native process times on three identical production stripes, with unchanged exact counts and transcripts. Five additional Lean statements cover residue equivalence, machine bounds and guard order. Timings apply to the declared sample workloads.
 
-[Generic candidate admission](tools/primitive_candidates.py) normalizes exact rational proposals and checks cleared/primitive integer residuals and gcds with native Mojo BigZ plus independent Python. Registry absence remains a candidate for current literature review, never an automatic discovery claim.
+The [generic rational/signed candidate intake](docs/DISCOVERY_OBJECTIVE.md#candidate-admission-from-any-method) independently checks exact Python and native BigZ arithmetic, canonical equivalence and primitivity. [Accepted hosted conformance evidence](data/algebra/candidate-intake-40408676983-accepted.json) covers known-class transformations only; it adds no searched territory or discovery claim.
