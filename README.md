@@ -103,6 +103,8 @@ manifest are described in [the partition contract](docs/PAIR_PARTITION.md). The
 extend this bounded positive census without changing its arithmetic scope. The
 [collision-preserving packed representation index](docs/PACKED_PAIR_INDEX.md)
 replaces per-hit exhaustive reconstruction and records controlled native benchmarks.
+The [gap-free BigZ height plans and independently replayed native receipts](docs/BIGZ_PLAN_RECEIPTS.md)
+now distinguish a planned finite height range from verified execution of every shard.
 The [Mojo-native structured BigZ pair index and bounded exact height shards](docs/BIGZ_SHARDS.md)
 remove fixed-radix encoding for a separate independently validated shard runner.
 The [B256 wide packed-index extension](docs/B256_WIDE_INDEX.md) now
