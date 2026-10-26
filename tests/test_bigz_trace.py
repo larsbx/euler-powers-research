@@ -99,10 +99,14 @@ def main() -> None:
     parser.add_argument("--python-only", action="store_true")
     parser.add_argument("--output", type=Path)
     args = parser.parse_args()
-    source = subprocess.run(
+    process = subprocess.run(
         ["bash", "scripts/run_mojo.sh", "kernel/bigz_trace_probe.mojo"],
-        cwd=ROOT, check=True, capture_output=True, text=True,
-    ).stdout
+        cwd=ROOT, check=False, capture_output=True, text=True,
+    )
+    assert process.returncode == 0, (
+        f"native BigZ trace failed: {process.stderr}\n{process.stdout}"
+    )
+    source = process.stdout
     assert replay_python(source) == 18
     if args.output:
         args.output.parent.mkdir(parents=True, exist_ok=True)
