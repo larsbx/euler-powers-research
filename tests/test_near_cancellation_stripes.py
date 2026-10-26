@@ -2,6 +2,9 @@
 from __future__ import annotations
 
 import subprocess
+from pathlib import Path
+import sys
+sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'tools'))
 
 from check_research_kernels import ROOT
 from search_novel_stripes import independent_oracle,plan
