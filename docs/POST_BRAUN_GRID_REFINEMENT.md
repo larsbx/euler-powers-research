@@ -91,8 +91,10 @@ b solved exactly with a<=b<=c<=d=e-delta<e.
 ```
 
 This is **nine complete restricted cells**, NOT a complete search
-for any target height. Untested delta>=4 and a>=65 remain open,
-as do other heights. The search lies beyond Braun's
+for any target height. At the end of P14, delta>=4 and a>=65 were unsearched by that experiment.
+[P15](POST_BRAUN_FRONTIER.md) now covers selected larger gaps and a=65..256
+at e=2,760,001, plus separately labelled signed cells. All other regions remain
+unsearched unless explicitly listed in those accepted scopes. The search lies beyond Braun's
 *author-reported* nonnegative exhaustive e-bound
 `e<=2,760,000`, which our repository has not reproduced.
 

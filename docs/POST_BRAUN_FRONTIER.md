@@ -91,14 +91,64 @@ pixi run --locked python tools/search_discovery_frontier.py --verify --output be
 
 ## Status and remaining regions
 
-**Planned; no P15 computation is accepted until the hosted native run and
-independent full replay succeed.** The workflow archives all evidence, including
-partial failed output distinctly from accepted aggregate results. Accepted
-results and measured resource totals will be recorded here after execution.
+**Accepted on October 26, 2026.** [Hosted run 40329902748](https://github.com/larsbx/euler-powers-research/actions/runs/40329902748)
+completed all 11 cells and the fresh-process independent full replay:
+**176,372,608 trials, 524,286 exact lookups, 175,848,322 residue/nonpositive
+rejections, and zero primitive positive or signed witnesses.** All seven
+latest-head workflows passed; latest-head code review on `9d6dd4c` was clean.
+Implementation PR #47 merged at `d48f9752ac3bb7f81eec78e5752dba647dc51bb3`.
 
-Unsearched: other heights, gaps not listed, a>256, the larger summand intervals
-at e=2,760,002 and 2,760,003, and the general signed domain. Even after all 11
-cells pass, no complete height census or global nonexistence statement follows.
+The [original accepted ZIP](../data/experiments/p15-run-40329902748.zip),
+[readable aggregate receipt](../data/experiments/p15-accepted-frontier.json),
+[complete compressed job log](../data/experiments/p15-run-40329902748-job.log.gz)
+and [archive/coverage index](../data/experiments/index.json) are preserved in
+the repository. ZIP SHA256:
+`bd09635a09176bbf3f0671492af8f8ce21a7fec0abf07c147dd54cc572a53ea2`.
+All 387 artifact files, source hashes, native transcript/timing hashes, receipt
+hashes, totals and exact scopes were checked again after download.
+
+| Stage | Wall seconds | User seconds | System seconds | GNU max RSS (KiB) |
+| --- | ---: | ---: | ---: | ---: |
+| Search/controller + initial per-stripe replay | 211.02 | 199.53 | 13.84 | 204,304 |
+| Separate fresh-process complete Python replay | 52.84 | 50.34 | 2.49 | 110,708 |
+
+Native invocation wall times sum to **158.358636741 s** (including wrapper,
+compile/cache and process startup); initial Python arithmetic replay sums to
+**52.005780444 s**. Neither number is a controlled same-scope speed comparison.
+The job log separately preserves systemd cgroup charge accounting; GNU RSS
+and cgroup charged-memory peaks use different accounting and are not equated.
+
+Every row below has **zero primitive witnesses**. c intervals are inclusive,
+with abs(a)<=b<=c<=d and b solved exactly.
+
+| First term | delta | abs(a) | c interval | Exact trials | BigZ lookups |
+| --- | ---: | --- | --- | ---: | ---: |
+| positive | 4 | 1..256 | 207,735..258,781 | 13,068,032 | 29,231 |
+| positive | 8 | 1..256 | 238,625..297,261 | 15,011,072 | 14,572 |
+| positive | 16 | 1..256 | 274,108..341,463 | 17,243,136 | 74,472 |
+| positive | 64 | 1..256 | 361,684..450,560 | 22,752,512 | 35,821 |
+| positive | 256 | 1..256 | 477,232..594,501 | 30,021,120 | 189,335 |
+| positive | 1 | 65..256 | 157,434..196,119 | 7,427,712 | 12,836 |
+| positive | 2 | 65..256 | 180,844..225,282 | 8,532,288 | 7,007 |
+| positive | 3 | 65..256 | 196,120..244,312 | 9,253,056 | 14,055 |
+| negative | 4 | 1..256 | 207,735..258,781 | 13,068,032 | 39,362 |
+| negative | 16 | 1..256 | 274,108..341,463 | 17,243,136 | 74,172 |
+| negative | 64 | 1..256 | 361,684..450,560 | 22,752,512 | 33,423 |
+
+The PR source head is `9d6dd4cc98905c29c0829e4684d6673076d505dc`;
+GitHub ran its synthetic test merge `144b19eac6cee9a0724d0b3bd14902e2f63ed261`,
+recorded in receipts. Source-file hashes agree with that implementation.
+For archived arithmetic replay, check out the recorded source head, extract the
+original ZIP and set `GITHUB_SHA=144b19eac6cee9a0724d0b3bd14902e2f63ed261`
+and `GITHUB_RUN_ID=40329902748` when invoking the controller's `--verify` mode
+on the extracted `frontier` folder. These environment values reproduce metadata;
+they are not a new execution attestation. The verifier still checks actual source
+hashes and independently recomputes all finite arithmetic.
+
+Outside the explicit P14/P15 union, unsearched regions include all other high
+target heights, unlisted gaps at e=2,760,001, a>256, a>=65 at e=2,760,002
+and 2,760,003, and the general signed domain. Completion of these 11 cells
+does not give a complete height census or global nonexistence statement.
 Any candidate needs exact identity, primitivity, equivalence normalization,
 comparison with all four known classes, and fresh primary-source literature
 review before a discovery claim. A signed candidate cannot be called a third
@@ -109,3 +159,15 @@ before accepting any search cell: a 2 GiB RLIMIT_AS blocked tcmalloc
 1 GiB-aligned virtual reservations. The revised workflow uses a 2 GiB physical
 memory cgroup instead, with zero swap and a 1,200 s whole-tree service limit.
 That failed attempt is not a negative mathematical search result.
+
+## Next proof/computation obligations (not executed)
+
+The measured lookup rate varies substantially by cell (14,572 lookups at
+positive delta=8 versus 189,335 at delta=256); do not assume a fixed rejection
+factor. Next prioritize untouched intervals or larger minimum summands, using
+per-cell timings to budget them. A useful exact optimization before raising
+the cap: positive a<=A implies D<=A^5+2c^5, and negative a implies D<=2c^5.
+Prove/test these tighter c lower bounds against unfiltered enumeration and
+known witnesses before using the saved work for a>=257 or missing gaps.
+General signed searches also need a new ordering contract to admit negative
+terms larger than b. None of these proposals is accepted coverage.
