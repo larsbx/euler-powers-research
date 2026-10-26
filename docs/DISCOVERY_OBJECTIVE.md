@@ -10,6 +10,8 @@ a^5 + b^5 + c^5 + d^5 = e^5
 gcd(a,b,c,d,e) = 1
 ```
 
+**Audited source baseline:** [Four known nontrivial primitive identities — two positive and two signed](KNOWN_PRIMITIVE_E5_LITERATURE.md). This is a public-literature census as of October 26, 2026, not a proof of global finiteness.
+
 **Already known, and not discoveries:**
 
 `(27,84,110,133,144)` — Lander–Parkin (1966).

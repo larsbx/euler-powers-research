@@ -103,6 +103,8 @@ manifest are described in [the partition contract](docs/PAIR_PARTITION.md). The
 extend this bounded positive census without changing its arithmetic scope. The
 [collision-preserving packed representation index](docs/PACKED_PAIR_INDEX.md)
 replaces per-hit exhaustive reconstruction and records controlled native benchmarks.
+**Verified literature baseline:** [four known nontrivial primitive fifth-power classes, only two strictly positive](docs/KNOWN_PRIMITIVE_E5_LITERATURE.md) — independently checked with exact integers, source citations and normalized permutation/scaling/sign equivalence.
+
 **Research priority:** [Find the next, genuinely new primitive strictly positive fifth-power solution](docs/DISCOVERY_OBJECTIVE.md). Our two known positive reference identities are at e=144 and e=85359; scalable near-cancellation search, not merely more bounded formal proofs, is now the main discovery program.
 
 The [BigZ exact merge-sort sorted-permutation theorem and native conformance](docs/BIGZ_MERGESORT_PROOF.md)

@@ -1,0 +1,134 @@
+{
+  "schema": "e5-known-nontrivial-primitive-census-v1",
+  "reviewed_as_of": "2026-10-26",
+  "equation": "a^5+b^5+c^5+d^5=e^5",
+  "scope": "nonzero integer summands, positive target e, e strictly larger in absolute value than each summand, gcd(|a|,|b|,|c|,|d|,e)=1; modulo permuting the four summands, moving terms across the identity and positive integer rescaling",
+  "status": "literature-supported list of reported nontrivial primitive solutions; mathematical proof that no undiscovered solutions exist is NOT claimed",
+  "source_index": {
+    "lander_1966": {
+      "kind": "original_peer_reviewed_publication",
+      "title": "Counterexample to Euler's conjecture on sums of like powers",
+      "authors": "L. J. Lander; T. R. Parkin",
+      "year": 1966,
+      "url": "https://doi.org/10.1090/S0002-9904-1966-11654-3"
+    },
+    "scher_seidl_1996": {
+      "kind": "archived_contemporary_research_announcement",
+      "title": "Massively Parallel Number Theory",
+      "authors": "B. Scher; E. Seidl",
+      "year": 1996,
+      "url": "https://web.archive.org/web/19970608041930/http://midway.ca.sandia.gov/~mecolv/euler/",
+      "note": "Contemporary announcement archived June 1997, year cited as 1996 in Braun 2026"
+    },
+    "frye_2004": {
+      "kind": "contemporary_secondary_report_original_work_unpublished",
+      "title": "Euler's Sums of Powers",
+      "authors": "Ivars Peterson (reporting Jim Frye)",
+      "year": 2004,
+      "url": "https://www.sciencenews.org/article/eulers-sums-powers",
+      "note": "Jim Frye's fifth-power result reported in 2004; not a published primary mathematical paper"
+    },
+    "braun_2026": {
+      "kind": "original_preprint_v4",
+      "title": "The fourth known primitive solution to a^5+b^5+c^5+d^5=e^5",
+      "authors": "Jeffrey M. Braun",
+      "year": 2026,
+      "url": "https://arxiv.org/html/2603.05549v4",
+      "note": "Version v4, August 21, 2026; Table 1 and Section 3 list all four then-known primitive identities"
+    },
+    "oeis_positive": {
+      "kind": "curated_sequence_background",
+      "title": "OEIS A134341",
+      "url": "https://oeis.org/A134341",
+      "note": "Primitive positive targets 144 and 85359; visible sequence terms are mostly imprimitive multiples"
+    }
+  },
+  "records": [
+    {
+      "id": "E5-1966-LANDER-PARKIN",
+      "year": 1966,
+      "attribution": "Lander–Parkin",
+      "summands": [
+        27,
+        84,
+        110,
+        133
+      ],
+      "target": 144,
+      "domain": "strictly_positive",
+      "source_ids": [
+        "lander_1966",
+        "braun_2026",
+        "oeis_positive"
+      ],
+      "evidence": "exact_integer_identity_and_five_way_gcd_independently_recomputed"
+    },
+    {
+      "id": "E5-1996-SCHER-SEIDL",
+      "year": 1996,
+      "attribution": "Scher–Seidl",
+      "summands": [
+        -220,
+        5027,
+        6237,
+        14068
+      ],
+      "target": 14132,
+      "domain": "signed_with_one_negative_summand",
+      "source_ids": [
+        "scher_seidl_1996",
+        "braun_2026"
+      ],
+      "evidence": "exact_integer_identity_and_five_way_gcd_independently_recomputed"
+    },
+    {
+      "id": "E5-2004-FRYE",
+      "year": 2004,
+      "attribution": "Jim Frye",
+      "summands": [
+        55,
+        3183,
+        28969,
+        85282
+      ],
+      "target": 85359,
+      "domain": "strictly_positive",
+      "source_ids": [
+        "frye_2004",
+        "braun_2026",
+        "oeis_positive"
+      ],
+      "evidence": "exact_integer_identity_and_five_way_gcd_independently_recomputed"
+    },
+    {
+      "id": "E5-2026-BRAUN",
+      "year": 2026,
+      "attribution": "Jeffrey M. Braun",
+      "summands": [
+        -1340632,
+        719115,
+        1331622,
+        1956213
+      ],
+      "target": 1956878,
+      "domain": "signed_with_one_negative_summand",
+      "source_ids": [
+        "braun_2026"
+      ],
+      "evidence": "exact_integer_identity_and_five_way_gcd_independently_recomputed"
+    }
+  ],
+  "related_not_counted": [
+    "Positive integer multiples of a primitive solution: imprimitive because gcd>1.",
+    "Permutations of the four summands and equivalent transfers of signed terms across the equality are not new primitive identities.",
+    "Exponent 4 solutions and equations with five or more positive fifth-power summands are different Diophantine problems.",
+    "Signed five-fifth-power equations equal to 1 (or other non-fifth-power targets) are not in this zero-residual equation.",
+    "Solutions with zero terms and trivial cancelling +x^5 and -x^5 are excluded by this nontrivial nonzero five-base scope."
+  ],
+  "coverage_provenance": {
+    "author_reported_braun_nonnegative_exhaustive_e_le": 2760000,
+    "author_reported_braun_signed_exhaustive_e_le": 1450000,
+    "search_reproduction_by_this_repository": "NOT reproduced, except independently accepted strictly positive e<=320",
+    "warning": "Neither Braun's large coverage nor a finite machine search proves the four-source literature list exhaustive over unbounded integers."
+  }
+}
