@@ -1,0 +1,44 @@
+name: Exact fifth cyclotomic algebra
+
+on:
+  pull_request:
+    paths:
+      - '.github/workflows/cyclotomic5.yml'
+      - 'algebra/**'
+      - 'tests/test_cyclotomic5.py'
+      - 'scripts/run_mojo.sh'
+      - 'pixi.toml'
+      - 'pixi.lock'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  exact-algebra:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: prefix-dev/setup-pixi@d3f436a425481402e6a95a1d1fc10331c708cd9e
+      - name: Native BigZ quotient-ring arithmetic and independent determinant replay
+        run: |
+          mkdir -p benchmarks/results
+          /usr/bin/time -v -o benchmarks/results/cyclotomic5-process-resource.txt \
+            pixi run --locked python tests/test_cyclotomic5.py \
+            --output benchmarks/results/cyclotomic5
+      - name: Fresh independent full replay of the source-bound transcript
+        run: |
+          /usr/bin/time -v -o benchmarks/results/cyclotomic5-replay-resource.txt \
+            pixi run --locked python tests/test_cyclotomic5.py \
+            --verify --output benchmarks/results/cyclotomic5
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: exact-cyclotomic5-conformance
+          path: |
+            benchmarks/results/cyclotomic5/
+            benchmarks/results/cyclotomic5-process-resource.txt
+            benchmarks/results/cyclotomic5-replay-resource.txt
+          if-no-files-found: error
+          retention-days: 90
