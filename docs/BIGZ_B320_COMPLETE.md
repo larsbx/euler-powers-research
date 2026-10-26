@@ -41,10 +41,18 @@ plan, then assembles three independently replayed canonical
 | B320 | 5,742 | Every PART/CERT was separately checked in the 80 shard oracles; generates a **new** domain-specific root from actual native output |
 
 Each view must retain only the known primitive positive witness
-`(27,84,110,133,144)`. No new positive solution in this bounded
-domain is asserted **until the new hosted run has passed**. The
-B320 root is generated and recorded in
-`bigz-b320-crosscheck.json`, not guessed.
+`(27,84,110,133,144)`. The complete hosted B320 native execution
+passed and independently retained exactly this witness; no second
+primitive positive solution was found with target height <=320. The
+B320 root was independently obtained from the complete native hosted
+execution and is now pinned for subsequent regressions:
+
+`729a29fdb2c6bc391a22748831e324963f532aa093f294f3a88f2d85eaf69681`.
+
+The first passing hosted run verified **5,201,461** positive-complement
+right-pair visits and one primitive positive witness in the complete
+2..320 scope, with 5,742 canonical PART rows. The crosscheck replays
+the new pinned root on every subsequent execution.
 
 The tested `replay_partition.py` accepts B320 because it is a
 mathematical verifier of reconstructed E5PARTv1 evidence, not an
