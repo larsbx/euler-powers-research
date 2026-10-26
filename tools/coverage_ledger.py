@@ -95,9 +95,11 @@ def summary(ledger):
             'meaning':'Only admitted finite scopes. Algebraic exclusions are not enumerated trials; calibration and external reports are separate.'}
 
 
-def certified_addition(baseline, record, output, expected, controller):
-    if record['schema']!='E5-DISCOVERY-P17-v1' or record['source']!=source_identity():
-        raise ValueError('foreign P17 source/schema')
+def certified_addition(baseline, record, output, expected, controller, *, experiment_id='P17'):
+    if experiment_id not in ('P17','P18'):
+        raise ValueError('unsupported reviewed experiment identity')
+    if record['schema']!=f'E5-DISCOVERY-{experiment_id}-v1' or record['source']!=source_identity():
+        raise ValueError('foreign experiment source/schema')
     if record['controller_sha256']!=sha(Path(controller).read_bytes()) or record['receipt_verifier_sha256']!=sha((ROOT/'tools/search_discovery_frontier.py').read_bytes()):
         raise ValueError('foreign controller/verifier')
     if record['coverage_ledger_sha256']!=sha(Path(__file__).read_bytes()) or record['prior_coverage_index_sha256']!=sha(canonical(baseline)):
@@ -126,7 +128,7 @@ def certified_addition(baseline, record, output, expected, controller):
                      'receipt_sha256':row['receipt_sha256']})
     if total_trials!=record['total_trials'] or total_lookups!=record['total_exact_lookups'] or witnesses!=record['witnesses']:
         raise ValueError('aggregate count/witness mismatch')
-    return {'id':'P17','status':'native_and_independent_full_replay_accepted',
+    return {'id':experiment_id,'status':'native_and_independent_full_replay_accepted',
             'prior_coverage_index_sha256':sha(canonical(baseline)),
             'source':record['source'],'receipt_sha256':sha(canonical(record)),
             'trials':total_trials,'exact_lookups':total_lookups,'primitive_witnesses':len(witnesses),

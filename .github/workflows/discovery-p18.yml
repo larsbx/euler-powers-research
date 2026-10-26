@@ -1,0 +1,60 @@
+name: Close untouched positive gaps P18 (exact Mojo)
+on:
+  pull_request:
+    paths:
+      - '.github/workflows/discovery-p18.yml'
+      - 'kernel/**'
+      - 'tools/search*'
+      - 'tests/test_coverage_ledger.py'
+      - 'tests/test_discovery_p18.py'
+      - 'tools/coverage_ledger.py'
+      - 'scripts/run_mojo.sh'
+      - 'scripts/run_research_cgroup.sh'
+      - 'pixi.*'
+      - 'data/experiments/index-p17.json'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  frontier:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: prefix-dev/setup-pixi@d3f436a425481402e6a95a1d1fc10331c708cd9e
+      - name: Verify pinned arithmetic and signed native calibration
+        run: |
+          pixi run --locked verify
+          pixi run --locked python tests/test_discovery_p16.py
+          pixi run --locked python tests/test_coverage_ledger.py
+          pixi run --locked python tests/test_discovery_p18.py
+      - name: Execute 16 new disjoint untouched positive-gap cells under 2 GiB physical-memory cgroup limit
+        run: |
+          mkdir -p benchmarks/results
+          bash scripts/run_research_cgroup.sh \
+            /usr/bin/time -v -o benchmarks/results/p18-resources.txt \
+            "$(command -v pixi)" run --locked python tools/search_discovery_p18.py \
+            --output benchmarks/results/p18
+      - name: Fresh-process independent exact replay of all native evidence
+        run: |
+          bash scripts/run_research_cgroup.sh \
+            /usr/bin/time -v -o benchmarks/results/p18-replay-resources.txt \
+            "$(command -v pixi)" run --locked python tools/search_discovery_p18.py \
+            --verify --output benchmarks/results/p18
+      - name: Print accepted coverage and resource measurements
+        run: |
+          cat benchmarks/results/p18/accepted-p18.json
+          cat benchmarks/results/p18/coverage-addition.json
+          cat benchmarks/results/p18-resources.txt
+          cat benchmarks/results/p18-replay-resources.txt
+      - name: Preserve raw inputs, native transcripts, source receipts and resource measurements
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: postbraun-p18-e2760001-d17-32-a1-1024
+          path: |
+            benchmarks/results/p18/
+            benchmarks/results/p18-resources.txt
+            benchmarks/results/p18-replay-resources.txt
+          if-no-files-found: error
+          retention-days: 90
