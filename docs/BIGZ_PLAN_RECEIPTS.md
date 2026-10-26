@@ -29,7 +29,10 @@ fixture intervals. It instantiates the existing general
 
 The control plane compiles the real pinned native
 `kernel/bigz_shard.mojo` with the locked `finite-math-kernels`
-dependency and invokes one worker process per finite interval.
+dependency. Before building it verifies both the exact dependency Git
+HEAD and a clean tracked/untracked working tree; otherwise it refuses
+to attribute evidence to that pinned source. It invokes one worker
+process per finite interval.
 On Linux each invocation is constrained by CPU seconds, address
 space (`RLIMIT_AS`), output size (`RLIMIT_FSIZE`) and wall-clock
 timeout. The default contract is 60 seconds, 4096 MiB, and 1 MiB
