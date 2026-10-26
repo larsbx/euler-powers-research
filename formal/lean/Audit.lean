@@ -24,6 +24,7 @@ import NearCancellationBounds
 import Cyclotomic5
 import PairSumReconstruction
 import ResidueFirst
+import TwoGap
 
 /-! Audit all EulerPowers theorems for additional axioms and opaque holes. -/
 open Lean Elab Command in

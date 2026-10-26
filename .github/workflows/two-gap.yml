@@ -1,0 +1,53 @@
+name: General signed two-gap exact discovery batch
+on:
+  pull_request:
+    paths:
+      - '.github/workflows/two-gap.yml'
+      - 'discovery/two_gap.mojo'
+      - 'tools/search_two_gap.py'
+      - 'tests/test_two_gap.py'
+      - 'formal/lean/TwoGap.lean'
+      - 'kernel/euler_exact.mojo'
+      - 'kernel/verify_known.mojo'
+      - 'discovery/verify_candidate.mojo'
+      - 'tools/primitive_candidates.py'
+      - 'scripts/run_research_cgroup.sh'
+      - 'scripts/run_mojo.sh'
+      - 'pixi.*'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  signed-two-gap:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: prefix-dev/setup-pixi@d3f436a425481402e6a95a1d1fc10331c708cd9e
+      - name: Verify pinned dependency and small exact algebra controls
+        run: |
+          pixi run --locked verify
+          pixi run --locked python tests/test_two_gap.py
+      - name: Native search and complete independent nested-isqrt verification
+        run: |
+          mkdir -p benchmarks/results
+          bash scripts/run_research_cgroup.sh /usr/bin/time -v \
+            -o benchmarks/results/two-gap-resources.txt \
+            pixi run --locked python tools/search_two_gap.py \
+            --output benchmarks/results/two-gap
+      - name: Fresh independent exact replay of every declared cell
+        run: |
+          bash scripts/run_research_cgroup.sh /usr/bin/time -v \
+            -o benchmarks/results/two-gap-replay-resources.txt \
+            pixi run --locked python tools/search_two_gap.py \
+            --replay benchmarks/results/two-gap
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: signed-two-gap-exact-evidence
+          path: |
+            benchmarks/results/two-gap/
+            benchmarks/results/two-gap-resources.txt
+            benchmarks/results/two-gap-replay-resources.txt
+          if-no-files-found: error
+          retention-days: 90
