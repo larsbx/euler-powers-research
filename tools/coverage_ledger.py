@@ -96,7 +96,7 @@ def summary(ledger):
 
 
 def certified_addition(baseline, record, output, expected, controller, *, experiment_id='P17'):
-    if experiment_id not in ('P17','P18'):
+    if experiment_id not in ('P17','P18','P19'):
         raise ValueError('unsupported reviewed experiment identity')
     if record['schema']!=f'E5-DISCOVERY-{experiment_id}-v1' or record['source']!=source_identity():
         raise ValueError('foreign experiment source/schema')

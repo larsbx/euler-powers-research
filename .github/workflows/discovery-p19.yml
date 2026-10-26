@@ -1,0 +1,70 @@
+name: Larger minimum summands P19 and residue-first comparison
+on:
+  pull_request:
+    paths:
+      - '.github/workflows/discovery-p19.yml'
+      - 'kernel/**'
+      - 'benchmarks/native/stripe_before_p19.mojo'
+      - 'tests/benchmark_residue_first.py'
+      - 'tests/test_discovery_p19.py'
+      - 'tools/search*'
+      - 'tools/coverage_ledger.py'
+      - 'scripts/run*'
+      - 'pixi.*'
+      - 'data/experiments/index-p18.json'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  larger-minimum:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+      - uses: prefix-dev/setup-pixi@d3f436a425481402e6a95a1d1fc10331c708cd9e
+      - name: Verify pinned arithmetic, signed controls and larger-A native cap edges
+        run: |
+          pixi run --locked verify
+          pixi run --locked python tests/test_discovery_p16.py
+          pixi run --locked python tests/test_discovery_p19.py
+          pixi run --locked python tests/test_coverage_ledger.py
+      - name: Exact same-scope precompiled production comparison before searching
+        run: |
+          mkdir -p benchmarks/results
+          bash scripts/run_research_cgroup.sh /usr/bin/time -v \
+            -o benchmarks/results/residue-first-resources.txt \
+            "$(command -v pixi)" run --locked python tests/benchmark_residue_first.py \
+            --output benchmarks/results/residue-first
+          bash scripts/run_research_cgroup.sh /usr/bin/time -v \
+            -o benchmarks/results/residue-first-replay-resources.txt \
+            "$(command -v pixi)" run --locked python tests/benchmark_residue_first.py \
+            --verify --output benchmarks/results/residue-first
+      - name: Search seven new complete restricted cells under 2 GiB physical memory
+        run: |
+          bash scripts/run_research_cgroup.sh /usr/bin/time -v \
+            -o benchmarks/results/p19-resources.txt \
+            "$(command -v pixi)" run --locked python tools/search_discovery_p19.py \
+            --output benchmarks/results/p19
+      - name: Separate fresh-process full exact arithmetic and coverage replay
+        run: |
+          bash scripts/run_research_cgroup.sh /usr/bin/time -v \
+            -o benchmarks/results/p19-replay-resources.txt \
+            "$(command -v pixi)" run --locked python tools/search_discovery_p19.py \
+            --verify --output benchmarks/results/p19
+      - name: Print accepted counts, comparison measurements and resource reports
+        run: |
+          cat benchmarks/results/p19/accepted-p19.json
+          cat benchmarks/results/p19/coverage-addition.json
+          cat benchmarks/results/residue-first/accepted.json
+          cat benchmarks/results/p19-resources.txt
+          cat benchmarks/results/p19-replay-resources.txt
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: postbraun-p19-a1025-4096-and-residue-first
+          path: |
+            benchmarks/results/p19/
+            benchmarks/results/residue-first/
+            benchmarks/results/*resources.txt
+          if-no-files-found: error
+          retention-days: 90

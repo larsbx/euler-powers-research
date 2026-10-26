@@ -42,7 +42,7 @@ def main():
                 transcript=independent_oracle(e,delta,6,scope["c_min"],scope["c_max"],scope)
                 actual=[tuple(map(int,line.split()[2:])) for line in transcript.splitlines() if line.startswith("CERT ")]
                 assert actual==expected,(e,delta,sign,actual,expected)
-    for amin,cap,sign in [(0,64,"positive"),(65,64,"positive"),(1,1025,"positive"),(1,64,"other")]:
+    for amin,cap,sign in [(0,64,"positive"),(65,64,"positive"),(1,4097,"positive"),(1,64,"other")]:
         refused(lambda:plan(2760001,1,cap,4096,amin,sign))
     scope=plan(144,11,64,4096,28,"positive")
     # Complete finite synthetic fixture with exact arithmetic and explicit fake time.
@@ -81,7 +81,7 @@ def main():
             certs=[x for x in r.stdout.splitlines() if x.startswith("CERT ")]
             assert certs==([cert] if cert else [])
         # Native guards, using otherwise valid c bounds.
-        for amin,cap,negative in [(0,64,0),(65,64,0),(1,1025,0),(1,64,2)]:
+        for amin,cap,negative in [(0,64,0),(65,64,0),(1,4097,0),(1,64,2)]:
             r=subprocess.run(["bash","scripts/run_mojo.sh","kernel/near_cancellation_stripe.mojo",*map(str,(144,11,cap,105,113,amin,negative))],cwd=ROOT,capture_output=True,text=True,timeout=120)
             assert r.returncode!=0
     print("Frontier unfiltered exhaustive small-domain oracle, finite budgets, source/count/transcript tamper refusal, and requested native calibrations passed.")
