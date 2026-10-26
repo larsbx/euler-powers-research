@@ -125,9 +125,16 @@ def verify_native(analysis,binary):
 def source_hashes():return {p:sha((ROOT/p).read_bytes()) for p in SOURCES}
 
 
-def compile_verifier(binary):
-    pin=subprocess.check_output(['git','-C',str(ROOT/'.deps/finite-math-kernels'),'rev-parse','HEAD'],text=True).strip()
+def verify_dependency():
+    checkout=ROOT/'.deps/finite-math-kernels'
+    pin=subprocess.check_output(['git','-C',str(checkout),'rev-parse','HEAD'],text=True,timeout=15).strip()
     if pin!=PIN:raise ValueError('foreign arithmetic dependency')
+    dirty=subprocess.check_output(['git','-C',str(checkout),'status','--porcelain','--untracked-files=all'],text=True,timeout=15).strip()
+    if dirty:raise ValueError('arithmetic dependency working tree differs from pin')
+
+
+def compile_verifier(binary):
+    verify_dependency()
     r=subprocess.run(['mojo','build','-I','.deps/finite-math-kernels/kernel',
                       'discovery/verify_candidate.mojo','-o',str(binary)],cwd=ROOT,capture_output=True,timeout=300)
     if r.returncode:raise ValueError(r.stderr.decode())

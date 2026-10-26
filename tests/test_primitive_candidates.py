@@ -8,6 +8,7 @@ import subprocess
 import sys
 import tempfile
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]/'tools'))
+import primitive_candidates as candidate_module
 from primitive_candidates import (ROOT,PIN,REGISTRY,analyze,canonical,signature,
                                 registry_classes,compile_verifier,verify_native,
                                 expected_native,source_hashes,sha)
@@ -66,6 +67,27 @@ def python_checks():
         # Must refuse before attempting to execute this nonexistent binary.
         refused(lambda forged=forged:verify_native(forged,Path('/nonexistent-candidate-verifier')))
     for p in corpus():assert analyze(p,known)['status']=='known_class'
+    # A matching HEAD alone cannot attest the arithmetic actually compiled.
+    # Exercise clean, modified tracked, staged and untracked sources in a real
+    # isolated git checkout without executing Mojo or touching the real pin.
+    old_root,old_pin=candidate_module.ROOT,candidate_module.PIN
+    try:
+        with tempfile.TemporaryDirectory(prefix='candidate-pin-control-') as tmp:
+            root=Path(tmp);checkout=root/'.deps/finite-math-kernels';checkout.mkdir(parents=True)
+            def git(*args):
+                return subprocess.check_output(['git','-C',str(checkout),*args],text=True,stderr=subprocess.DEVNULL).strip()
+            git('init');(checkout/'arithmetic.mojo').write_text('original\n');git('add','arithmetic.mojo')
+            git('-c','user.name=Exact Test','-c','user.email=exact-test@example.invalid','commit','-m','fixture')
+            candidate_module.ROOT=root;candidate_module.PIN=git('rev-parse','HEAD')
+            candidate_module.verify_dependency()
+            (checkout/'arithmetic.mojo').write_text('modified\n')
+            refused(candidate_module.verify_dependency)
+            git('add','arithmetic.mojo');refused(candidate_module.verify_dependency)
+            git('reset','--hard','HEAD');(checkout/'injected.mojo').write_text('extra\n')
+            refused(candidate_module.verify_dependency)
+            (checkout/'injected.mojo').unlink();candidate_module.PIN='0'*40
+            refused(candidate_module.verify_dependency)
+    finally:candidate_module.ROOT,candidate_module.PIN=old_root,old_pin
     return count
 
 
