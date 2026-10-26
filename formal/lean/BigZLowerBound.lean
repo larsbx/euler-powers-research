@@ -53,7 +53,7 @@ theorem bigzRecordLowerBound_first
   let result := signedLowerBound (bigzRecordSums records) target 0
     (bigzRecordSums records).length hSort
     (signedInitial (bigzRecordSums records) target)
-  exact result.2.2.1 i hi hBefore
+  exact result.2.2.2.1 i hi hBefore
 
 /-- Every suffix position at/after the lower bound has sum >= target. -/
 theorem bigzRecordLowerBound_suffix
@@ -67,6 +67,6 @@ theorem bigzRecordLowerBound_suffix
   let result := signedLowerBound (bigzRecordSums records) target 0
     (bigzRecordSums records).length hSort
     (signedInitial (bigzRecordSums records) target)
-  exact result.2.2.2 i hi hAfter
+  exact result.2.2.2.2 i hi hAfter
 
 end EulerPowers
