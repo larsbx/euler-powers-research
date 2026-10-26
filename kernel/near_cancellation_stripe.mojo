@@ -12,7 +12,7 @@ No floating point, heuristic rounding or packed sum used.
 from std.sys import argv
 from certified_records.codec import parse_canonical
 from finite_exact.bigint_z import (
-    BigZ, bigz_from_i64, bigz_add, bigz_sub, bigz_lt, bigz_eq
+    BigZ, bigz_from_i64, bigz_add, bigz_mul, bigz_sub, bigz_lt, bigz_eq
 )
 from finite_polynomial.polynomial_fp import Modulus
 from euler_exact import fifth_bigz, primitive5
@@ -21,13 +21,27 @@ from near_cancellation import (
 )
 
 
+def min_two_fifth_root(value: BigZ, upper: Int) -> Int:
+    """Least nonnegative x with 2*x^5>=value, or upper+1."""
+    var lo = 0
+    var hi = upper + 1
+    var two = bigz_from_i64(2)
+    while lo < hi:
+        var mid = lo + (hi-lo)//2
+        if bigz_lt(bigz_mul(two, fifth_bigz(Int64(mid))), value):
+            lo = mid + 1
+        else:
+            hi = mid
+    return lo
+
+
 def search_stripe(
     e: Int, delta: Int, max_a: Int, c_start: Int, c_end: Int,
-    min_a: Int = 1, negative: Bool = False
+    min_a: Int = 1, negative: Bool = False, tight: Bool = False
 ) raises:
     # Resource policy, not a mathematical upper bound on E5.
     if (e < 5 or e > 4000000 or delta < 1 or delta > 256 or
-        delta >= e or min_a < 1 or min_a > max_a or max_a > 256 or
+        delta >= e or min_a < 1 or min_a > max_a or max_a > 1024 or
         c_start < 1 or c_start > c_end or c_end >= e or
         c_end - c_start >= 4096 or c_end > 600000):
         raise Error("E5STRIPE range or explicit resource budget exceeded")
@@ -36,6 +50,11 @@ def search_stripe(
         fifth_bigz(Int64(e)), fifth_bigz(Int64(d))
     )
     var c_min = min_three_fifth_root(remainder, d)
+    if tight:
+        var threshold = remainder.copy()
+        if not negative:
+            threshold = bigz_sub(remainder, fifth_bigz(Int64(max_a)))
+        c_min = max(c_min, min_two_fifth_root(threshold,d))
     var upper_remainder = remainder.copy()
     if negative:
         upper_remainder = bigz_add(remainder, fifth_bigz(Int64(max_a)))
@@ -43,7 +62,10 @@ def search_stripe(
     if c_start < c_min or c_end > c_max:
         raise Error("stripe exceeds mathematically admissible c bounds")
 
-    if min_a == 1 and not negative:
+    if tight:
+        print("DOMAIN E5STRIPEv3", e, delta, min_a, max_a,
+              Int(negative), c_start, c_end)
+    elif min_a == 1 and not negative:
         print("DOMAIN E5STRIPEv1", e, delta, max_a, c_start, c_end)
     else:
         print("DOMAIN E5STRIPEv2", e, delta, min_a, max_a,
@@ -122,8 +144,8 @@ def main() raises:
     var args = List[String]()
     for arg in argv():
         args.append(String(arg))
-    if len(args) != 6 and len(args) != 8:
-        raise Error("usage: near_cancellation_stripe E DELTA A C_LO C_HI [A_MIN NEGATIVE_0_OR_1]")
+    if len(args) != 6 and len(args) != 8 and len(args) != 9:
+        raise Error("usage: near_cancellation_stripe E DELTA A C_LO C_HI [A_MIN NEGATIVE_0_OR_1 [TIGHT_0_OR_1]]")
     var e = parse_canonical(args[1], 32)
     var delta = parse_canonical(args[2], 32)
     var a = parse_canonical(args[3], 32)
@@ -133,7 +155,7 @@ def main() raises:
         raise Error("noncanonical integer search stripe")
     var min_a = 1
     var negative = False
-    if len(args) == 8:
+    if len(args) >= 8:
         var lower_a = parse_canonical(args[6], 32)
         var neg = parse_canonical(args[7], 32)
         if not lower_a or not neg:
@@ -142,7 +164,15 @@ def main() raises:
             raise Error("negative flag must be 0 or 1")
         min_a = Int(lower_a.value())
         negative = neg.value() == 1
+    var tight = False
+    if len(args) == 9:
+        var flag = parse_canonical(args[8], 32)
+        if not flag:
+            raise Error("noncanonical tight bound flag")
+        if flag.value() > 1:
+            raise Error("tight bound flag must be 0 or 1")
+        tight = flag.value() == 1
     search_stripe(
         Int(e.value()), Int(delta.value()), Int(a.value()),
-        Int(lower.value()), Int(upper.value()), min_a, negative
+        Int(lower.value()), Int(upper.value()), min_a, negative, tight
     )

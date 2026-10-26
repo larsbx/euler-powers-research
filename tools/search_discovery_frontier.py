@@ -43,7 +43,8 @@ def cell_id(c):
 def verify_cell(folder: Path, scope: dict, replay: bool = True):
     payload = (folder / "accepted.json").read_bytes()
     r = json.loads(payload)
-    schema = ("E5-DELTA-STRIPE-ACCEPTANCE-v1" if scope["a_min"] == 1 and scope["sign"] == "positive"
+    schema = ("E5-DELTA-STRIPE-ACCEPTANCE-v3" if scope.get("bound_mode") == "two_term" else
+              "E5-DELTA-STRIPE-ACCEPTANCE-v1" if scope["a_min"] == 1 and scope["sign"] == "positive"
               else "E5-DELTA-STRIPE-ACCEPTANCE-v2")
     if canonical(r) != payload or r["schema"] != schema or r["scope"] != scope:
         raise ValueError("foreign/noncanonical/incomplete scope receipt")
@@ -109,18 +110,21 @@ def bounded_cell(command, timeout):
     return stdout
 
 
-def main():
+def main(cells=None, receipt_name="accepted-frontier.json", controller_path=None,
+         schema="E5-DISCOVERY-FRONTIER-v1", extra=None):
     ap = argparse.ArgumentParser()
     ap.add_argument("--output", type=Path, required=True)
     ap.add_argument("--verify", action="store_true")
     args = ap.parse_args()
-    cells = frontier_plan()
+    cells = frontier_plan() if cells is None else cells
     output = args.output.resolve()
     if not args.verify:
         output.mkdir(parents=True, exist_ok=False)
         for c in cells:
             destination = output/cell_id(c)
             command = [sys.executable, "tools/search_novel_stripes.py", "--e", str(c["e"]), "--delta", str(c["delta"]), "--a-min", str(c["a_min"]), "--a-cap", str(c["a_cap"]), "--sign", c["sign"], "--timeout", "120", "--output", str(destination)]
+            if c.get("bound_mode") == "two_term":
+                command.append("--tight-bounds")
             started = monotonic_ns()
             logs = bounded_cell(command, 600)
             (output/(cell_id(c)+".log")).write_text(logs, encoding="ascii")
@@ -133,8 +137,11 @@ def main():
         folder = output/cell_id(c)
         r = verify_cell(folder, c, replay=args.verify)
         rows.append({"cell":cell_id(c),"scope":c,"receipt_sha256":sha((folder/"accepted.json").read_bytes()),"totals":r["totals"],"witnesses":r["witnesses"],"native_wall_ns":sum(x["native_wall_ns"] for x in r["resources"]),"python_replay_wall_ns":sum(x["python_replay_wall_ns"] for x in r["resources"]),"max_native_rss_kib":max(x["max_rss_kib"] for x in r["resources"])})
-    record = {"schema":"E5-DISCOVERY-FRONTIER-v1","source":source_identity(),"controller_sha256":sha(Path(__file__).read_bytes()),"cells":rows,"total_trials":sum(x["totals"]["trials"] for x in rows),"total_exact_lookups":sum(x["totals"]["exact_lookups"] for x in rows),"witnesses":[w for x in rows for w in x["witnesses"]],"meaning":"complete only for declared cells, signed first term with abs(a)<=b<=c<=d<e; no global nonexistence claim"}
-    target = output/"accepted-frontier.json"
+    record = {"schema":schema,"source":source_identity(),"controller_sha256":sha(Path(controller_path or __file__).read_bytes()),"cells":rows,"total_trials":sum(x["totals"]["trials"] for x in rows),"total_exact_lookups":sum(x["totals"]["exact_lookups"] for x in rows),"witnesses":[w for x in rows for w in x["witnesses"]],"meaning":"complete only for declared cells, signed first term with abs(a)<=b<=c<=d<e; no global nonexistence claim"}
+    if extra is not None:
+        record.update(extra)
+        record["receipt_verifier_sha256"] = sha(Path(__file__).read_bytes())
+    target = output/receipt_name
     if args.verify:
         if target.read_bytes() != canonical(record):
             raise ValueError("aggregate differs from independently replayed receipts")
