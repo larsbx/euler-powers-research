@@ -95,6 +95,15 @@ and shares BigZ and gcd with the signed known-solution verifier. This
 is a prerequisite for evaluating larger bounds, not permission to widen
 those bounds or to promote finite computation into a theorem.
 
+## P12 BigZ sorted-permutation proof and compiled sorting conformance
+
+[The exact BigZ mergesort proof](BIGZ_MERGESORT_PROOF.md) establishes
+transitive/total structured comparator, sortedness, multiplicity-preserving
+permutation and nondecreasing sum projection, discharging the formal
+P11 lower-bound sortedness hypothesis. The actual production Mojo
+mergesort is independently checked against Python on signed/multi-limb
+and colliding records; compiler-level universal refinement remains open.
+
 ## P11 BigZ exact ordering and Lean lower-bound trace refinement
 
 The [BigZ signed lower-bound proof and trace contract](BIGZ_LOWER_BOUND_REFINEMENT.md)
