@@ -136,3 +136,5 @@ native timing and exact candidate retention tests.
 The [exact decimal-digit/CRT prefix sieve](docs/DIGIT_SUM_PRUNING.md) now
 uses a shared Mojo kernel to reject impossible complements before indexed
 lookup, without changing canonical search records.
+
+**Next discovery frontier:** [broader gaps, a=65..256, and separate one-negative-term cells](docs/POST_BRAUN_FRONTIER.md), with bounded native execution, independent full replay and raw per-stripe resource measurements.

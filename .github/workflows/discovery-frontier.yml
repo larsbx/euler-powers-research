@@ -1,0 +1,54 @@
+name: Broader gaps and signed discovery frontier (exact Mojo)
+on:
+  pull_request:
+    paths:
+      - '.github/workflows/discovery-frontier.yml'
+      - 'kernel/**'
+      - 'tools/search*'
+      - 'tests/test_discovery_frontier.py'
+      - 'scripts/run_mojo.sh'
+      - 'scripts/run_research_cgroup.sh'
+      - 'pixi.*'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  frontier:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: prefix-dev/setup-pixi@d3f436a425481402e6a95a1d1fc10331c708cd9e
+      - name: Verify pinned arithmetic and signed native calibration
+        run: |
+          pixi run --locked verify
+          pixi run --locked python tests/test_discovery_frontier.py
+      - name: Execute 11 new disjoint finite cells under 2 GiB physical-memory cgroup limit
+        run: |
+          mkdir -p benchmarks/results
+          bash scripts/run_research_cgroup.sh \
+            /usr/bin/time -v -o benchmarks/results/frontier-resources.txt \
+            "$(command -v pixi)" run --locked python tools/search_discovery_frontier.py \
+            --output benchmarks/results/frontier
+      - name: Fresh-process independent exact replay of all native evidence
+        run: |
+          bash scripts/run_research_cgroup.sh \
+            /usr/bin/time -v -o benchmarks/results/frontier-replay-resources.txt \
+            "$(command -v pixi)" run --locked python tools/search_discovery_frontier.py \
+            --verify --output benchmarks/results/frontier
+      - name: Print accepted coverage and resource measurements
+        run: |
+          cat benchmarks/results/frontier/accepted-frontier.json
+          cat benchmarks/results/frontier-resources.txt
+          cat benchmarks/results/frontier-replay-resources.txt
+      - name: Preserve raw inputs, native transcripts, source receipts and resource measurements
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: postbraun-frontier-e2760001-positive-and-one-negative
+          path: |
+            benchmarks/results/frontier/
+            benchmarks/results/frontier-resources.txt
+            benchmarks/results/frontier-replay-resources.txt
+          if-no-files-found: error
+          retention-days: 90
