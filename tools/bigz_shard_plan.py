@@ -54,7 +54,10 @@ def intervals(bound: int, width: int) -> list[tuple[int, int]]:
 
 
 def check_intervals(ranges: list[list[int]], bound: int, width: int) -> None:
-    if ranges != [list(pair) for pair in intervals(bound, width)]:
+    if (not isinstance(ranges, list) or
+        any(not isinstance(r, list) or len(r) != 2 or
+            any(type(x) is not int for x in r) for r in ranges) or
+        ranges != [list(pair) for pair in intervals(bound, width)]):
         raise ValueError("missing, overlapping, reordered or excess height shard")
 
 
@@ -252,21 +255,44 @@ def execute(folder: Path, plan: dict, timeout: int, ram_mib: int,
     else:
         atomic(plan_path, canonical(plan))
     plan_hash = digest(canonical(plan))
+    if (folder / "accepted.json").exists():
+        existing = load_canonical(folder / "accepted.json")
+        if existing != validate_acceptance(folder, plan, max_bytes):
+            raise ValueError("previous accepted manifest is stale or corrupted")
     with TemporaryDirectory(prefix="e5-bigz-") as work:
         binary = Path(work) / "bigz-shard"
         compile_binary(binary)
         for a, b in map(tuple, plan["intervals"]):
             name = filename(a, b)
             stream, receipt = folder / (name + ".txt"), folder / (name + ".receipt.json")
-            if stream.exists() or receipt.exists():
+            if stream.is_file() and receipt.is_file():
                 verify_shard(folder, plan, plan_hash, a, b, max_bytes)
                 print(f"REPLAYED {name}", flush=True)
+                continue
+            if receipt.exists():
+                raise ValueError("verified receipt exists without its transcript")
+            if stream.exists():
+                started = folder / (name + ".attempt.json")
+                ticket = load_canonical(started) if started.exists() else None
+                if (ticket is None or ticket.get("state") != "started" or
+                    ticket.get("plan_sha256") != plan_hash or
+                    ticket.get("height_range") != [a, b]):
+                    raise ValueError("orphan transcript without scoped attempt")
+                measured = validate_stream(stream.read_bytes(), a, b,
+                                           plan["modulus"], max_bytes)
+                atomic(receipt, canonical(expected_receipt(
+                    plan_hash, plan, a, b, measured)))
+                started.unlink()
+                print(f"RECOVERED VERIFIED {name}", flush=True)
                 continue
             attempt = folder / (name + ".attempt.json")
             previous = load_canonical(attempt) if attempt.exists() else None
             if previous is not None and previous.get("plan_sha256") != plan_hash:
                 raise ValueError("stale attempt cannot be retried")
             ticket = (previous["ticket"] + 1) if previous else 1
+            if ticket > 3:
+                raise ValueError("per-shard retry budget exhausted")
+            abort = folder / (name + ".abort.json")
             atomic(attempt, canonical({"state": "started", "ticket": ticket,
                                        "plan_sha256": plan_hash,
                                        "height_range": [a, b]}))
@@ -285,13 +311,21 @@ def execute(folder: Path, plan: dict, timeout: int, ram_mib: int,
                 os.replace(staged, stream)
                 atomic(receipt, canonical(valid))
                 attempt.unlink()
+                if abort.exists():
+                    abort.unlink()
                 print(f"VERIFIED {name} visits={measurement['visits']} "
                       f"certs={measurement['witnesses']} "
                       f"elapsed_ms={(monotonic_ns()-started)//1000000}", flush=True)
-            except Exception:
+            except Exception as error:
                 if staged.exists():
                     staged.unlink()
-                # The monotonic ticket stays STARTED, not promoted.
+                # Aborted attempts are recorded, never promoted to verified.
+                atomic(abort, canonical({
+                    "state": "aborted", "ticket": ticket,
+                    "plan_sha256": plan_hash, "height_range": [a, b],
+                    "error_kind": type(error).__name__,
+                }))
+                # The monotonic attempt ticket survives for a bounded retry.
                 raise
     manifest = validate_acceptance(folder, plan, max_bytes)
     atomic(folder / "accepted.json", canonical(manifest))
