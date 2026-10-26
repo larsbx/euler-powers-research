@@ -73,6 +73,7 @@ def source_context() -> dict:
     return {
         "mojo_sha256": digest((ROOT / "kernel/bigz_shard.mojo").read_bytes()),
         "index_sha256": digest((ROOT / "kernel/bigz_pair_index.mojo").read_bytes()),
+        "verifier_sha256": digest(Path(__file__).read_bytes()),
         "pixi_lock_sha256": digest((ROOT / "pixi.lock").read_bytes()),
         "finite_math_kernels_pin": dependency_pin(),
     }
@@ -209,6 +210,12 @@ def verify_shard(folder: Path, plan: dict, plan_hash: str,
 def validate_acceptance(folder: Path, plan: dict, max_bytes: int) -> dict:
     check_plan(plan)
     plan_hash = digest(canonical(plan))
+    expected_names = {filename(a, b) for a, b in map(tuple, plan["intervals"])}
+    for suffix in (".txt", ".receipt.json"):
+        observed_names = {p.name[:-len(suffix)]
+                          for p in folder.glob("e*" + suffix)}
+        if observed_names != expected_names:
+            raise ValueError("extra or missing accepted shard files")
     if (folder / "plan.json").read_bytes() != canonical(plan):
         raise ValueError("plan bytes mutated after publication")
     receipts = [verify_shard(folder, plan, plan_hash, a, b, max_bytes)
