@@ -1,6 +1,6 @@
 # Euler Powers Research
 
-A proof-first program investigating Euler's sum-of-powers conjecture, especially primitive integer solutions of
+A discovery-first exact-arithmetic program seeking a genuinely new nontrivial primitive integer identity of
 
 \[
 a^5+b^5+c^5+d^5=e^5.
@@ -10,7 +10,9 @@ The original conjecture is false. The open questions concern **infinitude, algeb
 
 ## Scope and conventions
 
-We count positive, primitive tuples satisfying \(0<a\le b\le c\le d<e\) and \(\gcd(a,b,c,d,e)=1\). This eliminates permutation and common-scaling duplicates. Put
+The primary objective accepts genuinely new positive or signed primitive classes, modulo permutation, moving terms across the equality and common scaling. See the [discovery charter](docs/DISCOVERY_OBJECTIVE.md) and [machine-readable goal](data/DISCOVERY_CHARTER.json).
+
+The positive-only subprogram counts positive, primitive tuples satisfying \(0<a\le b\le c\le d<e\) and \(\gcd(a,b,c,d,e)=1\). This eliminates permutation and common-scaling duplicates. Put
 
 \[
 N_5(B)=\#\{(a,b,c,d,e):e\le B,\ \text{with the preceding conditions}\}.
@@ -109,7 +111,7 @@ replaces per-hit exhaustive reconstruction and records controlled native benchma
 
 **Post-Braun exploration:** [independently replayed native Mojo high-height near-cancellation stripes](docs/POST_BRAUN_DISCOVERY_STRIPES.md) now target e=2,760,001 in a rigorously scoped delta=1, a<=64 trial beyond the author-reported nonnegative coverage, without calling an incomplete height search exhaustive.
 
-**Research priority:** [Find the next, genuinely new primitive strictly positive fifth-power solution](docs/DISCOVERY_OBJECTIVE.md). Our two known positive reference identities are at e=144 and e=85359; scalable near-cancellation search, not merely more bounded formal proofs, is now the main discovery program.
+**Research priority:** [Find a genuinely new primitive fifth-power identity, positive or signed](docs/DISCOVERY_OBJECTIVE.md). Exact algebraic constructions, general signed search, meet-in-the-middle methods, modular sieves and other justified finite methods may be used. Known identities and their equivalent rearrangements/scalings do not count. Independent exact verification and current novelty review are mandatory; further negative grid cells and proof/throughput totals are supporting evidence, not the goal.
 
 The [BigZ exact merge-sort sorted-permutation theorem and native conformance](docs/BIGZ_MERGESORT_PROOF.md)
 now closes the mathematical sorted-input precondition of the verified
@@ -148,3 +150,5 @@ Exact algebra research: [fifth cyclotomic ring and norm checks](docs/EXACT_CYCLO
 [Exact signed pair reconstruction](docs/PAIR_SUM_RECONSTRUCTION.md): seven new Lean identities and 106 independently replayed native queries, including larger signed terms. Mixed measured costs; no production speedup or Euler discovery coverage claimed.
 
 [P19 residue-first computation](docs/POST_BRAUN_P19.md) measured lower native process times on three identical production stripes, with unchanged exact counts and transcripts. Five additional Lean statements cover residue equivalence, machine bounds and guard order. Timings apply to the declared sample workloads.
+
+[Generic candidate admission](tools/primitive_candidates.py) normalizes exact rational proposals and checks cleared/primitive integer residuals and gcds with native Mojo BigZ plus independent Python. Registry absence remains a candidate for current literature review, never an automatic discovery claim.
