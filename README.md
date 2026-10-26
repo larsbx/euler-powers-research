@@ -103,6 +103,9 @@ manifest are described in [the partition contract](docs/PAIR_PARTITION.md). The
 extend this bounded positive census without changing its arithmetic scope. The
 [collision-preserving packed representation index](docs/PACKED_PAIR_INDEX.md)
 replaces per-hit exhaustive reconstruction and records controlled native benchmarks.
+The [exact BigZ lower-bound trace and proof bridge](docs/BIGZ_LOWER_BOUND_REFINEMENT.md)
+connects native arbitrary-precision pivot observations to Lean's signed
+lower-bound theorem, with negative-control replay and no compiler proof claim.
 The [full B320 BigZ height-census workflow](docs/BIGZ_B320_COMPLETE.md)
 executes 80 consecutive Mojo BigZ shards and requires independent
 replay plus historical B144/B256 prefix-root agreement before acceptance.
