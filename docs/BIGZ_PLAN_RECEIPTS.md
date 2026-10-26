@@ -86,6 +86,10 @@ pixi run --locked python tools/bigz_shard_plan.py verify \
   --output benchmarks/results/bigz-shards-b12
 ```
 
+The [P10 full B320 native BigZ computation](BIGZ_B320_COMPLETE.md)
+uses the same scoped receipt boundary across 80 declared width-four
+height intervals with B144/B256 prefix-root crosschecks.
+
 The [P9 full B144 native BigZ reconciliation](BIGZ_B144_CROSSCHECK.md)
 checks every target height through 144 against both a per-shard exact
 Python oracle and historical independent packed-index certificates.
