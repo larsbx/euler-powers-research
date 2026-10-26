@@ -53,14 +53,14 @@ def main() raises:
     emit_case(0, empty, zero)
     emit_case(1, empty, huge)
 
-    var single = make_sorted([huge])
+    var single = make_sorted([huge.copy()])
     emit_case(2, single, bigz_from_i64(9223372036854775807))
     emit_case(3, single, huge)
     emit_case(4, single, above)
 
     var negatives = make_sorted([
-        negative_above, negative_huge, neg7, zero, zero,
-        huge, huge, huge, above, huge_square
+        negative_above.copy(), negative_huge.copy(), neg7.copy(), zero.copy(), zero.copy(),
+        huge.copy(), huge.copy(), huge.copy(), above.copy(), huge_square.copy()
     ])
     emit_case(5, negatives, negative_above)
     emit_case(6, negatives, negative_huge)
@@ -82,6 +82,6 @@ def main() raises:
     var mix = make_sorted([
         bigz_from_i64(2), bigz_from_i64(2),
         bigz_from_i64(5), bigz_from_i64(5),
-        huge, huge, huge_square
+        huge.copy(), huge.copy(), huge_square.copy()
     ])
     emit_case(17, mix, bigz_from_i64(5))
