@@ -49,6 +49,12 @@ hash-indexed b^5 lookup, NOT the native binary search. Any
 failure, missing range, count mismatch or unexpected output prevents
 publication of an accepted record.
 
+The output directory must **not already exist**: the controller uses
+exclusive directory creation so that an interrupted or changed-scope
+rerun can never overwrite previously accepted transcripts. For a new
+experiment use a fresh output path, rather than mutating published
+scientific evidence.
+
 All transcripts, source SHA-256 values, finite scope, SHA-256 hashes,
 and admitted witnesses are recorded as
 `E5-DELTA-STRIPE-ACCEPTANCE-v1`. A recorded witness is classified
@@ -71,9 +77,18 @@ b solved exactly; 1<=a<=b<=c<=d.
 This is a meaningful new **parameter slice**, not a complete search
 through e=2,760,001. The runner retains the actual native transcript
 for each stripe, independent exact Python verification and GNU time
-resource profile. **Before CI passes, no nonexistence claim is made.**
-On success, a zero-witness result excludes solutions only with this
-specific e, delta and a-cap, not other deltas or larger a.
+resource profile. **Accepted hosted result (the initial full-slice run)**:
+the CI compiled and executed all **10 contiguous Mojo c stripes** for
+`e=2,760,001`, `delta=1`, `a<=64` and mathematical
+`157,434<=c<=196,119`. Independent full integer
+Python enumeration checked **2,475,904** ordered `(a,c)` trials,
+**145,430** exact b-power lookups after modular/nonpositive rejection,
+and **zero** primitive positive witnesses. Raw transcripts, source
+hashes, scoped acceptance records and GNU-time resource profile
+are retained as
+[hosted first accepted search artifact](https://github.com/larsbx/euler-powers-research/actions/runs/40307504786/artifacts/12642673378).
+A zero-witness result excludes solutions only with this exact e, delta
+and a-cap—not other deltas, larger a or other heights.
 
 The existing native search and independent Python reference still
 rediscover the Frye witness at `e=85359,delta=77,a<=64`, and
