@@ -136,3 +136,5 @@ To replay the preserved evidence, extract the ZIP into a fresh directory
 and run `python tests/test_cyclotomic5.py --verify --output EXTRACTED/cyclotomic5`
 using the source files with the receipt's recorded hashes. Later commits
 may add proofs or documentation without changing those arithmetic sources.
+
+The next exact algebra experiment is now accepted: [signed pair reconstruction](PAIR_SUM_RECONSTRUCTION.md), with divisor/square reconstruction proofs, native comparison and preserved mixed timing results. It adds no Euler search coverage.

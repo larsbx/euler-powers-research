@@ -1,5 +1,7 @@
 # P17 — close the positive delta=1..16 block and log every accepted cell
 
+**Current territory has advanced:** [P18](POST_BRAUN_P18.md) completed gaps 17..32. This document preserves the historical P17 plan and results; use the [current map](../data/experiments/TERRITORY.md) for the accepted union.
+
 P16 measured 318,981,888 exact trials in 273.74 s including initial replay,
 maximum RSS 203,440 KiB; fresh full replay took 103.74 s. Its accepted coverage
 leaves ten positive gaps missing from the e=2,760,001, a<=1024 block:

@@ -13,3 +13,13 @@ resource JSON and two outer process resource reports. Its SHA-256 is
 the receipt for inspection. The source head is
 `bc53176dc262674c8a83bf4b46cb58a29ce98eaa`; arithmetic source files are also
 individually hashed. See `docs/EXACT_CYCLOTOMIC5.md` for limitations and replay.
+
+
+The exact signed pair reconstruction experiment is preserved as
+`pair-sum-40353821388.zip` (original 216-file artifact, ID 12663912918),
+SHA-256 `2952e72aa9118a8ec6a6c76b2c773a8773b3224381804cc28909793c998a9978`.
+Its extracted receipt is byte-identical; native and formal job logs are
+preserved as gzip files. All 106 precompiled query transcripts have fresh
+independent Python replay. See `docs/PAIR_SUM_RECONSTRUCTION.md` for the
+complete derivation, timings, signed control, source pins and limitations.
+This contributes zero Euler discovery cells.

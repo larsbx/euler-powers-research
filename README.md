@@ -141,6 +141,8 @@ lookup, without changing canonical search records.
 
 **P16 accepted:** [larger minimum summands 257..1024 with Lean-checked two-term bounds](docs/POST_BRAUN_P16.md): 318,981,888 new exact trials, 965,191 lookups, zero primitive identities; complete raw evidence and combined coverage ledger preserved.
 
-**Current search territory:** [cumulative accepted map](data/experiments/TERRITORY.md) and [hashed ledger pointer](data/experiments/current.json). [P17](docs/POST_BRAUN_P17.md) added 409,884,672 exact trials, closing e=2,760,001 positive delta=1..16 with a<=1024; no new primitive identity. All 930,452,224 disjoint high-height trials, B320, calibration evidence and exclusions are logged separately.
+**Current search territory:** [cumulative accepted map](data/experiments/TERRITORY.md) and [hashed ledger pointer](data/experiments/current.json). [P18](docs/POST_BRAUN_P18.md) added 786,334,720 exact trials, extending e=2,760,001 positive coverage through delta=32 with a<=1024; zero new primitive identities. All 1,716,786,944 disjoint high-height trials, B320, calibration evidence and algebraic exclusions remain distinct.
 
 Exact algebra research: [fifth cyclotomic ring and norm checks](docs/EXACT_CYCLOTOMIC5.md) (separate from search coverage).
+
+[Exact signed pair reconstruction](docs/PAIR_SUM_RECONSTRUCTION.md): seven new Lean identities and 106 independently replayed native queries, including larger signed terms. Mixed measured costs; no production speedup or Euler discovery coverage claimed.
