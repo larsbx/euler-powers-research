@@ -138,3 +138,5 @@ uses a shared Mojo kernel to reject impossible complements before indexed
 lookup, without changing canonical search records.
 
 **Accepted discovery frontier:** [broader gaps, a=65..256, and separate one-negative-term cells](docs/POST_BRAUN_FRONTIER.md), 176,372,608 new exact trials, 524,286 lookups and zero witnesses; bounded native execution, independent full replay and durable raw evidence.
+
+**P16 accepted:** [larger minimum summands 257..1024 with Lean-checked two-term bounds](docs/POST_BRAUN_P16.md): 318,981,888 new exact trials, 965,191 lookups, zero primitive identities; complete raw evidence and combined coverage ledger preserved.

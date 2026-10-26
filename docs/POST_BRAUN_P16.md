@@ -83,12 +83,80 @@ pixi run --locked python tools/search_discovery_p16.py \
 
 ## Experimental status
 
-**Planned. No P16 negative result or discovery is claimed before the actual
-native run, fresh full replay and review pass.** Runtime, memory, exact rejection
-counts and per-cell coverage will be recorded from accepted hosted evidence.
+**Accepted native execution and full replay, October 26, 2026.**
+[Hosted run 40334880575](https://github.com/larsbx/euler-powers-research/actions/runs/40334880575)
+completed all ten cells: **318,981,888 exact trials, 965,191 BigZ lookups,
+318,016,697 residue/nonpositive rejections, zero primitive positive or signed
+identities.** No new identity or global nonexistence claim follows.
+All eight implementation workflows passed. Lean built the five new bound lemmas;
+the axiom audit accepted 291 total EulerPowers theorems with no nonstandard axioms.
+Implementation review/merge provenance is recorded in the evidence PR.
+
+| Stage | Wall seconds | User seconds | System seconds | GNU max RSS (KiB) |
+| --- | ---: | ---: | ---: | ---: |
+| Native search/controller + initial Python replay | 273.74 | 266.63 | 10.03 | 203,440 |
+| Separate fresh-process full Python replay | 103.74 | 101.82 | 1.91 | 110,768 |
+
+Native invocation wall times sum to 170.094627608 seconds (including wrapper,
+compile/cache and process startup); initial arithmetic replay sums to
+102.935734003 seconds. These are observed resource measurements, not a
+controlled same-scope speed comparison.
+
+| First term | delta | abs(a) | Enumerated c interval | Exact trials | BigZ lookups |
+| --- | ---: | --- | --- | ---: | ---: |
+| positive | 1 | 257..1024 | 170,733..196,119 | 19,497,216 | 29,626 |
+| positive | 2 | 257..1024 | 196,120..225,282 | 22,397,184 | 19,908 |
+| positive | 3 | 257..1024 | 212,687..244,312 | 24,288,768 | 38,471 |
+| positive | 4 | 257..1024 | 225,283..258,781 | 25,727,232 | 69,818 |
+| positive | 8 | 257..1024 | 258,782..297,261 | 29,552,640 | 32,553 |
+| positive | 16 | 257..1024 | 297,262..341,463 | 33,947,136 | 139,218 |
+| positive | 64 | 257..1024 | 392,236..450,560 | 44,793,600 | 68,135 |
+| positive | 256 | 257..1024 | 517,544..594,501 | 59,103,744 | 358,205 |
+| negative | 4 | 257..1024 | 225,283..258,781 | 25,727,232 | 67,449 |
+| negative | 16 | 257..1024 | 297,262..341,463 | 33,947,136 | 141,808 |
+
+Every row has zero primitive witnesses. The old enclosing c prefix is
+**algebraically excluded**, not counted as enumerated negative evidence.
+Receipts retain both old and new lower bounds and the excluded c count.
+
+The [original accepted ZIP](../data/experiments/p16-run-40334880575.zip),
+[byte-identical readable receipt](../data/experiments/p16-accepted.json),
+[complete native job log](../data/experiments/p16-run-40334880575-job.log.gz),
+[complete formal job log](../data/experiments/p16-formal-run-40334880347-job.log.gz)
+and [combined accepted coverage index](../data/experiments/index-p16.json)
+are preserved in the repository. ZIP SHA256:
+`4de3337ad27b5683abae5e82ef85827dc1e28651b969924cbcc7cd03a9d21d68`.
+The download matched the original artifact digest; all 237 files passed ZIP CRC.
+Actual source/controller/verifier/prior-index hashes, child receipt hashes,
+native transcript/timing hashes, exact cell scopes and aggregate totals checked.
+
+The implementation source head is `9ae7d72dfb53be068a7279c41861258c0f555f4d`;
+GitHub tested synthetic merge `05c1f1127fe7d729eaaf3395f056d5cb1090a4b4`.
+For archived replay, check out that source head, extract the ZIP, and use
+`GITHUB_SHA=05c1f1127fe7d729eaaf3395f056d5cb1090a4b4 GITHUB_RUN_ID=40334880575`
+with `tools/search_discovery_p16.py --verify --output EXTRACTED/p16`.
+This reproduces metadata; actual source hashes and every arithmetic result are
+still checked. It is not a new native execution attestation.
+
+The old `index.json` is unchanged because its hash is an accepted experimental
+input. `index-p16.json` supersedes it for current combined coverage.
 
 Unsearched outside accepted scopes: unlisted delta values, larger first summands,
 other high target heights, and general signed orderings (including abs(a)>b).
 Even successful completion of this experiment would not be a complete height
 census. A candidate needs exact identity, five-way gcd, equivalence comparison
 against the known registry and fresh literature review before a discovery claim.
+
+## Current union and next unexecuted work
+
+Across P14/P15/P16, e=2,760,001 now has complete restricted positive coverage
+for a=1..1024 at delta=1,2,3,4,8,16,64,256. The supported signed mode covers
+abs(a)=1..1024 at delta=4,16, and only 1..256 at delta=64. General signed
+orderings and every unlisted gap remain open, as do other high target heights
+outside the explicitly accepted P14 cells. This is not a complete height census.
+
+Next budgeted candidates are untouched positive gaps (for example 5..7 or
+9..15) at the new cap, or a>=1025 after reviewing an increased per-stripe ceiling.
+Use per-cell timings and lookup counts; no fixed residue rejection factor or
+probability of finding a solution is assumed. These next regions are not yet
+searched or accepted.

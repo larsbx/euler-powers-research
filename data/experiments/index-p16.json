@@ -1,0 +1,397 @@
+{
+  "schema": "E5-ACCEPTED-EXPERIMENT-ARCHIVES-v1",
+  "as_of": "2026-10-26",
+  "meaning": "Accepted finite P14/P15/P16 coverage union only; impossible c prefixes certified algebraically are distinguished from exact trials. No complete high-height or general signed census.",
+  "experiments": [
+    {
+      "id": "P14",
+      "run_id": 40310016033,
+      "artifact_id": 12644088071,
+      "archive": "p14-run-40310016033.zip",
+      "archive_sha256": "0557f355447acc51e8edd59c443f63a8aeed79aae3ba0602f5f248f231761c63",
+      "source_head": "256588293ffa9355219daa3ef9160607d03edddb",
+      "trials": 25213056,
+      "exact_lookups": 56409,
+      "primitive_witnesses": 0,
+      "parameters": {
+        "e": [
+          2760001,
+          2760002,
+          2760003
+        ],
+        "delta": [
+          1,
+          2,
+          3
+        ],
+        "positive_a_interval": [
+          1,
+          64
+        ]
+      },
+      "receipt": "postbraun-grid-e2760001-2760003-d1-3-a64/accepted-grid.json (inside original ZIP)"
+    },
+    {
+      "id": "P15",
+      "run_id": 40329902748,
+      "artifact_id": 12654187161,
+      "archive": "p15-run-40329902748.zip",
+      "archive_sha256": "bd09635a09176bbf3f0671492af8f8ce21a7fec0abf07c147dd54cc572a53ea2",
+      "source_head": "9d6dd4cc98905c29c0829e4684d6673076d505dc",
+      "tested_pr_merge_commit": "144b19eac6cee9a0724d0b3bd14902e2f63ed261",
+      "implementation_merge": "d48f9752ac3bb7f81eec78e5752dba647dc51bb3",
+      "trials": 176372608,
+      "exact_lookups": 524286,
+      "primitive_witnesses": 0,
+      "receipt": "p15-accepted-frontier.json",
+      "receipt_sha256": "e514cc31eea5e250076c94e5e051855efc24689a3eeefc969cd531a0a448740b",
+      "job_log": "p15-run-40329902748-job.log.gz",
+      "job_log_sha256": "3e10edec9f0b216187941822f0d2822ba6ee959ce0da87dda10ba0d702129c72",
+      "resource_measurements": {
+        "search_and_initial_replay": {
+          "wall_seconds": "211.02",
+          "user_seconds": "199.53",
+          "system_seconds": "13.84",
+          "gnu_max_rss_kib": 204304
+        },
+        "fresh_full_replay": {
+          "wall_seconds": "52.84",
+          "user_seconds": "50.34",
+          "system_seconds": "2.49",
+          "gnu_max_rss_kib": 110708
+        },
+        "native_invocation_wall_ns": 158358636741,
+        "initial_python_replay_wall_ns": 52005780444
+      },
+      "cells": [
+        {
+          "sign": "positive",
+          "e": 2760001,
+          "delta": 4,
+          "abs_a_min": 1,
+          "abs_a_max": 256,
+          "c_min": 207735,
+          "c_max": 258781,
+          "trials": 13068032,
+          "exact_lookups": 29231,
+          "primitive_witnesses": 0
+        },
+        {
+          "sign": "positive",
+          "e": 2760001,
+          "delta": 8,
+          "abs_a_min": 1,
+          "abs_a_max": 256,
+          "c_min": 238625,
+          "c_max": 297261,
+          "trials": 15011072,
+          "exact_lookups": 14572,
+          "primitive_witnesses": 0
+        },
+        {
+          "sign": "positive",
+          "e": 2760001,
+          "delta": 16,
+          "abs_a_min": 1,
+          "abs_a_max": 256,
+          "c_min": 274108,
+          "c_max": 341463,
+          "trials": 17243136,
+          "exact_lookups": 74472,
+          "primitive_witnesses": 0
+        },
+        {
+          "sign": "positive",
+          "e": 2760001,
+          "delta": 64,
+          "abs_a_min": 1,
+          "abs_a_max": 256,
+          "c_min": 361684,
+          "c_max": 450560,
+          "trials": 22752512,
+          "exact_lookups": 35821,
+          "primitive_witnesses": 0
+        },
+        {
+          "sign": "positive",
+          "e": 2760001,
+          "delta": 256,
+          "abs_a_min": 1,
+          "abs_a_max": 256,
+          "c_min": 477232,
+          "c_max": 594501,
+          "trials": 30021120,
+          "exact_lookups": 189335,
+          "primitive_witnesses": 0
+        },
+        {
+          "sign": "positive",
+          "e": 2760001,
+          "delta": 1,
+          "abs_a_min": 65,
+          "abs_a_max": 256,
+          "c_min": 157434,
+          "c_max": 196119,
+          "trials": 7427712,
+          "exact_lookups": 12836,
+          "primitive_witnesses": 0
+        },
+        {
+          "sign": "positive",
+          "e": 2760001,
+          "delta": 2,
+          "abs_a_min": 65,
+          "abs_a_max": 256,
+          "c_min": 180844,
+          "c_max": 225282,
+          "trials": 8532288,
+          "exact_lookups": 7007,
+          "primitive_witnesses": 0
+        },
+        {
+          "sign": "positive",
+          "e": 2760001,
+          "delta": 3,
+          "abs_a_min": 65,
+          "abs_a_max": 256,
+          "c_min": 196120,
+          "c_max": 244312,
+          "trials": 9253056,
+          "exact_lookups": 14055,
+          "primitive_witnesses": 0
+        },
+        {
+          "sign": "negative",
+          "e": 2760001,
+          "delta": 4,
+          "abs_a_min": 1,
+          "abs_a_max": 256,
+          "c_min": 207735,
+          "c_max": 258781,
+          "trials": 13068032,
+          "exact_lookups": 39362,
+          "primitive_witnesses": 0
+        },
+        {
+          "sign": "negative",
+          "e": 2760001,
+          "delta": 16,
+          "abs_a_min": 1,
+          "abs_a_max": 256,
+          "c_min": 274108,
+          "c_max": 341463,
+          "trials": 17243136,
+          "exact_lookups": 74172,
+          "primitive_witnesses": 0
+        },
+        {
+          "sign": "negative",
+          "e": 2760001,
+          "delta": 64,
+          "abs_a_min": 1,
+          "abs_a_max": 256,
+          "c_min": 361684,
+          "c_max": 450560,
+          "trials": 22752512,
+          "exact_lookups": 33423,
+          "primitive_witnesses": 0
+        }
+      ]
+    },
+    {
+      "id": "P16",
+      "run_id": 40334880575,
+      "artifact_id": 12657335699,
+      "archive": "p16-run-40334880575.zip",
+      "archive_sha256": "4de3337ad27b5683abae5e82ef85827dc1e28651b969924cbcc7cd03a9d21d68",
+      "source_head": "9ae7d72dfb53be068a7279c41861258c0f555f4d",
+      "tested_pr_merge_commit": "05c1f1127fe7d729eaaf3395f056d5cb1090a4b4",
+      "trials": 318981888,
+      "exact_lookups": 965191,
+      "primitive_witnesses": 0,
+      "residue_or_nonpositive_rejects": 318016697,
+      "receipt": "p16-accepted.json",
+      "receipt_sha256": "6bb23319f59674df0897be157e61c149aadcc325b3cee66e2c6f106763238377",
+      "job_log": "p16-run-40334880575-job.log.gz",
+      "job_log_sha256": "b2b75ac5fad9da59b9799bd19ef5d0f47b119702aa2e5244f1fb3358d042b035",
+      "formal_run_id": 40334880347,
+      "formal_job_log": "p16-formal-run-40334880347-job.log.gz",
+      "formal_job_log_sha256": "6c47ea3125d9bbc1a220261942a1655ac3e5bec805b9097a44e2731c561c4496",
+      "formal_status": "NearCancellationBounds built; 291 total kernel-checked EulerPowers theorems passed audit with no nonstandard axioms; Lean/Quint workflow success.",
+      "prior_coverage_index_sha256": "8465c8ec1f712ae677f0b4917ae0cd68aa6cd51835c76c6a74ac78ec42eff912",
+      "work_with_old_c_bound": 486073344,
+      "algebraically_excluded_pairs_not_counted_as_trials": 167091456,
+      "resource_measurements": {
+        "search_and_initial_replay": {
+          "wall_seconds": "273.74",
+          "user_seconds": "266.63",
+          "system_seconds": "10.03",
+          "gnu_max_rss_kib": 203440
+        },
+        "fresh_full_replay": {
+          "wall_seconds": "103.74",
+          "user_seconds": "101.82",
+          "system_seconds": "1.91",
+          "gnu_max_rss_kib": 110768
+        },
+        "native_invocation_wall_ns": 170094627608,
+        "initial_python_replay_wall_ns": 102935734003
+      },
+      "cells": [
+        {
+          "sign": "positive",
+          "e": 2760001,
+          "delta": 1,
+          "abs_a_min": 257,
+          "abs_a_max": 1024,
+          "c_min": 170733,
+          "c_max": 196119,
+          "legacy_c_min": 157434,
+          "algebraically_excluded_c_values": 13299,
+          "trials": 19497216,
+          "exact_lookups": 29626,
+          "primitive_witnesses": 0
+        },
+        {
+          "sign": "positive",
+          "e": 2760001,
+          "delta": 2,
+          "abs_a_min": 257,
+          "abs_a_max": 1024,
+          "c_min": 196120,
+          "c_max": 225282,
+          "legacy_c_min": 180844,
+          "algebraically_excluded_c_values": 15276,
+          "trials": 22397184,
+          "exact_lookups": 19908,
+          "primitive_witnesses": 0
+        },
+        {
+          "sign": "positive",
+          "e": 2760001,
+          "delta": 3,
+          "abs_a_min": 257,
+          "abs_a_max": 1024,
+          "c_min": 212687,
+          "c_max": 244312,
+          "legacy_c_min": 196120,
+          "algebraically_excluded_c_values": 16567,
+          "trials": 24288768,
+          "exact_lookups": 38471,
+          "primitive_witnesses": 0
+        },
+        {
+          "sign": "positive",
+          "e": 2760001,
+          "delta": 4,
+          "abs_a_min": 257,
+          "abs_a_max": 1024,
+          "c_min": 225283,
+          "c_max": 258781,
+          "legacy_c_min": 207735,
+          "algebraically_excluded_c_values": 17548,
+          "trials": 25727232,
+          "exact_lookups": 69818,
+          "primitive_witnesses": 0
+        },
+        {
+          "sign": "positive",
+          "e": 2760001,
+          "delta": 8,
+          "abs_a_min": 257,
+          "abs_a_max": 1024,
+          "c_min": 258782,
+          "c_max": 297261,
+          "legacy_c_min": 238625,
+          "algebraically_excluded_c_values": 20157,
+          "trials": 29552640,
+          "exact_lookups": 32553,
+          "primitive_witnesses": 0
+        },
+        {
+          "sign": "positive",
+          "e": 2760001,
+          "delta": 16,
+          "abs_a_min": 257,
+          "abs_a_max": 1024,
+          "c_min": 297262,
+          "c_max": 341463,
+          "legacy_c_min": 274108,
+          "algebraically_excluded_c_values": 23154,
+          "trials": 33947136,
+          "exact_lookups": 139218,
+          "primitive_witnesses": 0
+        },
+        {
+          "sign": "positive",
+          "e": 2760001,
+          "delta": 64,
+          "abs_a_min": 257,
+          "abs_a_max": 1024,
+          "c_min": 392236,
+          "c_max": 450560,
+          "legacy_c_min": 361684,
+          "algebraically_excluded_c_values": 30552,
+          "trials": 44793600,
+          "exact_lookups": 68135,
+          "primitive_witnesses": 0
+        },
+        {
+          "sign": "positive",
+          "e": 2760001,
+          "delta": 256,
+          "abs_a_min": 257,
+          "abs_a_max": 1024,
+          "c_min": 517544,
+          "c_max": 594501,
+          "legacy_c_min": 477232,
+          "algebraically_excluded_c_values": 40312,
+          "trials": 59103744,
+          "exact_lookups": 358205,
+          "primitive_witnesses": 0
+        },
+        {
+          "sign": "negative",
+          "e": 2760001,
+          "delta": 4,
+          "abs_a_min": 257,
+          "abs_a_max": 1024,
+          "c_min": 225283,
+          "c_max": 258781,
+          "legacy_c_min": 207735,
+          "algebraically_excluded_c_values": 17548,
+          "trials": 25727232,
+          "exact_lookups": 67449,
+          "primitive_witnesses": 0
+        },
+        {
+          "sign": "negative",
+          "e": 2760001,
+          "delta": 16,
+          "abs_a_min": 257,
+          "abs_a_max": 1024,
+          "c_min": 297262,
+          "c_max": 341463,
+          "legacy_c_min": 274108,
+          "algebraically_excluded_c_values": 23154,
+          "trials": 33947136,
+          "exact_lookups": 141808,
+          "primitive_witnesses": 0
+        }
+      ]
+    }
+  ],
+  "unsearched_examples": [
+    "At e=2760001, positive delta outside 1,2,3,4,8,16,64,256; positive a>=1025.",
+    "At e=2760001, supported one-negative-smallest-magnitude delta 4 and 16: abs(a)>=1025; delta 64: abs(a)>=257; all other signed gaps.",
+    "At e=2760002 and 2760003, positive a>=65, gaps outside 1..3, and all signed modes.",
+    "Other high target heights outside the listed cells; general signed orderings including abs(a)>b and two or more negative terms."
+  ],
+  "failed_attempts": [
+    {
+      "run_id": 40329491348,
+      "meaning": "Native calibration passed; virtual-address limit caused allocator failure before any search cell was accepted. Not negative mathematical evidence."
+    }
+  ],
+  "supersedes": "index.json (unchanged source-bound P14/P15 baseline)"
+}
