@@ -171,3 +171,11 @@ Prove/test these tighter c lower bounds against unfiltered enumeration and
 known witnesses before using the saved work for a>=257 or missing gaps.
 General signed searches also need a new ordering contract to admit negative
 terms larger than b. None of these proposals is accepted coverage.
+
+## Superseding P16 coverage
+
+[P16](POST_BRAUN_P16.md) completed a=257..1024 at the eight positive gaps
+1,2,3,4,8,16,64,256 and the supported signed gaps 4,16, all at e=2,760,001.
+The unsearched/next-work statements above describe the P15 stopping point.
+Use [index-p16.json](../data/experiments/index-p16.json) for the current accepted
+union; the source-bound P14/P15 index remains unchanged.

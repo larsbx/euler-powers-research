@@ -1,5 +1,7 @@
 # Proof obligations and research stages
 
+**P16 accepted:** [new a=257..1024 cells and exact two-term c bounds](POST_BRAUN_P16.md): 318,981,888 trials; 965,191 lookups; zero primitive identities. Positive coverage now reaches a=1024 at eight declared gaps, with a separate restricted signed mode; no full-height claim.
+
 **P15 accepted:** [11 disjoint positive/signed frontier cells](POST_BRAUN_FRONTIER.md): 176,372,608 exact trials; 524,286 lookups; zero primitive identities. Complete only within the stated cells and magnitude ordering. Raw accepted evidence is permanent in data/experiments.
 **Post-Braun P14:** [modular fifth-power image refinements and complete nine-cell fixed-(e,delta,a-cap) grid](POST_BRAUN_GRID_REFINEMENT.md) now runs rigorous c-interval coverage for e=2,760,001..2,760,003 and delta=1..3, a<=64. This is neither a complete target-height search nor a third known positive identity.
 
