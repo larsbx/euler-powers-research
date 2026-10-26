@@ -97,6 +97,10 @@ making conjectural third-solution discovery claims.
 
 The [post-Braun exact near-cancellation stripe protocol](POST_BRAUN_DISCOVERY_STRIPES.md) implements independently accepted complete c-stripes for an explicit e, delta and small-a cap, using native Mojo BigZ and an independent Python power hash oracle. The first target e=2,760,001, delta=1, a<=64 is beyond the *author-reported* nonnegative search height but remains a *restricted* parameter slice. Source provenance and negative-slice scope are mandatory.
 
+## P14: Systematic novelty-region grid
+
+The [post-Braun parameter grid](POST_BRAUN_GRID_REFINEMENT.md) adds exact mod-41 and mod-61 fifth-power image rejection before BigZ b lookup, then searches nine adjacent (e,delta) cells with complete finite c coverage. Every native line is reconstructed by a different Python exact-integer algorithm. The scope remains a<=64 and delta<=3, not a complete target-height census.
+
 ## Next experiments prioritized by discovery yield
 
 1. Measure the native search's runtime and peak memory on the
