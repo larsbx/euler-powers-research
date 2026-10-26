@@ -1,6 +1,6 @@
 name = "euler_powers_formal"
 version = "0.1.0"
-defaultTargets = ["EulerPowers", "Modular", "PairIndex", "SortedIndex", "BinarySearch", "LowerBoundInvariant", "Reconstruction", "CertifiedLowerBound", "ShardPlan", "Int64Bounds", "SignedLowerBound", "PairPartition", "PairTraversal", "PackedPairIndex", "PrimePowerSieve", "DigitSumPruning", "WidePackedIndex", "BigPairIndex", "BigShardCoverage", "BigZLowerBound", "bigz-trace-replay", "replay", "trace-replay"]
+defaultTargets = ["EulerPowers", "Modular", "PairIndex", "SortedIndex", "BinarySearch", "LowerBoundInvariant", "Reconstruction", "CertifiedLowerBound", "ShardPlan", "Int64Bounds", "SignedLowerBound", "PairPartition", "PairTraversal", "PackedPairIndex", "PrimePowerSieve", "DigitSumPruning", "WidePackedIndex", "BigPairIndex", "BigShardCoverage", "BigZLowerBound", "BigZMergeSort", "bigz-trace-replay", "replay", "trace-replay"]
 
 [[lean_lib]]
 name = "EulerPowers"
@@ -73,3 +73,6 @@ name = "BigZLowerBound"
 [[lean_exe]]
 name = "bigz-trace-replay"
 root = "BigZTraceReplay"
+
+[[lean_lib]]
+name = "BigZMergeSort"
