@@ -53,14 +53,15 @@ def b_fifth_lower_bound(
     powers: List[BigZ], target: BigZ, lo: Int, hi_inclusive: Int
 ) -> Int:
     """First b in [lo, hi+1] whose exact b^5>=target."""
+    var low = lo
     var hi = hi_inclusive + 1
-    while lo < hi:
-        var mid = lo + (hi - lo) // 2
+    while low < hi:
+        var mid = low + (hi - low) // 2
         if bigz_lt(powers[mid], target):
-            lo = mid + 1
+            low = mid + 1
         else:
             hi = mid
-    return lo
+    return low
 
 
 def search(e: Int, delta: Int, max_a: Int) raises:
