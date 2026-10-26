@@ -39,8 +39,8 @@ def main() raises:
         print("BIGNORM", i, bigz_decimal(norm(big)))
     # Signed and zero edge cases, the four known identities' (e,d) pairs,
     # and current post-Braun target/gap controls (no solution claim).
-    var xs = List[Int64](0, 1, -1, 144, 14132, 85359, 1956878, 2760001)
-    var ys = List[Int64](0, 1, 2, 133, 14068, 85282, 1956213, 2759745)
+    var xs: List[Int64] = [0, 1, -1, 144, 14132, 85359, 1956878, 2760001]
+    var ys: List[Int64] = [0, 1, 2, 133, 14068, 85282, 1956213, 2759745]
     for i in range(len(xs)):
         print("DIFFNORM", i, xs[i], ys[i], bigz_decimal(norm(from_i64(xs[i], -ys[i]))))
         print("SUMNORM", i, xs[i], ys[i], bigz_decimal(norm(from_i64(xs[i], ys[i]))))
