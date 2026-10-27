@@ -133,6 +133,10 @@ def classify(hits,binary=None):
                 genuinely_new_primitive_classes=0,discovery_claim=False)
 
 
+def safe_stem(stem):
+    return type(stem) is str and __import__('re').fullmatch(r'[a-z0-9_-]+',stem) is not None
+
+
 def verify(folder,receipt_name='accepted.json'):
     r=json.loads((folder/receipt_name).read_bytes())
     if r['schema']!='E5-P21-SIGNED-BOX-v1' or r['sources']!=source_hashes() or r['finite_math_kernels_pin']!=PIN:
@@ -142,7 +146,7 @@ def verify(folder,receipt_name='accepted.json'):
     if len({x['stem'] for x in r['observations']})!=len(r['observations']):raise ValueError('duplicate process stem')
     for x in r['observations']:
         stem=x['stem']
-        if not __import__('re').fullmatch(r'[a-z0-9-]+',stem):raise ValueError('unsafe process stem')
+        if not safe_stem(stem):raise ValueError('unsafe process stem')
         expected_limits=dict(LIMITS,ram_mib=2048) if x['kind']=='build' else LIMITS
         usage=x['resource']
         if usage['limits']!=expected_limits or usage['max_rss_kib']>expected_limits['ram_mib']*1024:

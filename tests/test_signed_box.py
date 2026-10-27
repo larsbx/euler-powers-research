@@ -6,7 +6,7 @@ import sys
 import tempfile
 from unittest.mock import patch
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]/'tools'))
-from search_signed_box import ROOT, magnitudes, partition, check_partition, oracle, output_hits, publish
+from search_signed_box import ROOT, magnitudes, partition, check_partition, oracle, output_hits, publish, safe_stem
 from primitive_candidates import analyze, signature
 
 
@@ -17,6 +17,10 @@ def refused(f):
 
 
 def main():
+    for label in ('cleared_integer_terms','primitive_terms'):
+        assert safe_stem(f'candidate-0-{label}')
+    for stem in ('../escape','/tmp/output','nested/path','dot.name','',None):
+        assert not safe_stem(stem)
     for n,small,start in [(1,1,1),(4,4,1),(5,2,19),(6,0,3000001)]:
         case=dict(n=n,small=small,start=start);S=magnitudes(n,small,start);xs=sorted([-x for x in S]+S)
         brute=[]
