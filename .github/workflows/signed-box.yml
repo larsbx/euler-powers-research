@@ -1,0 +1,43 @@
+name: General signed fifth-power discovery P21
+on:
+  pull_request:
+    paths:
+      - '.github/workflows/signed-box.yml'
+      - 'discovery/signed_box.mojo'
+      - 'tools/search_signed_box.py'
+      - 'tests/test_signed_box.py'
+      - 'algebra/pair_sum.mojo'
+      - 'kernel/bigz_pair_index.mojo'
+      - 'kernel/euler_exact.mojo'
+      - 'tools/primitive_candidates.py'
+      - 'discovery/verify_candidate.mojo'
+      - 'pixi.*'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  complete-signed-domains:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: prefix-dev/setup-pixi@d3f436a425481402e6a95a1d1fc10331c708cd9e
+      - name: Verify pinned arithmetic and initialize dependency
+        run: pixi run --locked verify
+      - name: Adversarial signed-domain and legacy reconstruction regressions
+        run: |
+          pixi run --locked python tests/test_signed_box.py
+          pixi run --locked python tests/test_pair_sum_reconstruction.py --output benchmarks/results/p21-pair-regression
+      - name: Compare strategies, search complete signed domains, independently replay every target
+        run: bash scripts/run_research_cgroup.sh pixi run --locked python tools/search_signed_box.py --output benchmarks/results/p21
+      - name: Fresh independent replay of original native streams
+        run: bash scripts/run_research_cgroup.sh pixi run --locked python tools/search_signed_box.py --verify --output benchmarks/results/p21
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: p21-general-signed-discovery
+          path: |
+            benchmarks/results/p21/
+            benchmarks/results/p21-pair-regression/
+          if-no-files-found: error
+          retention-days: 90

@@ -39,8 +39,9 @@ def check_bound(bound: Int) raises:
         raise Error("pair box outside reviewed finite resource domain")
 
 
-def reconstruct(target: BigZ, bound: Int) raises:
+def reconstructed_pairs(target: BigZ, bound: Int) raises -> Tuple[List[Tuple[Int, Int]], Int, Int, Int]:
     check_bound(bound)
+    var out = List[Tuple[Int, Int]]()
     var trials = 0
     var divisors = 0
     var squares = 0
@@ -48,10 +49,9 @@ def reconstruct(target: BigZ, bound: Int) raises:
     if target.is_zero():
         # Exactly the finite family a=-b in this ordered signed box.
         for a in range(-bound, 1):
-            print("PAIR", a, -a)
+            out.append((a, -a))
             matches += 1
-        print("SUMMARY", trials, divisors, squares, matches)
-        return
+        return (out^, trials, divisors, squares)
     for s in range(-2*bound, 2*bound+1):
         if s == 0:
             continue
@@ -83,9 +83,16 @@ def reconstruct(target: BigZ, bound: Int) raises:
             continue
         if not bigz_eq(bigz_add(fifth_bigz(Int64(a)), fifth_bigz(Int64(b))), target):
             raise Error("reconstruction failed final exact fifth-power equality")
-        print("PAIR", a, b)
+        out.append((a, b))
         matches += 1
-    print("SUMMARY", trials, divisors, squares, matches)
+    return (out^, trials, divisors, squares)
+
+
+def reconstruct(target: BigZ, bound: Int) raises:
+    var result = reconstructed_pairs(target, bound)
+    for pair in result[0]:
+        print("PAIR", pair[0], pair[1])
+    print("SUMMARY", result[1], result[2], result[3], len(result[0]))
 
 
 def scan(target: BigZ, bound: Int) raises:
