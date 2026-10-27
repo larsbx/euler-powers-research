@@ -110,6 +110,56 @@ The separate replay checks the entire finite plan again. A GitHub source
 label alone is not proof of execution; preserve original hosted artifacts
 and job logs alongside the source-bound records before accepted publication.
 
-Current status: Python pilot and small algebra controls have passed;
-native execution, formal validation and accepted evidence publication remain
-pending. No new identity or accepted native search coverage is claimed here.
+## Accepted result and measured resources
+
+Hosted run [40421394757](https://github.com/larsbx/euler-powers-research/actions/runs/40421394757)
+completed all 160 cells and the separate Braun calibration successfully.
+The initial independent Python reconstruction and a fresh hosted replay
+agree exactly with native stdout. A further full replay of the downloaded
+archive passed locally, including every original stdout/resource hash.
+
+| result | exact count |
+|---|---:|
+| b/orientation trials | 20,971,520 |
+| geometry rejections | 0 |
+| rejected modulo 99000 | 20,833,424 |
+| additional rejections modulo 41 | 91,588 |
+| additional rejections modulo 61 | 27,703 |
+| nonpositive targets after gates | 10,466 |
+| exact native inversion attempts | 8,339 |
+| exact identities / primitive identities | 0 / 0 |
+
+| measured phase | wall seconds | maximum RSS KiB |
+|---|---:|---:|
+| compile, controller, native batch and initial Python verification | 23.49 | 250,376 |
+| fresh independent Python replay | 13.60 | 70,552 |
+| native discovery processes, summed invocation time | 3.533780876 | 21,504 maximum per cell |
+
+The last row includes process invocation overhead, excludes compilation and
+Python, and is the sum across cells rather than one contiguous wall timer.
+The first row includes compilation of both the search and candidate intake.
+No performance comparison with the old search is asserted: it has different
+scope, algorithms and trial units. Calibration has zero discovery credit.
+
+The exact [coverage ledger](../data/experiments/index-p20-signed-two-gap.json)
+keeps all declared cells and unsearched regions explicit, with a
+[separate current pointer](../data/experiments/signed-two-gap-current.json).
+The old P19 pointer and all predecessor ledgers remain byte-for-byte unchanged.
+Its 2,441,336,576 `(c,abs(a))` trials are not added to the different P20 unit.
+
+The [accepted receipt](../data/experiments/two-gap-40421394757-accepted.json)
+binds the original archive, decoded job log, formal log, source tree,
+controller/oracle/kernel/test/workflow hashes, arithmetic pin and predecessor.
+Source head is `ccf6f48849aedfbbd30f9fc14193f14f935b32ca`; the original
+synthetic checkout is `2abbd4465adb06ff77e388c689fd2b1e6f0f9f78`, with identical
+tree `8598d0ed5ddee825a2656517d29e6a2183e4f479`. The artifact SHA-256 is
+`2fe4c44803860fd1f714f4bcdeafda1e6c2919f83c87af44ef085cdd4364eb5d`.
+For historical replay, check out the recorded source and restore the original
+workflow labels if needed; later source changes must not be substituted.
+
+Formal run 40421394732 passed all five new algebra identities, the full
+Lean/Quint gate and the axiom audit (365 theorems, no nonstandard axioms).
+This does not prove compiler correctness or make the controller a formal proof.
+The first batch produced no candidate for novelty review. It establishes
+emptiness only within the declared finite signed cells. A new primitive
+identity remains the discovery goal; this negative result does not fulfill it.

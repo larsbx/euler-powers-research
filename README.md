@@ -151,4 +151,16 @@ Exact algebra research: [fifth cyclotomic ring and norm checks](docs/EXACT_CYCLO
 
 [P19 residue-first computation](docs/POST_BRAUN_P19.md) measured lower native process times on three identical production stripes, with unchanged exact counts and transcripts. Five additional Lean statements cover residue equivalence, machine bounds and guard order. Timings apply to the declared sample workloads.
 
-The [generic rational/signed candidate intake](docs/DISCOVERY_OBJECTIVE.md#candidate-admission-from-any-method) independently checks exact Python and native BigZ arithmetic, canonical equivalence and primitivity. [Accepted hosted conformance evidence](data/algebra/candidate-intake-40408676983-accepted.json) covers known-class transformations only; it adds no searched territory or discovery claim.
+The [generic rational/signed candidate intake](docs/DISCOVERY_OBJECTIVE.md#candidate-admission-from-any-method) independently checks exact Python and native BigZ arithmetic, canonical equivalence and primitivity. [Accepted hosted conformance evidence](data/algebra/candidate-intake-40421223476-accepted.json) covers known-class transformations only; it adds no searched territory or discovery claim.
+
+### P20: signed territory outside the previous ordering
+
+The [exact signed two-gap search](docs/SIGNED_TWO_GAP_SEARCH.md) independently
+verified 160 finite cells (320 orientations), covering 20,971,520 b/orientation
+trials with every admissible remaining pair inverted exactly. The negative
+summand has magnitude u>b, outside the former controller's domain. Targets
+span five declared heights, gaps reach 16,384, and positive b bands extend
+through 589,824. There were zero identities. Native plus compilation/controller/
+initial replay used 23.49 seconds and 250,376 KiB peak RSS; fresh Python replay
+used 13.60 seconds and 70,552 KiB. [Coverage and holes are recorded separately](data/experiments/index-p20-signed-two-gap.json)
+from the unchanged P19 ledger; neither is a complete high-height census.

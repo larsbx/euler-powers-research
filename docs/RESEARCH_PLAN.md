@@ -1,6 +1,6 @@
 # Proof obligations and research stages
 
-**Primary objective revised:** [a genuinely new primitive fifth-power class, positive or signed](DISCOVERY_OBJECTIVE.md), using any justified finite method. The next strategy obligation is a general signed region outside abs(a)<=b or a new exact algebraic construction; single-height grid expansion must be justified by discovery value. The [machine-readable charter](../data/DISCOVERY_CHARTER.json) and [candidate intake](DISCOVERY_OBJECTIVE.md#candidate-admission-from-any-method) specify exact normalization, independent native/Python arithmetic, equivalence de-duplication and mandatory current literature review. Native hosted conformance and independent Python replay pass; this is admission infrastructure with zero new search coverage. No discovery is claimed by this revision.
+**Primary objective revised:** [a genuinely new primitive fifth-power class, positive or signed](DISCOVERY_OBJECTIVE.md), using any justified finite method. P20 provides a first accepted general signed experiment outside abs(a)<=b; subsequent work must select genuinely new cells or algebraic structures from measured resources and discovery value. The [machine-readable charter](../data/DISCOVERY_CHARTER.json) and [candidate intake](DISCOVERY_OBJECTIVE.md#candidate-admission-from-any-method) specify exact normalization, independent native/Python arithmetic, equivalence de-duplication and mandatory current literature review. Native hosted conformance and independent Python replay pass; this is admission infrastructure with zero new search coverage. No discovery is claimed by this revision.
 
 **P19 accepted computational result:** [larger minimum summands and residue-first evaluation](POST_BRAUN_P19.md): 724,549,632 new exact trials, 1,620,700 BigZ lookups and zero primitive identities. Six positive gaps and supported signed delta=4 extend abs(a) to 4096 at e=2,760,001. Cumulative unique high-height work is 2,441,336,576 trials in 63 cells. The before/after benchmark checks identical production stripes and reports sample-specific measured time reductions; no universal or whole-search ratio is inferred.
 
@@ -204,3 +204,24 @@ replaces per-hit quadratic reconstruction with exact-sum range lookup,
 and compares P2 vs P3 using the pinned native toolchain. It adds Lean
 encoding lemmas and independent synthetic collision checks. Keep runtime
 measurements and search-completeness claims separate from theorems.
+
+## P20 signed structural direction: accepted finite negative result
+
+The [two-gap formulation](SIGNED_TWO_GAP_SEARCH.md) removes the old u<=b
+restriction for its declared signed cells. Native BigZ binary inversion and
+independent Python nested-square reconstruction verified 20,971,520 trials
+in 160 cells with zero identities. Every admissible r is covered within
+each cell; all other heights/gaps/b bands and sign structures remain open.
+The [separate typed ledger](../data/experiments/index-p20-signed-two-gap.json)
+records the territory without adding unlike iteration units to P19 totals.
+
+Measured native discovery invocation time sums to 3.533780876 seconds across
+the batch; compilation, controller and initial Python verification are
+included in the 23.49-second outer phase. A fresh complete replay takes
+13.60 seconds. Peak outer RSS is
+250,376 KiB; maximum per-cell native RSS is 21,504 KiB. These measurements
+support bounded planning of further structural work but are not a universal
+speedup or evidence of a new class. Select future cells using complete
+parameter coverage and discovery value; preserve the excluded two-negative-
+input and repeated-largest cases as open structural directions. Success
+still requires a genuinely new independently verified primitive identity.
