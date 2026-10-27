@@ -81,3 +81,19 @@ Every undeclared e/delta/h/b, u=b, u=c, u>=e, two negative input summands and
 complete target-height coverage remain unsearched by this experiment.
 Braun calibration and all repeated workflows get zero new coverage credit.
 No new primitive or global nonexistence claim follows from this finite result.
+
+## P21 local signed-domain evidence (hosted acceptance pending)
+
+P21 searches the complete signed box through 1024 and the magnitude set
+`1..256 union 3000001..3000256`, modulo sorting and global sign. See
+[the experiment specification](../../docs/GENERAL_SIGNED_BOX_P21.md). Local
+native arithmetic and full independent Python replay are separate from
+repository-hosted acceptance. These results must not be combined with P19/P20
+trial totals or described as hosted-accepted territory while that gate is pending.
+
+The [local evidence index](index-p21-general-signed-local.json) records
+179,481,600 dense targets and 22,500,864 mixed-domain targets, all independently
+replayed. Eight raw hits give only the known Lander–Parkin class, with six
+imprimitive hits; no new primitive is established. Counts are domain-tagged,
+with shared small triples explicitly noted in the index. Original native
+streams and resource receipts are permanent in the linked ZIP.

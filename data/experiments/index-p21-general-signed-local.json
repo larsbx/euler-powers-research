@@ -1,0 +1,60 @@
+{
+  "acceptance_remaining": [
+    "Actual hosted P21 search and fresh replay",
+    "Pinned Lean 4.34.1 / Quint hosted gate",
+    "Other required latest-head repository checks",
+    "Current-head review and merge after acceptance"
+  ],
+  "as_of": "2026-10-26",
+  "comparison_median_wall_ns": {
+    "index": 12140823,
+    "reconstruct": 82564228
+  },
+  "coverage_unit": "(declared magnitude domain, positive median rank c, d rank, e rank)",
+  "discovery_claim": false,
+  "domain_tagged_triple_targets": 201982464,
+  "domains": [
+    {
+      "magnitudes": "1..1024",
+      "raw_hits": 7,
+      "triple_targets": 179481600
+    },
+    {
+      "magnitudes": "1..256 union 3000001..3000256",
+      "raw_hits": 1,
+      "triple_targets": 22500864
+    }
+  ],
+  "files": {
+    "p21-lean-4.35.0-local.log.gz": "6a28af120f0ec889a77db656227702d68272c39337fec34332c4040c31e60716",
+    "p21-local-701ea8d-accepted.json": "6a73603893853f44c6a2c70d9e62217accefa9845836bd68d4744e7b292b6235",
+    "p21-local-701ea8d.zip": "72773508bdca024f2cc630cf8972e912ab8194bc4bf4e5ba2f2e9d359c7e2174",
+    "p21-pair-regression-local.zip": "27c3e97e05826dbbe6103eaa70c2c1871f927cf537ce342d63beefa77457ebe3"
+  },
+  "genuinely_new_primitive_classes": 0,
+  "hosted_execution_established": false,
+  "implementation_commit": "701ea8d08656ec4acfc7bfc269ed3beb76255442",
+  "imprimitive_hits": 6,
+  "known_canonical_classes": [
+    "E5-1966-LANDER-PARKIN"
+  ],
+  "lean": {
+    "local_axiom_audit": "375 kernel-checked theorems; no nonstandard axioms",
+    "local_library_build": "passed",
+    "local_version": "4.35.0",
+    "pinned_hosted_gate": "pending",
+    "pinned_version": "4.34.1"
+  },
+  "merge_accepted": false,
+  "no_global_nonexistence_claim": true,
+  "overlap_note": "The positive triple set 1..256 is shared (2829056 triples), but pair domains differ; no unique-cumulative discovery count is asserted. Dense positive subregions also overlap historical positive censuses.",
+  "peak_production_rss_kib": 231152,
+  "prior_P19_P20_totals_unchanged": true,
+  "production_native_wall_ns": 218166669815,
+  "raw_hits": 8,
+  "schema": "E5-P21-SIGNED-DOMAIN-LOCAL-EVIDENCE-v1",
+  "selected_method": "index",
+  "signed_primitive_classes_found": 0,
+  "status": "local_native_and_full_independent_python_replay_passed_hosted_acceptance_pending",
+  "unsearched": "Every tuple outside both explicit magnitude domains; full general signed boxes above 1024; no complete search to magnitude 3000256 is asserted."
+}
