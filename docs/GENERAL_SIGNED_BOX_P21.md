@@ -110,3 +110,53 @@ Any such candidate requires current primary-literature/equivalence review
 before novelty can be claimed. Finite negative results do not imply global
 nonexistence. P21 target counts must not be added to the differently defined
 P19/P20 trial units; some calibration territory can overlap earlier work.
+
+## Local result at implementation 701ea8d (hosted gate pending)
+
+The corrected source completed native execution and full independent Python
+replay of every target, row checksum and hit. The local receipt was published
+only after replay succeeded. Original streams, resource records and source
+hashes are preserved in
+[`p21-local-701ea8d.zip`](../data/experiments/p21-local-701ea8d.zip), with a
+[standalone receipt](../data/experiments/p21-local-701ea8d-accepted.json) and
+[explicit local-evidence index](../data/experiments/index-p21-general-signed-local.json).
+
+| Finite magnitude domain | Triple targets | Raw hits |
+| --- | ---: | ---: |
+| 1..1024 | 179,481,600 | 7 |
+| 1..256 union 3,000,001..3,000,256 | 22,500,864 | 1 |
+
+These are 201,982,464 **domain-tagged** target queries, not a cumulative unique
+trial count. The two domains share 2,829,056 small positive triples, while
+their pair domains differ. Dense positive portions also overlap earlier
+positive censuses. Historical P19/P20 totals are unchanged; repeated pilots,
+failed/provisional runs and replays receive no additional coverage credit.
+
+Every raw hit normalizes to the known 1966 Lander–Parkin class. Six hits are
+imprimitive scalings; the primitive identity appears in both domains.
+There are zero signed primitive classes and zero genuinely new primitive
+classes in these domains. There is no candidate requiring a novelty claim or
+new literature adjudication.
+
+For this recorded run, the pooled process-wall medians were 12,140,823 ns for
+the index and 82,564,228 ns for reconstruction on the fixed three-size
+comparison corpus. Production native wall times sum to 218.166669815 s,
+including rebuilding the index in each shard. Peak production child RSS was
+231,152 KiB. These are local measurements, with compilation and independent
+Python replay separately accounted for; they are not hosted measurements or
+an extrapolated universal performance result.
+
+The existing reconstruction suite also passed 106 recorded native queries
+and independent replay. Its original evidence is in
+[`p21-pair-regression-local.zip`](../data/experiments/p21-pair-regression-local.zip).
+The full `verify` and `verify-research` local tasks passed. A supplementary
+local Lean **4.35.0** build passed all 72 build jobs and the axiom audit checked
+375 theorems with no nonstandard axioms, including the five P21 reductions;
+[the original build/audit log](../data/experiments/p21-lean-4.35.0-local.log.gz)
+is preserved. This does not establish the pinned **4.34.1** hosted gate.
+
+At evidence preservation, the hosted P21, formal and other required jobs were
+queued with no executed steps. The PR remains unmerged pending actual hosted
+execution, independent hosted replay, required checks and current-head review.
+Neither these local results nor eventual infrastructure acceptance would
+satisfy the scientific objective of discovering a genuinely new identity.

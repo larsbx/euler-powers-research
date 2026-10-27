@@ -27,6 +27,8 @@ Four primitive integer solutions are currently reported when **negative summands
 
 ## Research artifacts
 
+- [P21: complete general signed pair/triple domains](docs/GENERAL_SIGNED_BOX_P21.md) — local exact search and replay; hosted acceptance pending.
+
 - [Foundations and proved elementary lemmas](docs/FOUNDATIONS.md)
 - [Open questions and conjecture hierarchy](docs/CONJECTURES.md)
 - [Proof obligations and research stages](docs/RESEARCH_PLAN.md)
