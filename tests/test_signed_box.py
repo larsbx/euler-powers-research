@@ -4,8 +4,9 @@ from pathlib import Path
 import subprocess
 import sys
 import tempfile
+from unittest.mock import patch
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]/'tools'))
-from search_signed_box import ROOT, magnitudes, partition, check_partition, oracle, output_hits
+from search_signed_box import ROOT, magnitudes, partition, check_partition, oracle, output_hits, publish
 from primitive_candidates import analyze, signature
 
 
@@ -33,6 +34,17 @@ def main():
     for k in (1,2,-1,-7):assert signature([k*x for x in known])==signature(known)
     for terms in ((-1,1,2,3,4),(0,27,84,110,-144),(27,84,110,133,-145)):
         refused(lambda:analyze(dict(schema='E5-CANDIDATE-PROPOSAL-v1',method='regression',provenance='adversarial',terms=list(map(str,terms)))))
+    with tempfile.TemporaryDirectory() as tmp:
+        folder=Path(tmp)
+        with patch('search_signed_box.verify',side_effect=ValueError('incomplete native rows')):
+            refused(lambda:publish(folder,{'provisional':'test'}))
+        assert (folder/'pending.json').exists() and not (folder/'accepted.json').exists()
+    with tempfile.TemporaryDirectory() as tmp:
+        folder=Path(tmp)
+        with patch('search_signed_box.verify') as replay:
+            publish(folder,{'provisional':'test'})
+            replay.assert_called_once_with(folder,'pending.json')
+        assert (folder/'accepted.json').exists() and not (folder/'pending.json').exists()
     with tempfile.TemporaryDirectory() as tmp:
         binary=Path(tmp)/'signed'
         subprocess.run(['mojo','build','-I','kernel','-I','algebra','-I','.deps/finite-math-kernels/kernel','discovery/signed_box.mojo','-o',str(binary)],cwd=ROOT,check=True,timeout=300)

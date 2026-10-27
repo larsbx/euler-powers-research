@@ -133,20 +133,31 @@ def classify(hits,binary=None):
                 genuinely_new_primitive_classes=0,discovery_claim=False)
 
 
-def verify(folder):
-    r=json.loads((folder/'accepted.json').read_bytes())
+def verify(folder,receipt_name='accepted.json'):
+    r=json.loads((folder/receipt_name).read_bytes())
     if r['schema']!='E5-P21-SIGNED-BOX-v1' or r['sources']!=source_hashes() or r['finite_math_kernels_pin']!=PIN:
         raise ValueError('foreign or modified source/receipt')
     if r['production_domains']!=PRODUCTION or r['limits']!=LIMITS:raise ValueError('domain/limits drift')
-    names={'accepted.json'}
+    names={receipt_name}
+    if len({x['stem'] for x in r['observations']})!=len(r['observations']):raise ValueError('duplicate process stem')
     for x in r['observations']:
         stem=x['stem']
+        if not __import__('re').fullmatch(r'[a-z0-9-]+',stem):raise ValueError('unsafe process stem')
+        expected_limits=dict(LIMITS,ram_mib=2048) if x['kind']=='build' else LIMITS
+        usage=x['resource']
+        if usage['limits']!=expected_limits or usage['max_rss_kib']>expected_limits['ram_mib']*1024:
+            raise ValueError('resource limit drift')
+        if usage['wall_ns']>expected_limits['wall_seconds']*10**9 or usage['user_seconds']+usage['system_seconds']>expected_limits['cpu_seconds']+1:
+            raise ValueError('resource budget exceeded')
         for suffix in ('.txt','.err','.resource.json'):
             name=stem+suffix;names.add(name)
             if sha((folder/name).read_bytes())!=x['files'][suffix]:raise ValueError('mutated process evidence')
         if json.loads((folder/(stem+'.resource.json')).read_bytes())!=x['resource']:raise ValueError('resource drift')
         if x['resource']['exit_code']!=0 or x['resource']['wall_ns']<=0 or x['resource']['max_rss_kib']<=0:
             raise ValueError('incomplete native observation')
+    if [x['kind'] for x in r['observations']].count('build')!=2 or [x['stem'] for x in r['observations'][:2]]!=['build','build-verifier']:
+        raise ValueError('missing compiler evidence')
+    if any(x['kind'] not in ('build','comparison','production','candidate') for x in r['observations']):raise ValueError('foreign observation')
     comparisons=[x for x in r['observations'] if x['kind']=='comparison']
     expected=[(n,k,m) for n in (16,24,32) for k in range(3) for m in (('index','reconstruct') if k%2==0 else ('reconstruct','index'))]
     if [(x['case']['n'],x['repeat'],x['method']) for x in comparisons]!=expected:raise ValueError('comparison corpus drift')
@@ -157,6 +168,8 @@ def verify(folder):
         expected_bytes,_=oracle(x['case'],x['method'])
         if (folder/(x['stem']+'.txt')).read_bytes()!=expected_bytes:raise ValueError('comparison replay mismatch')
     observations=[x for x in r['observations'] if x['kind']=='production'];all_hits=[];trials=0
+    if len(observations)!=sum(len(partition(c['n'],128)) for c in PRODUCTION) or any(x['method']!='index' or x['case'] not in PRODUCTION for x in observations):
+        raise ValueError('foreign production observations')
     for case in PRODUCTION:
         shards=[x for x in observations if x['case']==case]
         parts=[tuple(x['part']) for x in shards];check_partition(case['n'],parts)
@@ -192,8 +205,15 @@ def verify(folder):
     return r
 
 
+def publish(folder,receipt):
+    # Provisional evidence stays provisional after mismatch, interruption or crash.
+    with (folder/'pending.json').open('xb') as f:f.write(canonical(receipt))
+    verify(folder,'pending.json')
+    os.replace(folder/'pending.json',folder/'accepted.json')
+
+
 def execute(folder):
-    verify_dependency();folder.mkdir(parents=True,exist_ok=False);obs=[]
+    verify_dependency();initial_sources=source_hashes();folder.mkdir(parents=True,exist_ok=False);obs=[]
     def observe(stem,command,**fields):
         limits=dict(LIMITS,ram_mib=2048) if fields.get('kind')=='build' else LIMITS
         usage=measured(command,folder,stem,limits)
@@ -225,13 +245,12 @@ def execute(folder):
         for i,a in enumerate(result['classes']):
             for label in ('cleared_integer_terms','primitive_terms'):
                 observe(f'candidate-{i}-{label}',[str(verifier),*a[label]],kind='candidate',class_index=i,label=label,terms=a[label])
-        r=dict(schema='E5-P21-SIGNED-BOX-v1',sources=source_hashes(),finite_math_kernels_pin=PIN,
+        r=dict(schema='E5-P21-SIGNED-BOX-v1',sources=initial_sources,finite_math_kernels_pin=PIN,
                production_domains=PRODUCTION,limits=LIMITS,observations=obs,selected_method='index',strategy_median_wall_ns=medians,
                candidate_classification=result,triple_targets=sum(comb(c['n']+2,3) for c in PRODUCTION),
                source_commit=os.getenv('GITHUB_SHA'),workflow_run_id=os.getenv('GITHUB_RUN_ID'),
                global_nonexistence_claim=False,binary_sha256=sha(binary.read_bytes()))
-        (folder/'accepted.json').write_bytes(canonical(r))
-    verify(folder)
+        publish(folder,r)
     return r
 
 
